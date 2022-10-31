@@ -1,0 +1,13 @@
+{
+  "id0": {
+    "property_type" : "example_type1",
+    "name" : "example_property1",
+    "location" : "example_location1"
+  },
+
+  "id1": {
+    "property_type" : "example_type1",
+    "name" : "example_property1",
+    "location" : "example_location1"
+  }
+}
