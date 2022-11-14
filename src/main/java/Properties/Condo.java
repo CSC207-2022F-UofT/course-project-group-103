@@ -1,4 +1,4 @@
 package Properties;
 
-public class Condo {
+public class Condo extends ResidentialProperty{
 }

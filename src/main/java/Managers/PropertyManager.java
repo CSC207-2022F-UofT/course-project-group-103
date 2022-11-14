@@ -3,11 +3,10 @@ package Managers;
 import Properties.Property;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PropertyManager {
 
-    List<Property> properties = new ArrayList<Property>();
+    ArrayList<Property> properties = new ArrayList<Property>();
     public boolean addProperty(Property p) {
 
     }

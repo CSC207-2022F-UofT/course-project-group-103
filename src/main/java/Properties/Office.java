@@ -1,4 +1,4 @@
 package Properties;
 
-public class Office {
+public class Office extends CommercialProperty {
 }

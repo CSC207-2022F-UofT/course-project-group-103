@@ -1,4 +1,4 @@
 package Properties;
 
-public class Restaraunt {
+public class Restaurant extends CommercialProperty {
 }
