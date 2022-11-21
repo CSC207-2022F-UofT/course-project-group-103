@@ -10,6 +10,10 @@ public class User {
     private String password;
     private String contact;
     private Realtor hiredRealtor;
+
+    /* Added the messengers instance attribute to the User class since each user has an array of potential contacts
+    they can message.
+     */
     private ArrayList<Messenger> messengers;
 
     public User(String name, String password, String contact, Realtor hiredRealtor, ArrayList<Messenger> messengers) {
