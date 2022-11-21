@@ -2,20 +2,21 @@ package Users;
 
 import Managers.PropertyManager;
 
-import java.util.List;
 
 public class Owner extends User {
-    PropertyManager p;
-    String contact_info;
+    private PropertyManager p;
+    private String contact_info;
 
-    public Owner() {
-        super();
-    }
-    public List[] getReviews() {
-
+    public Owner(String name, String id) {
+        super(name, id);
+        p = new PropertyManager();
     }
 
-    public void addContact (String contact_info) {
+    public void addContact(String contact_info) {
         this.contact_info = contact_info;
+    }
+
+    public String getContact() {
+        return contact_info;
     }
 }
