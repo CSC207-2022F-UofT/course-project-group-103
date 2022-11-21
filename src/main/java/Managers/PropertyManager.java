@@ -11,7 +11,6 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import Interactors.*;
 
 public class PropertyManager implements PropertyListingGateway {
 

@@ -59,6 +59,8 @@ public abstract class Property {
     public String getType() {return this.getClass().getName();}
 
     public ArrayList<String> info() {
+        // Subclasses should override this method and add any subclass unique attributes
+        // that should be displayed to this arraylist.
         ArrayList<String> info = new ArrayList<>();
         info.add("Type: " + this.getType());
         info.add("Name: " + this.getName());
