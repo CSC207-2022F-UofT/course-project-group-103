@@ -3,19 +3,30 @@ package Users;
 public class User {
 
     private String name;
+
+    private String id;
     private String password;
     private String contact;
     private Realtor hiredRealtor;
 
-    public User(String name, String password, String contact, Realtor hiredRealtor) {
+    public User(String name, String id, String password, String contact) {
         this.name = name;
+        this.id = id;
         this.password = password;
         this.contact = contact;
-        this.hiredRealtor = hiredRealtor;
+        this.hiredRealtor = null;
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getPassword() {
@@ -52,5 +63,6 @@ public class User {
 
     public void hireRealtor(Realtor realtor){
 
+        this.hiredRealtor = realtor;
     }
 }
