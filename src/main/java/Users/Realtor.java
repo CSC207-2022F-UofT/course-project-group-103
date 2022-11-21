@@ -1,4 +1,4 @@
 package Users;
 
-public class Realtor {
+public class Realtor extends User{
 }
