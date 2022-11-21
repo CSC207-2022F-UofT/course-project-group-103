@@ -1,22 +1,24 @@
 package Interactors;
 
 import Properties.*;
-import Managers.TempPropertyListingGateway;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public class PropertyPageInteractor {
     /**
-     * Currently it's assumed that the property and user objects already exist by the time PropertyPageInteractor
-     * is created.
+     * Currently it's assumed that the Property, User, and PropertyListingManager
+     * objects already exist by the time a PropertyPageInteractor object is created.
      */
     Property p;
     // In final version this should probably be a User object, but it is currently not implemented.
     String user;
+    PropertyListingGateway propertyListingGateway;
 
-    public PropertyPageInteractor(Property p, String user) {
+    public PropertyPageInteractor(Property p, String user, PropertyListingGateway g) {
         this.p = p;
         this.user = user;
+        this.propertyListingGateway = g;
     }
 
     /**
@@ -61,7 +63,7 @@ public class PropertyPageInteractor {
             double minBid = Math.ceil(p.getPrice() * 0.1);
             if (Integer.parseInt(bid) >= minBid) {
                 p.addBid(Integer.parseInt(bid), this.user);
-                TempPropertyListingGateway.writeToFile(p);
+                this.propertyListingGateway.save(p);
             } else {
                 throw new Exception("Offer too low. Please offer at least 10% of asking price.");
             }

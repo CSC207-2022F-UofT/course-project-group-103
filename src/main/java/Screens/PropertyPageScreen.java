@@ -7,10 +7,16 @@ import java.awt.event.ActionListener;
 
 public class PropertyPageScreen extends JPanel implements ActionListener{
     /**
+     * PropertyPageInteractor and PropertyPageController objects must be created
+     * before PropertyPageScreen object can be created.
+     */
+    PropertyPageController propertyPageController;
+
+    /**
      * The bid chosen by the user
      */
     JTextField bid = new JTextField(15);
-    PropertyPageController propertyPageController;
+
     public PropertyPageScreen(PropertyPageController controller) {
         // setup
         this.propertyPageController = controller;
