@@ -12,8 +12,6 @@ public class MortgageInteractor {
      * I = Your interest rate, as a monthly percentage
      * N = The total amount of months in your timeline for paying off your mortgage
      *
-     *
-     *
      */
     public static double estimateMortgage(Property p, double downpayment, double rate, int months) {
         double loan = p.getPrice() - downpayment;
