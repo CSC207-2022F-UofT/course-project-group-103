@@ -1,12 +1,9 @@
 package Managers;
 
-import User Class
+import java.util.ArrayList;
 
 public class MessageManager {
 
-    public String[] messengers;
+    private ArrayList<String> messengers;
 
-    public String sendAlert(User){
-        return alert;
-    }
 }
