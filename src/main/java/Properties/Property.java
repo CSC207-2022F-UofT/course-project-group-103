@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import Users.Owner;
+
 public abstract class Property {
 
     private String name;
