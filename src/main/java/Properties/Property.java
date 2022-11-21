@@ -1,5 +1,7 @@
 package Properties;
 
+import java.util.HashMap;
+
 public abstract class Property {
 
     private String name;
@@ -10,6 +12,7 @@ public abstract class Property {
     private int sqFt;
 
     private int price;
+    private HashMap<String, Integer> bids = new HashMap<>();
 
     public Property(String name, String address, String ID, String owner, int sqFt, int price) {
         this.name = name;
@@ -52,9 +55,11 @@ public abstract class Property {
         this.price = price;
     }
 
-    public abstract void markSold();
+    public void addBid(int bid, String user) {bids.put(user, bid);}
 
-    public abstract void editProperty();
+    //public abstract void markSold();
 
-    public abstract void updateListing();
+    //public abstract void editProperty();
+
+    //public abstract void updateListing();
 }
