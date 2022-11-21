@@ -1,5 +1,6 @@
 package Properties;
 
+
 import Users.Owner;
 
 public class Restaurant extends Property {
