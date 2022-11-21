@@ -2,12 +2,12 @@ package Users;
 
 public class User {
 
-    private String name;
+    protected String name;
 
-    private String id;
-    private String password;
-    private String contact;
-    private Realtor hiredRealtor;
+    protected String id;
+    protected String password;
+    protected String contact;
+    protected Realtor hiredRealtor;
 
     public User(String name, String id, String password, String contact) {
         this.name = name;

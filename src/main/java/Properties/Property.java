@@ -2,14 +2,13 @@ package Properties;
 
 public abstract class Property {
 
-    private String name;
-    private String address;
-    private String ID;
+    protected String name;
+    protected String address;
+    protected String ID;
 
-    private String owner;
-    private int sqFt;
-
-    private int price;
+    protected String owner;
+    protected int sqFt;
+    protected int price;
 
     public Property(String name, String address, String ID, String owner, int sqFt, int price) {
         this.name = name;
