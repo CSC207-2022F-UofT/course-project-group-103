@@ -30,4 +30,12 @@ public abstract class ResidentialProperty extends Property {
     public int getLaundry() {
         return laundry;
     }
+
+    public void editProperty() {
+
+    };
+
+    public abstract void updateListing() {
+
+    };
 }
