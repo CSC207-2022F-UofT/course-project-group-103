@@ -3,6 +3,7 @@ package Users;
 import Review.Review;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.Objects;
 
 public class Owner {
@@ -17,7 +18,6 @@ public class Owner {
             this.reviews.add(review);
         }
     }
-
     public String getName(){
         return this.name;
     }
