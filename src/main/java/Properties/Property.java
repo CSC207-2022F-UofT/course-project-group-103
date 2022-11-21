@@ -11,6 +11,8 @@ public abstract class Property {
 
     private int price;
 
+    private boolean sold;
+
     public Property(String name, String address, String ID, String owner, int sqFt, int price) {
         this.name = name;
         this.address = address;
@@ -18,6 +20,7 @@ public abstract class Property {
         this.owner = owner;
         this.sqFt = sqFt;
         this.price = price;
+        sold = false;
     }
 
     public String getName() {
@@ -52,7 +55,9 @@ public abstract class Property {
         this.price = price;
     }
 
-    public abstract void markSold();
+    public void markSold() {
+        sold = true;
+    }
 
     public abstract void editProperty();
 

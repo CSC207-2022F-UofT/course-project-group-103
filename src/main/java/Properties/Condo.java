@@ -1,9 +1,9 @@
 package Properties;
 
 public class Condo extends ResidentialProperty{
-    private int parking;
-    private int monthly_fees;
-    private String amenities;
+    private final int parking;
+    private final int monthly_fees;
+    private final String amenities;
 
     public Condo(String name, String address, String ID, String owner, int sqFt, int price,
                  int kitchens, int bedrooms, int bathrooms, int laundry,

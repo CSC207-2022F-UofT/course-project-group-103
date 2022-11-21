@@ -1,10 +1,10 @@
 package Properties;
 
 public abstract class ResidentialProperty extends Property {
-    private int kitchens;
-    private int bedrooms;
-    private int bathrooms;
-    private int laundry;
+    private final int kitchens;
+    private final int bedrooms;
+    private final int bathrooms;
+    private final int laundry;
 
     public ResidentialProperty(String name, String address, String ID, String owner, int sqFt, int price,
                                int kitchens, int bedrooms, int bathrooms, int laundry) {
@@ -35,7 +35,7 @@ public abstract class ResidentialProperty extends Property {
 
     };
 
-    public abstract void updateListing() {
+    public void updateListing() {
 
     };
 }

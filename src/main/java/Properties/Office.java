@@ -2,8 +2,8 @@ package Properties;
 
 public class Office extends CommercialProperty {
 
-    private int office_rooms;
-    private int reception;
+    private final int office_rooms;
+    private final int reception;
     public Office (String name, String address, String ID, String owner, int sqFt, int price,
                    int land_size,
                    int office_rooms, int reception) {
