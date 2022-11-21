@@ -1,9 +1,11 @@
 package Managers;
 
 import Exceptions.UndefinedPropertyType;
+import Exceptions.UndefinedUserType;
 import Properties.*;
 import Review.Review;
 import Users.Owner;
+import Users.Realtor;
 import Users.User;
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -22,7 +24,7 @@ public class PropertyManager {
             File file = new File(location);
             String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
             JSONObject property_listing = new JSONObject(content);
-            JSONObject property = (JSONObject) property_listing.get(ID);
+            JSONObject property = property_listing.getJSONObject(ID);
             String name = property.getString("name");
             String address = property.getString("address");
             String ownerID = property.getString("owner");
@@ -35,43 +37,70 @@ public class PropertyManager {
                 int numKitchens = property.getInt("numKitchens");
                 return new House(name, address, ID, (Owner) getUser(ownerID), sqFt, price, numBedrooms, numBathrooms, numLaundry, numKitchens);
             }
-            if (property.get("property_type") == "Condo") {
+            if (Objects.equals(property.get("property_type").toString(), "Condo")) {
                 int numBedrooms = property.getInt("numBedrooms");
                 int numBathrooms = property.getInt("numBathrooms");
                 int numLaundry = property.getInt("numLaundry");
                 int numKitchens = property.getInt("numKitchens");
                 return new Condo(name, address, ID, (Owner) getUser(ownerID), sqFt, price, numBedrooms, numBathrooms, numLaundry, numKitchens);
             }
-            if (property.get("property_type") == "Office") {
+            if (Objects.equals(property.get("property_type").toString(), "Office")) {
                 int numOfficeRooms = property.getInt("numOfficeRooms");
                 int numReceptions = property.getInt("numReceptions");
                 return new Office(name, address, ID, (Owner) getUser(ownerID), sqFt, price, numOfficeRooms, numReceptions);
             }
-            if (property.get("property_type") == "Restaurant") {
+            if (Objects.equals(property.get("property_type").toString(), "Restaurant")) {
                 String kitchenSpecifications = property.getString("kitchenSpecifications");
                 return new Restaurant(name, address, ID, (Owner) getUser(ownerID), sqFt, price, kitchenSpecifications);
             }
             else {
                 throw new UndefinedPropertyType(property.get("property_type") + " is not implemented as a property type yet.");
             }
-        } catch (IOException e) {
+        } catch (IOException | UndefinedUserType e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static User getUser(String ID) throws IOException {
+    public static User getUser(String ID) throws IOException, UndefinedUserType {
         String location = "/Users/zeinsulayman/IdeaProjects/course-project-group-103/src/main/Databases/UserListing.json";
         File file = new File(location);
         String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
         JSONObject user_listing = new JSONObject(content);
-        JSONObject user = (JSONObject) user_listing.get(ID);
+        JSONObject user = user_listing.getJSONObject(ID);
         String name = user.getString("name");
+        String password = user.getString("password");
+        String contact = user.getString("contact");
         JSONArray reviews = user.getJSONArray("reviews");
         ArrayList<Review> review_list = new ArrayList<>();
         for (int i = 0; i < reviews.length(); i++) {
             review_list.add(getReview(reviews.getString(i)));
         }
-        return new Owner(name, ID, review_list);
+        if (Objects.equals(user.get("user_type").toString(), "Owner")) {
+            if (Objects.equals(user.get("hiredRealtor"), null)) {
+                return new Owner(ID, name, password, contact, review_list);
+            }
+            else {
+                String hiredRealtorID = user.getString("hiredRealtor");
+                return new Owner(ID, name, password, contact, hiredRealtorID, review_list);
+            }
+        }
+        else if (Objects.equals(user.get("user_type").toString(), "User")) {
+            if (Objects.equals(user.get("hiredRealtor"), null)) {
+                return new User(ID, name, password, contact);
+            }
+            else {
+                String hiredRealtorID = user.getString("hiredRealtor");
+                return new User(ID, name, password, contact, hiredRealtorID);
+            }
+        }
+        else if (Objects.equals(user.get("user_type").toString(), "Realtor")) {
+                return new Realtor(ID, name, password, contact);
+
+        }
+        else {
+            throw new UndefinedUserType((user.getString("user_type") + " is not implemented as a user type yet."));
+        }
+
     }
 
     public static Review getReview(String ID) throws IOException {
@@ -79,7 +108,7 @@ public class PropertyManager {
         File file = new File(location);
         String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
         JSONObject review_list = new JSONObject(content);
-        JSONObject review = (JSONObject) review_list.get(ID);
+        JSONObject review = review_list.getJSONObject(ID);
         String reviewString = review.getString("review");
         String ownerID = review.getString("owner");
         String userID = review.getString("user");
@@ -87,4 +116,6 @@ public class PropertyManager {
         int rating = review.getInt("rating");
         return new Review(ID, reviewString, ownerID, userID, date, rating);
     }
+
+
 }

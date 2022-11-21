@@ -4,14 +4,14 @@ import Users.Owner;
 
 public abstract class Property {
 
-    private final String name;
-    private final String address;
-    private final String ID;
+    protected final String name;
+    protected final String address;
+    protected final String ID;
 
-    private Owner owner;
-    private final int sqFt;
+    protected Owner owner;
+    protected final int sqFt;
 
-    private float price;
+    protected float price;
 
     public Property(String name, String address, String ID, Owner owner, int sqFt, float price) {
         this.name = name;

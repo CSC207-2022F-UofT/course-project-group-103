@@ -5,30 +5,20 @@ import Review.Review;
 import java.util.ArrayList;
 
 public class Owner extends User{
-    private String name;
-    private final String ID;
     private ArrayList<Review> reviews;
 
-    public Owner(String name, String ID, ArrayList<Review> reviews) {
-        this.name = name;
-        this.ID = ID;
+    public Owner(String ID, String name, String password, String contact, String hiredRealtorID, ArrayList<Review> reviews) {
+        super(ID, name, password, contact, hiredRealtorID);
         this.reviews = reviews;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public String getID() {
-        return this.ID;
+    public Owner(String ID, String name, String password, String contact, ArrayList<Review> reviews) {
+        super(ID, name, password, contact);
+        this.reviews = reviews;
     }
 
     public ArrayList<Review> getReviews() {
         return this.reviews;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void setReviews(ArrayList<Review> reviews) {
