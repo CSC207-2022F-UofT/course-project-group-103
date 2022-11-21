@@ -4,25 +4,34 @@ public class User {
 
     protected String name;
 
-    protected String id;
+    protected String ID;
     protected String password;
     protected String contact;
     protected Realtor hiredRealtor;
+    protected String hiredRealtorID;
 
-    public User(String name, String id, String password, String contact) {
+    public User(String ID, String name, String password, String contact, String hiredRealtorID) {
+        this.ID = ID;
         this.name = name;
-        this.id = id;
         this.password = password;
         this.contact = contact;
-        this.hiredRealtor = null;
+        this.hiredRealtorID = hiredRealtorID;
+    }
+
+    public User(String ID, String name, String password, String contact) {
+        this.ID = ID;
+        this.name = name;
+        this.password = password;
+        this.contact = contact;
+        this.hiredRealtorID = null;
+    }
+
+    public String getID() {
+        return ID;
     }
 
     public String getName() {
         return name;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public void setId(String id) {
@@ -37,8 +46,8 @@ public class User {
         return contact;
     }
 
-    public Realtor getHiredRealtor() {
-        return hiredRealtor;
+    public String getHiredRealtorID() {
+        return hiredRealtorID;
     }
 
     public void setName(String name) {
@@ -60,9 +69,7 @@ public class User {
     public void sendBid(){
 
     }
-
-    public void hireRealtor(Realtor realtor){
-
-        this.hiredRealtor = realtor;
+    public void hireRealtor(String realtorID){
+        this.hiredRealtorID = realtorID;
     }
 }

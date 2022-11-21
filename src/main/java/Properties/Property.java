@@ -1,16 +1,20 @@
 package Properties;
 
+import Users.Owner;
+
 public abstract class Property {
 
-    protected String name;
-    protected String address;
-    protected String ID;
 
-    protected String owner;
-    protected int sqFt;
-    protected int price;
+    protected final String name;
+    protected final String address;
+    protected final String ID;
 
-    public Property(String name, String address, String ID, String owner, int sqFt, int price) {
+    protected Owner owner;
+    protected final int sqFt;
+
+    protected float price;
+
+    public Property(String name, String address, String ID, Owner owner, int sqFt, float price) {
         this.name = name;
         this.address = address;
         this.ID = ID;
@@ -31,7 +35,7 @@ public abstract class Property {
         return ID;
     }
 
-    public String getOwner() {
+    public Owner getOwner() {
         return owner;
     }
 
@@ -39,11 +43,11 @@ public abstract class Property {
         return sqFt;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setOwner(String owner) {
+    public void setOwner(Owner owner) {
         this.owner = owner;
     }
 
