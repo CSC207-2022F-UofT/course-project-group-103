@@ -11,4 +11,12 @@ public class CommercialProperty extends Property{
     public int getLand_size() {
         return land_size;
     }
+
+    public void editProperty() {
+
+    };
+
+    public void updateListing() {
+
+    };
 }
