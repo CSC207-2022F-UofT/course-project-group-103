@@ -29,24 +29,7 @@ public class PropertyPageInteractor {
      *
      */
     public ArrayList<String> propertyInfo() {
-        ArrayList<String> info = new ArrayList<>();
-        try {
-            for (Method m : this.p.getClass().getMethods()) {
-                if (m.getName().startsWith("get") && m.getParameterTypes().length == 0) {
-                    if (!(m.getName().equals("getID") | m.getName().equals("getBids") |
-                            m.getName().equals("getClass"))) {
-                        final Object r = m.invoke(p);
-                        info.add(m.getName().replace("get", "") + ": " + r);
-                    } else if (m.getName().equals("getClass")) {
-                        final Object r = m.invoke(p);
-                        String s = r.toString().replace("class", "");
-                        info.add("Type:" + s);
-                    }
-                }
-            }
-            return info;
-        }
-        catch (Exception e) {return null;}
+        return this.p.info();
     }
 
     /**
@@ -60,9 +43,9 @@ public class PropertyPageInteractor {
      */
     public void sendBid(String bid) throws Exception {
         try {
-            double minBid = Math.ceil(p.getPrice() * 0.1);
-            if (Integer.parseInt(bid) >= minBid) {
-                p.addBid(Integer.parseInt(bid), this.user);
+            double minBid = p.getPrice() * 0.1;
+            if (Float.parseFloat(bid) >= minBid) {
+                p.addBid(Float.parseFloat(bid), this.user);
                 this.propertyListingGateway.save(p);
             } else {
                 throw new Exception("Offer too low. Please offer at least 10% of asking price.");
