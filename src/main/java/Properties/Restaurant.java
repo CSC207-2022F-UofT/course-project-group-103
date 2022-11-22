@@ -2,7 +2,6 @@ package Properties;
 
 
 import Users.Owner;
-
 import java.util.ArrayList;
 
 public class Restaurant extends Property {

@@ -15,7 +15,6 @@ public abstract class Property {
     protected HashMap<String, Float> bids = new HashMap<>();
 
     // for now not adding bids to the constructor
-
     public Property(String name, String address, String ID, Owner owner, int sqFt, float price) {
         this.name = name;
         this.address = address;

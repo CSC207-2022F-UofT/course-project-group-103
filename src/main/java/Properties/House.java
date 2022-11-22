@@ -1,7 +1,6 @@
 package Properties;
 
 import Users.Owner;
-
 import java.util.ArrayList;
 
 public class House extends Property {
@@ -60,3 +59,4 @@ public class House extends Property {
 
     }
 }
+

@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class PropertyManager implements PropertyListingGateway {
-
     public static Property getProperty(String ID) throws UndefinedPropertyType {
         try {
             String location = "/Users/zeinsulayman/IdeaProjects/course-project-group-103/src/main/Databases/PropertyListing.json";
@@ -97,12 +96,10 @@ public class PropertyManager implements PropertyListingGateway {
         }
         else if (Objects.equals(user.get("user_type").toString(), "Realtor")) {
             return new Realtor(ID, name, password, contact);
-
         }
         else {
             throw new UndefinedUserType((user.getString("user_type") + " is not implemented as a user type yet."));
         }
-
     }
 
     public static Review getReview(String ID) throws IOException {

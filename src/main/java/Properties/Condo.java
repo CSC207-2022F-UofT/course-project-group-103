@@ -1,10 +1,9 @@
 package Properties;
 
 import Users.Owner;
-
 import java.util.ArrayList;
 
-public class Condo extends Property{
+public class Condo extends Property {
 
     private final int numBedrooms;
     private final int numBathrooms;
