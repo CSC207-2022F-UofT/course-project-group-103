@@ -20,7 +20,7 @@ import java.util.Objects;
 public class PropertyManager {
     public static Property getProperty(String ID) throws UndefinedPropertyType {
         try {
-            String location = "/Users/zeinsulayman/IdeaProjects/course-project-group-103/src/main/Databases/PropertyListing.json";
+            String location = "src/main/Databases/PropertyListing.json";
             File file = new File(location);
             String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
             JSONObject property_listing = new JSONObject(content);
@@ -62,7 +62,7 @@ public class PropertyManager {
     }
 
     public static User getUser(String ID) throws IOException, UndefinedUserType {
-        String location = "/Users/zeinsulayman/IdeaProjects/course-project-group-103/src/main/Databases/UserListing.json";
+        String location = "src/main/Databases/UserListing.json";
         File file = new File(location);
         String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
         JSONObject user_listing = new JSONObject(content);
@@ -70,31 +70,33 @@ public class PropertyManager {
         String name = user.getString("name");
         String password = user.getString("password");
         String contact = user.getString("contact");
-        JSONArray reviews = user.getJSONArray("reviews");
-        ArrayList<Review> review_list = new ArrayList<>();
-        for (int i = 0; i < reviews.length(); i++) {
-            review_list.add(getReview(reviews.getString(i)));
-        }
+        String securityQuestion = user.getString("securityQuestion");
+        String securityAnswer = user.getString("securityAnswer");
         if (Objects.equals(user.get("user_type").toString(), "Owner")) {
+            JSONArray reviews = user.getJSONArray("reviews");
+            ArrayList<Review> review_list = new ArrayList<>();
+            for (int i = 0; i < reviews.length(); i++) {
+                review_list.add(getReview(reviews.getString(i)));
+            }
             if (Objects.equals(user.get("hiredRealtor"), null)) {
-                return new Owner(ID, name, password, contact, review_list);
+                return new Owner(ID, name, password, contact, securityQuestion, securityAnswer, review_list);
             }
             else {
                 String hiredRealtorID = user.getString("hiredRealtor");
-                return new Owner(ID, name, password, contact, hiredRealtorID, review_list);
+                return new Owner(ID, name, password, contact, securityQuestion, securityAnswer, hiredRealtorID, review_list);
             }
         }
         else if (Objects.equals(user.get("user_type").toString(), "User")) {
             if (Objects.equals(user.get("hiredRealtor"), null)) {
-                return new User(ID, name, password, contact);
+                return new User(ID, name, password, contact, securityQuestion, securityAnswer);
             }
             else {
                 String hiredRealtorID = user.getString("hiredRealtor");
-                return new User(ID, name, password, contact, hiredRealtorID);
+                return new User(ID, name, password, contact, hiredRealtorID, securityQuestion, securityAnswer);
             }
         }
         else if (Objects.equals(user.get("user_type").toString(), "Realtor")) {
-                return new Realtor(ID, name, password, contact);
+                return new Realtor(ID, name, password, contact, securityQuestion, securityAnswer);
 
         }
         else {
@@ -104,7 +106,7 @@ public class PropertyManager {
     }
 
     public static Review getReview(String ID) throws IOException {
-        String location = "/Users/zeinsulayman/IdeaProjects/course-project-group-103/src/main/Databases/ReviewList.json";
+        String location = "src/main/Databases/ReviewList.json";
         File file = new File(location);
         String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
         JSONObject review_list = new JSONObject(content);
