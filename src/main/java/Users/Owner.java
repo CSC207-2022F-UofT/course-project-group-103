@@ -1,22 +1,31 @@
 package Users;
 
-import Managers.PropertyManager;
+import Review.Review;
 
+import java.util.ArrayList;
 
-public class Owner extends User {
-    private PropertyManager p;
-    private String contact_info;
+public class Owner extends User{
+    private ArrayList<Review> reviews;
 
-    public Owner(String name, String id) {
-        super(name, id);
-        p = new PropertyManager();
+    public Owner(String ID, String name, String password, String contact, String hiredRealtorID, ArrayList<Review> reviews) {
+        super(ID, name, password, contact, hiredRealtorID);
+        this.reviews = reviews;
     }
 
-    public void addContact(String contact_info) {
-        this.contact_info = contact_info;
+    public Owner(String ID, String name, String password, String contact, ArrayList<Review> reviews) {
+        super(ID, name, password, contact);
+        this.reviews = reviews;
     }
 
-    public String getContact() {
-        return contact_info;
+    public ArrayList<Review> getReviews() {
+        return this.reviews;
+    }
+
+    public void setReviews(ArrayList<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public void addReview(Review review) {
+        this.reviews.add(review);
     }
 }

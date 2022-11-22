@@ -1,22 +1,39 @@
 package Properties;
 
-public class Office extends CommercialProperty {
+import Users.Owner;
 
-    private final int office_rooms;
-    private final int reception;
-    public Office (String name, String address, String ID, String owner, int sqFt, int price,
-                   int land_size,
-                   int office_rooms, int reception) {
-        super(name, address, ID, owner, sqFt, price, land_size);
-        this.office_rooms = office_rooms;
-        this.reception = reception;
+public class Office extends Property{
+
+    private final int numOfficeRooms;
+    private final int numReceptions;
+
+    public Office(String name, String address, String ID, Owner owner, int sqFt,
+                  float price, int numOfficeRooms, int numReceptions) {
+        super(name, address, ID, owner, sqFt, price);
+        this.numOfficeRooms = numOfficeRooms;
+        this.numReceptions = numReceptions;
     }
 
-    public int getOffice_rooms() {
-        return office_rooms;
+    public int getNumOfficeRooms() {
+        return this.numOfficeRooms;
     }
 
-    public int getReception() {
-        return reception;
+    public int getNumReceptions() {
+        return this.numReceptions;
+    }
+
+    @Override
+    public void markSold() {
+
+    }
+
+    @Override
+    public void editProperty() {
+
+    }
+
+    @Override
+    public void updateListing() {
+
     }
 }

@@ -1,22 +1,50 @@
 package Properties;
 
-public class House extends ResidentialProperty {
+import Users.Owner;
 
-    private final int backyard;
-    private final int basement;
-    public House(String name, String address, String ID, String owner, int sqFt, int price,
-                 int kitchens, int bedrooms, int bathrooms, int laundry,
-                 int backyard, int basement) {
-        super(name, address, ID, owner, sqFt, price, kitchens, bedrooms, bathrooms, laundry);
-        this.backyard = backyard;
-        this.basement = basement;
+public class House extends Property {
+
+    private final int numBedrooms;
+    private final int numBathrooms;
+    private final int numLaundry;
+    private final int numKitchen;
+    public House(String name, String address, String ID, Owner owner, int sqFt,
+                 float price, int numBedrooms, int numBathrooms, int numLaundry, int numKitchen) {
+        super(name, address, ID, owner, sqFt, price);
+        this.numBedrooms = numBedrooms;
+        this.numBathrooms = numBathrooms;
+        this.numLaundry = numLaundry;
+        this.numKitchen = numKitchen;
     }
 
-    public int getBackyard() {
-        return backyard;
+    public int getNumLaundry() {
+        return numLaundry;
     }
 
-    public int getBasement() {
-        return basement;
+    public int getNumKitchen() {
+        return numKitchen;
+    }
+
+    public int getNumBedrooms() {
+        return numBedrooms;
+    }
+
+    public int getNumBathrooms() {
+        return numBathrooms;
+    }
+
+    @Override
+    public void markSold() {
+
+    }
+
+    @Override
+    public void editProperty() {
+
+    }
+
+    @Override
+    public void updateListing() {
+
     }
 }

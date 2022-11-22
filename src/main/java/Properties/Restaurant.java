@@ -1,17 +1,35 @@
 package Properties;
 
-public class Restaurant extends CommercialProperty {
-    private String specifications;
-    public Restaurant (String name, String address, String ID, String owner, int sqFt, int price,
-                   int land_size,
-                   int office_rooms, int reception,
-                       String specifications) {
-        super(name, address, ID, owner, sqFt, price, land_size);
-        this.specifications = specifications;
+
+import Users.Owner;
+
+public class Restaurant extends Property {
+
+    private final String kitchenSpecifications;
+
+    public Restaurant(String name, String address, String ID, Owner owner, int sqFt,
+                      float price, String kitchenSpecifications){
+
+        super(name, address, ID, owner, sqFt, price);
+        this.kitchenSpecifications = kitchenSpecifications;
     }
 
-    public String getSpecifications() {
-        return specifications;
+    public String getKitchenSpecifications() {
+        return this.kitchenSpecifications;
+    }
+
+    @Override
+    public void markSold() {
+
+    }
+
+    @Override
+    public void editProperty() {
+
+    }
+
+    @Override
+    public void updateListing() {
+
     }
 }
-
