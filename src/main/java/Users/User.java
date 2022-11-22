@@ -2,26 +2,32 @@ package Users;
 
 public class User {
 
-    private final String ID;
-    private String name;
-    private String password;
-    private String contact;
-    private String hiredRealtorID;
+    protected final String ID;
+    protected String name;
+    protected String password;
+    protected String contact;
+    protected String hiredRealtorID;
+    protected String securityQuestion;
+    protected String securityAnswer;
 
-    public User(String ID, String name, String password, String contact, String hiredRealtorID) {
+
+    public User(String ID, String name, String password, String contact, String hiredRealtorID, String securityQuestion, String securityAnswer) {
         this.ID = ID;
         this.name = name;
         this.password = password;
         this.contact = contact;
         this.hiredRealtorID = hiredRealtorID;
+        this.securityQuestion = securityQuestion;
+        this.securityAnswer = securityAnswer;
     }
 
-    public User(String ID, String name, String password, String contact) {
+    public User(String ID, String name, String password, String contact, String securityQuestion, String securityAnswer) {
         this.ID = ID;
         this.name = name;
         this.password = password;
         this.contact = contact;
-        this.hiredRealtorID = null;
+        this.securityQuestion = securityQuestion;
+        this.securityAnswer = securityAnswer;
     }
 
     public String getID() {

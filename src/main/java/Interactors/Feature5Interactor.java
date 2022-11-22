@@ -10,7 +10,7 @@ public class Feature5Interactor {
             System.out.println("This was not appropriate!");
         }
         else{
-            review.addReview();
+            review.newReview();
         }
     }
 
