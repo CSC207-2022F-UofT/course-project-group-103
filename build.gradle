@@ -7,10 +7,9 @@ repositories {
 }
 
 dependencies {
-    implementation 'junit:junit:4.13.2'
+    implementation 'junit:junit:4.13.1'
     implementation 'org.json:json:20220924'
-    annotationProcessor 'org.json:json:20220924'
-    testImplementation('org.junit.jupiter:junit-jupiter:5.9.0')
+    testImplementation('org.junit.jupiter:junit-jupiter:5.6.0')
 }
 
 test {
