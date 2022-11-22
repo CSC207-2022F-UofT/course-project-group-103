@@ -2,18 +2,21 @@ package Properties;
 
 import java.util.HashMap;
 import java.util.ArrayList;
+import Users.Owner;
 
 public abstract class Property {
 
-    private String name;
-    private String address;
-    private String ID;
-    private String owner;
-    private int sqFt;
-    private float price;
-    private HashMap<String, Float> bids = new HashMap<>();
+    protected final String name;
+    protected final String address;
+    protected final String ID;
+    protected Owner owner;
+    protected final int sqFt;
+    protected float price;
+    protected HashMap<String, Float> bids = new HashMap<>();
 
-    public Property(String name, String address, String ID, String owner, int sqFt, float price) {
+    // for now not adding bids to the constructor
+
+    public Property(String name, String address, String ID, Owner owner, int sqFt, float price) {
         this.name = name;
         this.address = address;
         this.ID = ID;
@@ -34,7 +37,7 @@ public abstract class Property {
         return ID;
     }
 
-    public String getOwner() {
+    public Owner getOwner() {
         return owner;
     }
 
@@ -46,7 +49,13 @@ public abstract class Property {
         return price;
     }
 
-    public void setOwner(String owner) {
+    public String getType() {return this.getClass().getName();}
+
+    public HashMap<String, Float> getBids() {
+        return this.bids;
+    }
+
+    public void setOwner(Owner owner) {
         this.owner = owner;
     }
 
@@ -55,8 +64,6 @@ public abstract class Property {
     }
 
     public void addBid(float bid, String user) {bids.put(user, bid);}
-
-    public String getType() {return this.getClass().getName();}
 
     public ArrayList<String> info() {
         // Subclasses should override this method and add any subclass unique attributes
@@ -72,9 +79,9 @@ public abstract class Property {
 
     }
 
-    //public abstract void markSold();
+    public abstract void markSold();
 
-    //public abstract void editProperty();
+    public abstract void editProperty();
 
-    //public abstract void updateListing();
+    public abstract void updateListing();
 }
