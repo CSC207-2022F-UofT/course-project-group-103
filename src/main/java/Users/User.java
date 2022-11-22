@@ -7,7 +7,6 @@ public class User {
     protected String ID;
     protected String password;
     protected String contact;
-    protected Realtor hiredRealtor;
     protected String hiredRealtorID;
 
     public User(String ID, String name, String password, String contact, String hiredRealtorID) {
@@ -35,7 +34,7 @@ public class User {
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.ID = id;
     }
 
     public String getPassword() {
