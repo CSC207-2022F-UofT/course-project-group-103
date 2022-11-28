@@ -11,6 +11,7 @@ public class User {
     protected String securityAnswer;
 
 
+
     public User(String ID, String name, String password, String contact, String hiredRealtorID, String securityQuestion, String securityAnswer) {
         this.ID = ID;
         this.name = name;
@@ -36,6 +37,10 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public void setId(String id) {
+        this.ID = id;
     }
 
     public String getPassword() {
@@ -69,7 +74,6 @@ public class User {
     public void sendBid(){
 
     }
-
     public void hireRealtor(String realtorID){
         this.hiredRealtorID = realtorID;
     }
