@@ -1,15 +1,11 @@
 package Managers;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Iterator;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+import java.io.FileWriter;
 import Users.*;
 
 public class LoginManager {
-
     /**
      * Logs in a normal user with no title that is not a property owner/buyer or a realtor.
      *
@@ -70,12 +66,10 @@ public class LoginManager {
     }
 
     /**
-     * Removes the User with the specified user ID from the User
+     * Removes the User with the specified user and password/user ID from the User
      * database. Removes their properties and bids from all databases and unassigns their ID.
-     *
-     * @param userID: User ID of the user deleting their account
      */
-    public void removeUser(String userID){
+    public void removeUser(){
 
     }
 
@@ -89,52 +83,25 @@ public class LoginManager {
         return null;
     }
 
-    public void changePassword(User user, String newPassword){
+    public void saveToRealtorListing(Realtor realtor) {
+        JSONObject realtorObject = new JSONObject();
+        JSONObject realtorObject2 = new JSONObject();
+        realtorObject2.put(String.valueOf("name"), realtor.getName());
+        realtorObject2.put(String.valueOf("contact"), realtor.getContact());
+        realtorObject.put(realtor.getID(), realtorObject2);
 
-        if(verifyPassword(newPassword)){
-            user.setPassword(newPassword);
-            displayAlert(); //alert saying "password was changed"
-        }else
-            displayAlert(); //alert saying "invalid password"
+        try (FileWriter file = new FileWriter("src\\main\\Databases\\RealtorListing.json")) {
+            file.write(realtorObject.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changePassword(){
 
     }
 
-    public boolean verifyPassword(String password) {
-        int passLength = 8;
-        char[] passArray = password.toCharArray();
-        boolean length = false;
-        boolean caps = false;
-        boolean number = false;
-
-        if(password.length() >= passLength)
-            length = true;
-
-        for (char c : passArray) {
-            if (Character.isUpperCase(c)) {
-                caps = true;
-                break;
-            }
-
-        }
-
-        for (char c : passArray) {
-            if (Character.isDigit(c)) {
-                number = true;
-                break;
-            }
-        }
-
-        return length && caps && number;
+    public void displayAlert(){
 
     }
-        /**
-         * Displays and alert on the sign-up or login page.
-         * Displays an alert for invalid passwords, successfully made accounts, passwords not matching during sign-up
-         * password verification, etc.
-         */
-        public void displayAlert () {
-
-        }
-
 }
-
