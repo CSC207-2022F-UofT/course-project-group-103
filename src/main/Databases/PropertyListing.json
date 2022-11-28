@@ -1,13 +1,20 @@
 {
-  "id0": {
-    "property_type" : "example_type1",
-    "name" : "example_property1",
-    "location" : "example_location1"
+  "0": {
+    "property_type" : "House",
+    "name" : "Omar's House",
+    "address" : "36 Bloor St. E",
+    "owner" : "4",
+    "sqFt" : 100,
+    "price" : 500000,
+    "numBedrooms": 3,
+    "numBathrooms": 4,
+    "numLaundry": 1,
+    "numKitchens": 1
   },
 
-  "id1": {
-    "property_type" : "example_type1",
-    "name" : "example_property1",
-    "location" : "example_location1"
+  "1": {
+    "property_type" : "Office",
+    "name" : "Daniel's House",
+    "address" : "48 Younge St"
   }
 }
