@@ -3,6 +3,7 @@ package Managers;
 import Exceptions.UndefinedPropertyType;
 import Exceptions.UndefinedUserType;
 import Properties.*;
+import Interactors.PropertyListingGateway;
 import Review.Review;
 import Users.Owner;
 import Users.Realtor;
@@ -10,14 +11,14 @@ import Users.User;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class PropertyManager {
+public class PropertyManager implements PropertyListingGateway {
     public static Property getProperty(String ID) throws UndefinedPropertyType {
         try {
             String location = "/Users/zeinsulayman/IdeaProjects/course-project-group-103/src/main/Databases/PropertyListing.json";
@@ -94,13 +95,11 @@ public class PropertyManager {
             }
         }
         else if (Objects.equals(user.get("user_type").toString(), "Realtor")) {
-                return new Realtor(ID, name, password, contact);
-
+            return new Realtor(ID, name, password, contact);
         }
         else {
             throw new UndefinedUserType((user.getString("user_type") + " is not implemented as a user type yet."));
         }
-
     }
 
     public static Review getReview(String ID) throws IOException {
@@ -117,5 +116,51 @@ public class PropertyManager {
         return new Review(ID, reviewString, ownerID, userID, date, rating);
     }
 
-
+    /**
+     * Implements the save method of the PropertyListingGateway for dependency inversion. This is a temporary
+     * implementation just so that bidding can work it is probably not a good way of doing this.
+     *
+     * @param p: Property object to add to PropertyListing.json.
+     */
+    public void save(Property p) {
+        try {
+            //
+            JSONObject prop = new JSONObject();
+            prop.put("property_type", p.getType());
+            prop.put("name", p.getName());
+            prop.put("address", p.getAddress());
+            prop.put("owner", p.getOwner().getID());
+            prop.put("sqFt", p.getSqFt());
+            prop.put("price", p.getPrice());
+            prop.put("bids", p.getBids());
+            if (p.getType().equals("Condo")) {
+                prop.put("numBedrooms", ((Condo) p).getNumBedrooms());
+                prop.put("numBathrooms", ((Condo) p).getNumBathrooms());
+                prop.put("numKitchens", ((Condo) p).getNumKitchen());
+                prop.put("numLaundry", ((Condo) p).getNumLaundry());
+            }
+            else if (p.getType().equals("House")) {
+                prop.put("numBedrooms", ((House) p).getNumBedrooms());
+                prop.put("numBathrooms", ((House) p).getNumBathrooms());
+                prop.put("numKitchens", ((House) p).getNumKitchen());
+                prop.put("numLaundry", ((House) p).getNumLaundry());
+            }
+            else if (p.getType().equals("Office")) {
+                prop.put("numOfficeRooms", ((Office) p).getNumOfficeRooms());
+                prop.put("numReceptions", ((Office) p).getNumReceptions());
+            }
+            else if (p.getType().equals("Restaurant")) {
+                prop.put("kitchen_specifications", ((Restaurant) p).getKitchenSpecifications());
+            }
+            //
+            Path filePath = Path.of("src/main/Databases/PropertyListing.json");
+            String content = Files.readString(filePath);
+            JSONObject a = new JSONObject(content);
+            a.put(p.getID(), prop);
+            try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream("src/main/Databases/PropertyListing.json"), "utf-8"))) {
+                writer.write(a.toString());
+            }
+        } catch(Exception e) {}
+    }
 }
