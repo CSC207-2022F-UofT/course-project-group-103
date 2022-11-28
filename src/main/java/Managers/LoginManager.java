@@ -3,56 +3,16 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
+
+import Interactors.LoginDatabaseGateway;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import Users.*;
 
-public class LoginManager {
+public class LoginManager implements LoginDatabaseGateway {
 
-    /**
-     * Logs in a normal user with no title that is not a property owner/buyer or a realtor.
-     *
-     * Goes through the database and checks if the user and password entered by the User
-     * is logged as a regular user (not as an Owner or Realtor). If true, then the User is logged
-     * in and is given access to information pertaining to their account.
-     *
-     * @param user: Username entered by the User
-     * @param password: Password entered by the User
-     */
-    public void login(String user, String password){
-
-    }
-
-    /**
-     * Logs in an Owner user that is not a realtor.
-     *
-     * Goes through the database and checks if the user and password entered by the User is
-     * logged as an Owner user (not as a Realtor). If true, then the User is logged in and is
-     * given access to information pertaining to their account and permissions relating to an Owner.
-     *
-     * @param user: Username entered by the User
-     * @param password: Password entered by the User
-     */
-    public void loginOwner(String user, String password){
-
-    }
-
-    /**
-     * Logs in an Owner user that is not a realtor.
-     *
-     * Goes through the database and checks if the user and password entered by the User is
-     * logged as an Owner user (not as a Realtor). If true, then the User is logged in and is
-     * given access to information pertaining to their account and permissions relating to an Owner.
-     *
-     * @param user: Username entered by the User
-     * @param password: Password entered by the User
-     */
-    public void loginRealtor(String user, String password){
-
-    }
-
-    public void checkDatabase(){
+    public void checkDatabase(String user, String password){
 
     }
 
