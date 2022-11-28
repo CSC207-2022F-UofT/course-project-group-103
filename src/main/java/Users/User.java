@@ -2,11 +2,12 @@ package Users;
 
 public class User {
 
-    private final String ID;
-    private String name;
-    private String password;
-    private String contact;
-    private String hiredRealtorID;
+    protected String name;
+
+    protected String ID;
+    protected String password;
+    protected String contact;
+    protected String hiredRealtorID;
 
     public User(String ID, String name, String password, String contact, String hiredRealtorID) {
         this.ID = ID;
@@ -30,6 +31,10 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public void setId(String id) {
+        this.ID = id;
     }
 
     public String getPassword() {
@@ -63,7 +68,6 @@ public class User {
     public void sendBid(){
 
     }
-
     public void hireRealtor(String realtorID){
         this.hiredRealtorID = realtorID;
     }
