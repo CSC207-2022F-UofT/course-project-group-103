@@ -1,7 +1,9 @@
 package Interactors;
 
+import org.json.JSONObject;
+
 public interface LoginDatabaseGateway {
 
-    public void checkDatabase(String user, String password);
+    public JSONObject checkDatabase();
 
 }

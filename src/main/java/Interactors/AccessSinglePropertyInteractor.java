@@ -1,8 +1,8 @@
 package Interactors;
 
-
 import Exceptions.UndefinedPropertyType;
 import Managers.PropertyManager;
+import Properties.Property;
 
 public class AccessSinglePropertyInteractor {
     public static void main(String[] args) throws UndefinedPropertyType {

@@ -1,5 +1,10 @@
 package Interactors;
 
+import org.json.JSONObject;
+
+import java.util.Objects;
+import java.util.Set;
+
 public class LoginInteractor{
 
     /**
@@ -19,7 +24,26 @@ public class LoginInteractor{
         this.g = g;
     }
 
-    public void logIntoAccount(String user, String password){
+    public void loginUser(String user, String password){
+        JSONObject data = this.g.checkDatabase();
+        Set<String> keys = data.keySet();
+        for(String id: keys){
+            JSONObject p = data.getJSONObject(id);
+
+            if(Objects.equals(data.getString("user_type"), "User")){
+                String username = p.getString("name");
+                String pass = p.getString("password");
+                //if((Objects.equals(username, user)) && (Objects.equals(pass, password)))
+
+            }
+        }
+    }
+
+    public void loginOwner(String user, String password){
+
+    }
+
+    public void loginRealtor(String user, String password){
 
     }
 }

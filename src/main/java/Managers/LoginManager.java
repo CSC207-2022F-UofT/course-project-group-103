@@ -1,8 +1,15 @@
 package Managers;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
+import java.util.Set;
 
 import Interactors.LoginDatabaseGateway;
 import org.json.JSONArray;
@@ -12,7 +19,15 @@ import Users.*;
 
 public class LoginManager implements LoginDatabaseGateway {
 
-    public void checkDatabase(String user, String password){
+    public JSONObject checkDatabase(){
+        try{
+            Path filePath = Path.of("src/main/Databases/PropertyListing.json");
+            String content = Files.readString(filePath);
+            return new JSONObject(content);
+
+        }catch(IOException e){
+            throw new RuntimeException();
+        }
 
     }
 

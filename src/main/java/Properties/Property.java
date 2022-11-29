@@ -4,7 +4,6 @@ import Users.Owner;
 
 public abstract class Property {
 
-
     protected final String name;
     protected final String address;
     protected final String ID;
