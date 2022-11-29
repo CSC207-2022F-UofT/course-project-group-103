@@ -2,27 +2,32 @@ package Users;
 
 public class User {
 
+    protected final String ID;
     protected String name;
-
-    protected String ID;
     protected String password;
     protected String contact;
     protected String hiredRealtorID;
+    protected String securityQuestion;
+    protected String securityAnswer;
 
-    public User(String ID, String name, String password, String contact, String hiredRealtorID) {
+
+    public User(String ID, String name, String password, String contact, String hiredRealtorID, String securityQuestion, String securityAnswer) {
         this.ID = ID;
         this.name = name;
         this.password = password;
         this.contact = contact;
         this.hiredRealtorID = hiredRealtorID;
+        this.securityQuestion = securityQuestion;
+        this.securityAnswer = securityAnswer;
     }
 
-    public User(String ID, String name, String password, String contact) {
+    public User(String ID, String name, String password, String contact, String securityQuestion, String securityAnswer) {
         this.ID = ID;
         this.name = name;
         this.password = password;
         this.contact = contact;
-        this.hiredRealtorID = null;
+        this.securityQuestion = securityQuestion;
+        this.securityAnswer = securityAnswer;
     }
 
     public String getID() {
@@ -31,10 +36,6 @@ public class User {
 
     public String getName() {
         return name;
-    }
-
-    public void setId(String id) {
-        this.ID = id;
     }
 
     public String getPassword() {
@@ -68,6 +69,7 @@ public class User {
     public void sendBid(){
 
     }
+
     public void hireRealtor(String realtorID){
         this.hiredRealtorID = realtorID;
     }
