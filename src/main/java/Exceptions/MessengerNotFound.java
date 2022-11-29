@@ -1,7 +1,9 @@
 package Exceptions;
+import Messenger.Messenger;
+import Users.User;
 
-public class UndefinedPropertyType extends Exception{
-    public UndefinedPropertyType(String message) {
+public class MessengerNotFound extends Exception{
+    public MessengerNotFound(String message) {
         super(message);
     }
 }
