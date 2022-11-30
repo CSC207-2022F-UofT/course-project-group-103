@@ -23,6 +23,10 @@ public class Messenger {
     }
 
     public void addMessage(User sender, String message) {
+        /**
+         * This method takes in a User object (sender) and a String (message) and creates an arrayList containing the
+         * sender's ID and the message they have sent. This Arraylist is then stored in the message Log.
+         */
         ArrayList<String> newLog = new ArrayList<>();
         newLog.add(sender.getID());
         newLog.add(message);
