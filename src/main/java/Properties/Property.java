@@ -14,12 +14,12 @@ public abstract class Property {
     private String address;
     private String ID;
 
-    private String owner;
+    private Owner owner;
     private int sqFt;
 
-    private int price;
+    private float price;
 
-    public Property(String name, String address, String ID, String owner, int sqFt, int price) {
+    public Property(String name, String address, String ID, Owner owner, int sqFt, float price) {
         this.name = name;
         this.address = address;
         this.ID = ID;
@@ -44,16 +44,16 @@ public abstract class Property {
         return ID;
     }
 
-    public String getOwner() {
+    public Owner getOwner() {
         return owner;
     }
 
     public int getSqFt() {
         return sqFt;
     }
-    public int getPrice(String id) { return price; }
+    public float getPrice(String id) { return price; }
 
-    public void setOwner(String owner) {
+    public void setOwner(Owner owner) {
         this.owner = owner;
     }
 

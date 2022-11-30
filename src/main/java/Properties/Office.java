@@ -23,6 +23,11 @@ public class Office extends Property{
     }
 
     @Override
+    public void getSold() {
+
+    }
+
+    @Override
     public void markSold() {
 
     }

@@ -19,6 +19,11 @@ public class Restaurant extends Property {
     }
 
     @Override
+    public void getSold() {
+
+    }
+
+    @Override
     public void markSold() {
 
     }

@@ -34,6 +34,11 @@ public class Condo extends Property{
     }
 
     @Override
+    public void getSold() {
+
+    }
+
+    @Override
     public void markSold() {
 
     }

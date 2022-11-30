@@ -34,6 +34,11 @@ public class House extends Property {
     }
 
     @Override
+    public void getSold() {
+
+    }
+
+    @Override
     public void markSold() {
 
     }

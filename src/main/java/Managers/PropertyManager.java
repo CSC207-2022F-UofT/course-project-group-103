@@ -9,26 +9,18 @@ import Users.Realtor;
 import Users.User;
 import org.json.JSONObject;
 import org.json.JSONArray;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Objects;
-
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class PropertyManager {
     public static Property getProperty(String ID) throws UndefinedPropertyType {
         try {
-            String location = "/Users/zeinsulayman/IdeaProjects/course-project-group-103/src/main/Databases/PropertyListing.json";
+            String location = "src/main/Databases/PropertyListing.json";
             File file = new File(location);
             String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
             JSONObject property_listing = new JSONObject(content);
@@ -112,7 +104,7 @@ public class PropertyManager {
     }
 
     public static Review getReview(String ID) throws IOException {
-        String location = "/Users/zeinsulayman/IdeaProjects/course-project-group-103/src/main/Databases/ReviewList.json";
+        String location = "src/main/Databases/ReviewList.json";
         File file = new File(location);
         String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
         JSONObject review_list = new JSONObject(content);
