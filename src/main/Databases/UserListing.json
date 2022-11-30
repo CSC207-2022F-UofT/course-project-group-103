@@ -6,7 +6,9 @@
     "password": "Omar123",
     "contact": "omar@gmail.com",
     "hiredRealtor": null,
-    "reviews": ["1"]
+    "reviews": ["1"],
+    "securityQuestion": "what is you?",
+    "securityAnswer": "much"
   },
   "1":
   {
@@ -14,13 +16,18 @@
     "user_type": "User",
     "password": "Daniel321",
     "contact": "daniel@gmail.com",
-    "hiredRealtor": "2"
+    "hiredRealtor": "2",
+    "securityQuestion": "what is you?",
+    "securityAnswer": "not much"
   },
   "2":
   {
     "name": "Sean",
     "user_type": "Realtor",
     "password": "Sean111",
-    "contact": "sean@gmail.com"
+    "contact": "sean@gmail.com",
+    "hiredRealtor": null,
+    "securityQuestion": "what is you?",
+    "securityAnswer": "much"
   }
 }

@@ -1,6 +1,7 @@
 package Properties;
 
 import Users.Owner;
+import java.util.ArrayList;
 
 public class House extends Property {
 
@@ -34,6 +35,16 @@ public class House extends Property {
     }
 
     @Override
+    public ArrayList<String> info() {
+        ArrayList<String> info = super.info();
+        info.add("Bedrooms: " + this.getNumBedrooms());
+        info.add("Bathrooms: " + this.getNumBathrooms());
+        info.add("Kitchens: " + this.getNumKitchen());
+        info.add("Laundry: " + this.getNumLaundry());
+        return info;
+    }
+
+    @Override
     public void markSold() {
 
     }
@@ -48,3 +59,5 @@ public class House extends Property {
 
     }
 }
+
+
