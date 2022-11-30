@@ -1,8 +1,9 @@
 package Properties;
 
 import Users.Owner;
+import java.util.ArrayList;
 
-public class Condo extends Property{
+public class Condo extends Property {
 
     private final int numBedrooms;
     private final int numBathrooms;
@@ -34,8 +35,13 @@ public class Condo extends Property{
     }
 
     @Override
-    public void getSold() {
-
+    public ArrayList<String> info() {
+        ArrayList<String> info = super.info();
+        info.add("Bedrooms: " + this.getNumBedrooms());
+        info.add("Bathrooms: " + this.getNumBathrooms());
+        info.add("Kitchens: " + this.getNumKitchen());
+        info.add("Laundry: " + this.getNumLaundry());
+        return info;
     }
 
     @Override

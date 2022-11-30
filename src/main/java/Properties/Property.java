@@ -1,24 +1,21 @@
 package Properties;
-import org.json.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
+import java.util.HashMap;
+import java.util.ArrayList;
 import Users.Owner;
 
 public abstract class Property {
 
-    private String name;
-    private String address;
-    private String ID;
 
-    private Owner owner;
-    private int sqFt;
+    protected final String name;
+    protected final String address;
+    protected final String ID;
+    protected Owner owner;
+    protected final int sqFt;
+    protected float price;
+    protected HashMap<String, Float> bids = new HashMap<>();
 
-    private float price;
-
+    // for now not adding bids to the constructor
     public Property(String name, String address, String ID, Owner owner, int sqFt, float price) {
         this.name = name;
         this.address = address;
@@ -26,10 +23,6 @@ public abstract class Property {
         this.owner = owner;
         this.sqFt = sqFt;
         this.price = price;
-    }
-
-    public Property() {
-
     }
 
     public String getName() {
@@ -51,7 +44,16 @@ public abstract class Property {
     public int getSqFt() {
         return sqFt;
     }
-    public float getPrice(String id) { return price; }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public String getType() {return this.getClass().getName();}
+
+    public HashMap<String, Float> getBids() {
+        return this.bids;
+    }
 
     public void setOwner(Owner owner) {
         this.owner = owner;
@@ -61,14 +63,25 @@ public abstract class Property {
         this.price = price;
     }
 
-    public abstract  void getSold();
-    public  abstract  void markSold();
+    public void addBid(float bid, String user) {bids.put(user, bid);}
+
+    public ArrayList<String> info() {
+        // Subclasses should override this method and add any subclass unique attributes
+        // that should be displayed to this arraylist.
+        ArrayList<String> info = new ArrayList<>();
+        info.add("Type: " + this.getType());
+        info.add("Name: " + this.getName());
+        info.add("Address: " + this.getAddress());
+        info.add("Owner: " + this.getOwner());
+        info.add("SqFt: " + this.getSqFt());
+        info.add("Price: " + this.getPrice());
+        return info;
+
+    }
+
+    public abstract void markSold();
 
     public abstract void editProperty();
 
     public abstract void updateListing();
-
 }
-
-
-
