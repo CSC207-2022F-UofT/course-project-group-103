@@ -23,9 +23,9 @@ public class Messenger {
     }
 
     public void addMessage(User sender, String message) {
-        ArrayList<String> Log = new ArrayList<>();
-        Log.add(sender.getID());
-        Log.add(message);
-        messageLog.add(Log);
+        ArrayList<String> newLog = new ArrayList<>();
+        newLog.add(sender.getID());
+        newLog.add(message);
+        messageLog.add(newLog);
     }
 }

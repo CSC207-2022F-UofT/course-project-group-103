@@ -74,13 +74,13 @@ public class User {
         this.hiredRealtorID = realtorID;
     }
 
-    public void sendMessage(User receiver, String message) {
+    public void sendMessage(User receiver, String message) throws MessengerNotFound {
         Messenger MessengerToBeUsed = getMessenger(receiver);
         MessengerToBeUsed.addMessage(receiver, message);
     }
 
-    public Messenger getMessenger(User messenger) {
-        /*
+    public Messenger getMessenger(User messenger) throws MessengerNotFound {
+        /**
         This method takes in a User Object and returns its associated Messenger Class.
         We need this Messenger class to store the messages in the correct messageLog since
         the messengers attribute contains many Messenger classes, each with their own messageLogs.
@@ -91,6 +91,6 @@ public class User {
                 return MessengerClass;
             }
         }
-    return error;
+    throw new MessengerNotFound("Messenger not found in messengers");
     }
 }
