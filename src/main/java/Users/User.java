@@ -16,6 +16,8 @@ public class User {
         this.password = password;
         this.contact = contact;
         this.hiredRealtorID = hiredRealtorID;
+        this.securityQuestion = securityQuestion;
+        this.securityAnswer = securityAnswer;
     }
 
     public User(String ID, String name, String password, String contact, String securityQuestion, String securityAnswer) {
@@ -23,7 +25,8 @@ public class User {
         this.name = name;
         this.password = password;
         this.contact = contact;
-        this.hiredRealtorID = null;
+        this.securityQuestion = securityQuestion;
+        this.securityAnswer = securityAnswer;
     }
 
     public String getID() {

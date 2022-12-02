@@ -79,11 +79,16 @@ public class PropertyManager {
                 review_list.add(getReview(reviews.getString(i)));
             }
             if (Objects.equals(user.get("hiredRealtor"), null)) {
-                return new Owner(ID, name, password, contact, securityQuestion, securityAnswer, review_list);
+                Owner owner = new Owner(ID, name, password, contact, securityQuestion, securityAnswer);
+                owner.setReviews(review_list);
+                return owner;
+
             }
             else {
                 String hiredRealtorID = user.getString("hiredRealtor");
-                return new Owner(ID, name, password, contact, securityQuestion, securityAnswer, hiredRealtorID, review_list);
+                Owner owner = new Owner(ID, name, password, contact, hiredRealtorID,securityQuestion, securityAnswer);
+                owner.setReviews(review_list);
+                return owner;
             }
         }
         else if (Objects.equals(user.get("user_type").toString(), "User")) {
