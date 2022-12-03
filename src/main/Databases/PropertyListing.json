@@ -9,7 +9,8 @@
     "numBedrooms": 3,
     "numBathrooms": 4,
     "numLaundry": 1,
-    "numKitchens": 1
+    "numKitchens": 1,
+    "sold": false
   },
 
   "1": {

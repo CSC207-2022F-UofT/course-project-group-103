@@ -42,14 +42,14 @@ public class Review {
         this.rating = rating;
     }
 
-    public boolean calculateIfAppropriate(){
+    public static boolean calculateIfAppropriate(String sentence){
         try {
             String location = "_en.json";
             File file = new File(location);
             String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
             JSONObject json = new JSONObject(content);
             Set<String> banned_words = json.keySet();
-            String[] review_words = this.review.split(" ");
+            String[] review_words = sentence.split(" ");
             for(String word: review_words){
                 if (banned_words.contains(word)){
                     return false;

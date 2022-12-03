@@ -17,8 +17,9 @@
     "password": "Daniel321",
     "contact": "daniel@gmail.com",
     "hiredRealtor": "2",
-    "securityQuestion": "what is you?",
-    "securityAnswer": "not much"
+    "securityQuestion": "Is Omar stronger than me?",
+    "securityAnswer": "No"
+
   },
   "2":
   {
