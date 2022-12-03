@@ -5,7 +5,7 @@ import Properties.Property;
 public class MortgageInteractor {
 
     /**
-     * Simple mortgage estimator given equation M = P [ i(1 + i)^n ] / [ (1 + i)^n – 1]
+     * Simple mortgage estimator given equation M = P [ i(1 + i)^n ] / [ (1 + i)^n - 1]
      * Where
      * M = Total monthly payment
      * P = The total amount of your loan
