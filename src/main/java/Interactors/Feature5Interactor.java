@@ -6,7 +6,7 @@ import Users.User;
 
 public class Feature5Interactor {
     public static void addReviewNow (Review review){
-        if(!review.calculateIfAppropriate()){
+        if(!review.calculateIfAppropriate(review.getReview())){
             System.out.println("This was not appropriate!");
         }
         else{
