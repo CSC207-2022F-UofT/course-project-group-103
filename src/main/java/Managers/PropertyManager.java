@@ -97,12 +97,13 @@ public class PropertyManager {
                 return owner;
 
             }
-            else {
+            //might be redundant code, I just removed the conflicts
+            /* else {
                 String hiredRealtorID = user.getString("hiredRealtor");
                 Owner owner = new Owner(ID, name, password, contact, hiredRealtorID,securityQuestion, securityAnswer);
                 owner.setReviews(review_list);
                 return owner;
-            }
+            } */
         }
         else if (Objects.equals(user.get("user_type").toString(), "User")) {
             if (Objects.equals(user.get("hiredRealtor"), null)) {
