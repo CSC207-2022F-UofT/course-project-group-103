@@ -16,7 +16,8 @@ public class Owner extends User{
     public Owner(String ID, String name, String password, String contact, String securityQuestion, String securityAnswer, ArrayList<Review> reviews) {
         super(ID, name, password, contact, securityQuestion, securityAnswer);
         this.reviews = reviews;
-        
+    }
+    
     public Owner(String ID, String name, String password, String contact, String hiredRealtorID, String securityQuestion, String securityAnswer) {
         super(ID, name, password, contact, hiredRealtorID, securityQuestion, securityAnswer);
         this.reviews = new ArrayList<>();
