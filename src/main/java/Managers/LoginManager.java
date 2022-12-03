@@ -141,11 +141,50 @@ public class LoginManager {
         return null;
     }
 
-    public void changePassword(){
+    public void changePassword(User user, String newPassword){
 
+        if(verifyPassword(newPassword)){
+            user.setPassword(newPassword);
+            displayAlert(); //alert saying "password was changed"
+        }else
+            displayAlert(); //alert saying "invalid password"
     }
 
-    public void displayAlert(){
+    public boolean verifyPassword(String password) {
+        int passLength = 8;
+        char[] passArray = password.toCharArray();
+        boolean length = false;
+        boolean caps = false;
+        boolean number = false;
+
+        if(password.length() >= passLength)
+            length = true;
+
+        for (char c : passArray) {
+            if (Character.isUpperCase(c)) {
+                caps = true;
+                break;
+            }
+
+        }
+
+        for (char c : passArray) {
+            if (Character.isDigit(c)) {
+                number = true;
+                break;
+            }
+        }
+
+        return length && caps && number;
+
+    }
+    
+    /**
+    * Displays and alert on the sign-up or login page.
+    * Displays an alert for invalid passwords, successfully made accounts, passwords not matching during sign-up
+    * password verification, etc.
+    */
+    public void displayAlert () {
 
     }
 }
