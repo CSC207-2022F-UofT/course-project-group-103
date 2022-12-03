@@ -11,13 +11,15 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 // Use case layer
-public interface PropertyListingGateway {
+public class PropertyListingGateway {
     /**
      * Saves a property object to the database.
      *
      * @param p: Property object to add to PropertyListing.json.
      */
-    public void save(Property p);
+    public void save(Property p) {
+
+    };
 
 
     /**
