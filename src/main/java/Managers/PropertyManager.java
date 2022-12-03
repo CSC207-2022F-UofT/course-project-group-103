@@ -70,26 +70,41 @@ public class PropertyManager {
         String name = user.getString("name");
         String password = user.getString("password");
         String contact = user.getString("contact");
+        
         String securityQuestion = user.getString("securityQuestion");
         String securityAnswer = user.getString("securityAnswer");
+        
         JSONArray reviews = user.getJSONArray("reviews");
         ArrayList<Review> review_list = new ArrayList<>();
         for (int i = 0; i < reviews.length(); i++) {
             review_list.add(getReview(reviews.getString(i)));
         }
-        if (Objects.equals(user.get("user_type").toString(), "Owner")) {
-            if (Objects.equals(user.get("hiredRealtor"), null)) {
-                Owner owner = new Owner(ID, name, password, contact, securityQuestion, securityAnswer);
-                owner.setReviews(review_list);
-                return owner;
 
+        if (Objects.equals(user.get("user_type").toString(), "Owner")) {
+            reviews = user.getJSONArray("reviews");
+            review_list = new ArrayList<>();
+            for (int i = 0; i < reviews.length(); i++) {
+                review_list.add(getReview(reviews.getString(i)));
+            }
+            if (Objects.equals(user.get("hiredRealtor"), null)) {
+                return new Owner(ID, name, password, contact, securityQuestion, securityAnswer, review_list);
             }
             else {
+                String hiredRealtorID = user.getString("hiredRealtor");
+                return new Owner(ID, name, password, contact, securityQuestion, securityAnswer, hiredRealtorID, review_list);
+                // might be redundant code, I just removed the conflicts
+                //Owner owner = new Owner(ID, name, password, contact, securityQuestion, securityAnswer);
+                //owner.setReviews(review_list);
+                //return owner;
+
+            }
+            //
+            /* else {
                 String hiredRealtorID = user.getString("hiredRealtor");
                 Owner owner = new Owner(ID, name, password, contact, hiredRealtorID,securityQuestion, securityAnswer);
                 owner.setReviews(review_list);
                 return owner;
-            }
+            } */
         }
         else if (Objects.equals(user.get("user_type").toString(), "User")) {
             if (Objects.equals(user.get("hiredRealtor"), null)) {

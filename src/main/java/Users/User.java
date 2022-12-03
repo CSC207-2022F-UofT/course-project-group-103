@@ -22,7 +22,6 @@ public class User {
 
     private ArrayList<Messenger> messengers;
 
-
     public User(String ID, String name, String password, String contact, String hiredRealtorID, String securityQuestion, String securityAnswer) {
         this.ID = ID;
         this.name = name;
@@ -60,6 +59,14 @@ public class User {
 
     public String getHiredRealtorID() {
         return hiredRealtorID;
+    }
+
+    public String getSecurityQuestion() {
+        return securityQuestion;
+    }
+
+    public String getSecurityAnswer() {
+        return securityAnswer;
     }
 
     public void setName(String name) {
