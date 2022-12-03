@@ -1,6 +1,6 @@
-package Interactors;
+package Gateways;
 
-import Properties.*;
+import Entities.Properties.*;
 import org.json.JSONObject;
 
 import java.io.File;

@@ -1,7 +1,8 @@
 package Interactors;
 
-import Properties.*;
-import Users.Owner;
+import Gateways.PropertyListingGateway;
+import Entities.Properties.*;
+import Entities.Users.Owner;
 
 import java.io.IOException;
 

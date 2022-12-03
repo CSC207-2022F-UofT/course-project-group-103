@@ -1,6 +1,6 @@
-package Properties;
+package Entities.Properties;
 
-import Users.Owner;
+import Entities.Users.Owner;
 import java.util.ArrayList;
 
 public class Condo extends Property {

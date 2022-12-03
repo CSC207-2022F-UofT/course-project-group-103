@@ -1,8 +1,6 @@
 package Interactors;
 
-import Review.Review;
-import Users.Owner;
-import Users.User;
+import Entities.Review.Review;
 
 public class Feature5Interactor {
     public static void addReviewNow (Review review){

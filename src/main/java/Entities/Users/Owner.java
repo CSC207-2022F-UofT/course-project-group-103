@@ -1,6 +1,6 @@
-package Users;
+package Entities.Users;
 
-import Review.Review;
+import Entities.Review.Review;
 
 import java.util.ArrayList;
 

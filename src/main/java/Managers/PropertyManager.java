@@ -2,11 +2,11 @@ package Managers;
 
 import Exceptions.UndefinedPropertyType;
 import Exceptions.UndefinedUserType;
-import Properties.*;
-import Review.Review;
-import Users.Owner;
-import Users.Realtor;
-import Users.User;
+import Entities.Properties.*;
+import Entities.Review.Review;
+import Entities.Users.Owner;
+import Entities.Users.Realtor;
+import Entities.Users.User;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import java.io.File;

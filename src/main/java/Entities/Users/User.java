@@ -1,8 +1,8 @@
-package Users;
+package Entities.Users;
 
-import Messenger.Messenger;
+import Entities.Messenger.Messenger;
 
-import Review.Review;
+import Entities.Review.Review;
 
 import java.util.ArrayList;
 
@@ -94,7 +94,7 @@ public class User {
     public void sendMessage(User receiver, String message) throws MessengerNotFound, MessageNotAppropriate{
         /**
          * Given a User object (receiver) and a String (message), this method uses the getMessenger method to
-         * locate the User object's Messenger class and logs the String message into the messageLog using addMessage.
+         * locate the User object's Entities.Messenger class and logs the String message into the messageLog using addMessage.
          * This method also checks if a message is inappropriate via the 'calculateIfAppropriate' method.
          * If the message contains inappropriate language, an error message will be thrown and the message will not
          * be logged.
@@ -110,9 +110,9 @@ public class User {
     public Messenger getMessenger(User contact) throws MessengerNotFound {
         /**
          * This method takes in a User Object and iterates through a user's messengers attribute and returns the
-         * Messenger class that contains the User "contact".
-         * We need this Messenger class in order to store the messages in the correct messageLog since
-         * the messengers attribute contains many Messenger classes, each with their own messageLogs.
+         * Entities.Messenger class that contains the User "contact".
+         * We need this Entities.Messenger class in order to store the messages in the correct messageLog since
+         * the messengers attribute contains many Entities.Messenger classes, each with their own messageLogs.
         */
         for (Messenger MessengerClass : messengers) {
             if ((this == MessengerClass.getUser1() && contact == MessengerClass.getUser2()) ||
@@ -120,6 +120,6 @@ public class User {
                 return MessengerClass;
             }
         }
-    throw new MessengerNotFound("Messenger not found in messengers");
+    throw new MessengerNotFound("Entities.Messenger not found in messengers");
     }
 }

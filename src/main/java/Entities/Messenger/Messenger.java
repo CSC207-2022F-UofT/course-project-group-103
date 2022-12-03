@@ -1,6 +1,6 @@
-package Messenger;
+package Entities.Messenger;
 
-import Users.*;
+import Entities.Users.User;
 
 import java.util.ArrayList;
 

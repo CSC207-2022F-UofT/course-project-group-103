@@ -1,8 +1,8 @@
-package Properties;
+package Entities.Properties;
 
 import java.util.HashMap;
 import java.util.ArrayList;
-import Users.Owner;
+import Entities.Users.Owner;
 
 public abstract class Property {
 

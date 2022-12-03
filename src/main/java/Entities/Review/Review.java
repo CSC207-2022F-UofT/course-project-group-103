@@ -1,4 +1,4 @@
-package Review;
+package Entities.Review;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import Exceptions.UndefinedUserType;
 import Managers.PropertyManager;
 import org.json.JSONObject;
-import Users.Owner;
+import Entities.Users.Owner;
 
 
 public class Review {

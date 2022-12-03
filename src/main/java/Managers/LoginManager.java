@@ -1,12 +1,7 @@
 package Managers;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Iterator;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
-import Users.*;
+import Entities.Users.Realtor;
+import Entities.Users.*;
 
 public class LoginManager {
 

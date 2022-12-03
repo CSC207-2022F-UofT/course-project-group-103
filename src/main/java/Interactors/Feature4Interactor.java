@@ -2,7 +2,7 @@ package Interactors;
 
 import Exceptions.UndefinedPropertyType;
 import Managers.PropertyManager;
-import Properties.Property;
+import Entities.Properties.Property;
 import org.json.JSONObject;
 
 import java.io.File;

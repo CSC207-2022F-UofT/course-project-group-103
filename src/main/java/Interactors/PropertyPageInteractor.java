@@ -1,8 +1,8 @@
 package Interactors;
 
-import Properties.*;
+import Gateways.PropertyListingGateway;
+import Entities.Properties.*;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public class PropertyPageInteractor {
