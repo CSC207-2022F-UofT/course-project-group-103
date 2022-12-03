@@ -6,9 +6,9 @@
     "password": "Omar123",
     "contact": "omar@gmail.com",
     "hiredRealtor": null,
-    "securityQuestion": "What is my first name?",
-    "securityAnswer": "Omar",
-    "reviews": ["1"]
+    "reviews": ["1"],
+    "securityQuestion": "what is you?",
+    "securityAnswer": "much"
   },
   "1":
   {
@@ -19,6 +19,7 @@
     "hiredRealtor": "2",
     "securityQuestion": "Is Omar stronger than me?",
     "securityAnswer": "No"
+
   },
   "2":
   {
@@ -26,7 +27,8 @@
     "user_type": "Realtor",
     "password": "Sean111",
     "contact": "sean@gmail.com",
-    "securityQuestion": "Am I stronger than Daniel?",
-    "securityAnswer": "Yes"
+    "hiredRealtor": null,
+    "securityQuestion": "what is you?",
+    "securityAnswer": "much"
   }
 }
