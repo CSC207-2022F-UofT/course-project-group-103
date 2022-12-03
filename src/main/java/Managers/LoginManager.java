@@ -88,48 +88,51 @@ public class LoginManager {
      * @param ID: ID of the user to return
      * @return The user with the associated ID
      */
-    public Object getUser(int ID) throws IOException {
+    public User getUser(int ID) throws IOException {
         String jsonString = Files.readString(Paths.get("src\\main\\Databases\\UserListing.json"));
         JSONObject obj = new JSONObject(jsonString);
-        Iterator<String> keys = obj.keys();
+        JSONObject info = (JSONObject) obj.get(String.valueOf(ID));
 
-        while(keys.hasNext()) {
-            JSONObject info = (JSONObject) obj.get(String.valueOf(ID));
+        if (info.getString("user_type").equals("User")) {
             String name = info.getString("name");
             String password = info.getString("password");
             String contact = info.getString("contact");
+            String securityQuestion = info.getString("securityQuestion");
+            String securityAnswer = info.getString("securityAnswer");
 
-            if (info.getString("user_type").equals("User")) {
-                if (info.get("hiredRealtor") instanceof String) {
-                    String hiredRealtorID = info.getString("hiredRealtor");
-                    return new User(String.valueOf(ID), name, password, contact, hiredRealtorID);
-                } else {
-                    return new User(String.valueOf(ID), name, password, contact);
-                }
-
-            } else if (info.getString("user_type").equals("Realtor")) {
-                return new Realtor(String.valueOf(ID), name, password, contact);
-
-            } else if (info.getString("user_type").equals("Owner")) {
-                JSONArray jsonReviews = info.getJSONArray("reviews");
-                ArrayList<Review> reviews = new ArrayList<Review>();
-                for (int i = 0; i < jsonReviews.length(); i++) {
-                    Review review = PropertyManager.getReview(jsonReviews.getString(i));
-                    reviews.add(review);
-                }
-
-                if (info.get("hiredRealtor") instanceof String) {
-                    String hiredRealtorID = info.getString("hiredRealtor");
-                    return new Owner(String.valueOf(ID), name, password, contact, hiredRealtorID, reviews);
-                } else {
-                    return new Owner(String.valueOf(ID), name, password, contact, reviews);
-                }
+            if (info.get("hiredRealtor") instanceof String) {
+                String hiredRealtorID = info.getString("hiredRealtor");
+                return new User(String.valueOf(ID), name, password, contact,
+                        hiredRealtorID, securityQuestion, securityAnswer);
+            } else {
+                return new User(String.valueOf(ID), name, password, contact,
+                        securityQuestion, securityAnswer);
             }
         }
         return null;
     }
 
-    public ArrayList<Realtor> getRealtors() throws IOException {
+    /**
+     * Returns the realtor given with the associated ID.
+     *
+     * @param ID: ID of the user to return
+     * @return The user with the associated ID
+     */
+    public Realtor getRealtor(int ID) throws IOException {
+        String jsonString = Files.readString(Paths.get("src\\main\\Databases\\UserListing.json"));
+        JSONObject obj = new JSONObject(jsonString);
+        JSONObject info = (JSONObject) obj.get(String.valueOf(ID));
+
+        if (info.getString("user_type").equals("Realtor")) {
+            String name = info.getString("name");
+            String password = info.getString("password");
+            String contact = info.getString("contact");
+            String securityQuestion = info.getString("securityQuestion");
+            String securityAnswer = info.getString("securityAnswer");
+
+            return new Realtor(String.valueOf(ID), name, password, contact,
+                    securityQuestion, securityAnswer);
+        }
         return null;
     }
 
