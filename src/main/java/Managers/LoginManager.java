@@ -67,10 +67,13 @@ public class LoginManager {
      * Creates a new User object and assigns account information to it, then assigns the
      * object to a unique User ID.
      *
-     * @param user: Username the User signed up with
+     * @param name: Username the User signed up with
      * @param password: Password the User signed up with
+     * @param contact: Contact email the User signed up with
+     * @param securityQuestion: Security question the User signed up with
+     * @param securityAnswer: Security answer the User signed up with
      */
-    public void addUser(String user, String password){
+    public void addUser(String name, String password, String contact, String securityQuestion, String securityAnswer) throws IOException {
 
     }
 
@@ -78,42 +81,44 @@ public class LoginManager {
      * Removes the User with the specified user and password/user ID from the User
      * database. Removes their properties and bids from all databases and unassigns their ID.
      */
-    public void removeUser(){
+    public void removeUser(String name, String password, String ID) throws IOException {
+        String jsonStringUser = Files.readString(Paths.get("src\\main\\Databases\\UserListing.json"));
+        JSONObject users = new JSONObject(jsonStringUser);
+        JSONObject userInfo = (JSONObject) users.get(String.valueOf(ID));
 
-    }
+        if (userInfo.getString("name").equals(name) &&
+                userInfo.getString("password").equals(password)) {
 
-    /**
-     * Returns the user given with the associated ID.
-     *
-     * @param ID: ID of the user to return
-     * @return The user with the associated ID
-     */
-    public User getUser(int ID) throws IOException {
-        String jsonString = Files.readString(Paths.get("src\\main\\Databases\\UserListing.json"));
-        JSONObject obj = new JSONObject(jsonString);
-        JSONObject info = (JSONObject) obj.get(String.valueOf(ID));
+            users.remove(ID);
+            String jsonStringProperty = Files.readString(Paths.get("src\\main\\Databases\\PropertyListing.json"));
+            JSONObject properties = new JSONObject(jsonStringProperty);
+            JSONArray keys = properties.names();
 
-        if (info.getString("user_type").equals("User")) {
-            String name = info.getString("name");
-            String password = info.getString("password");
-            String contact = info.getString("contact");
-            String securityQuestion = info.getString("securityQuestion");
-            String securityAnswer = info.getString("securityAnswer");
+            for (int i = 0; i < keys.length(); i++) {
+                String key = keys.getString(i);
+                JSONObject propertyInfo = (JSONObject) properties.get(key);
+                if (!propertyInfo.isNull("owner") &&
+                        propertyInfo.getString("owner").equals(ID)) {
+                    properties.remove(key);
+                }
+            }
 
-            if (info.get("hiredRealtor") instanceof String) {
-                String hiredRealtorID = info.getString("hiredRealtor");
-                return new User(String.valueOf(ID), name, password, contact,
-                        hiredRealtorID, securityQuestion, securityAnswer);
-            } else {
-                return new User(String.valueOf(ID), name, password, contact,
-                        securityQuestion, securityAnswer);
+            try (FileWriter file = new FileWriter("src\\main\\Databases\\UserListing.json")) {
+                file.write(users.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try (FileWriter file = new FileWriter("src\\main\\Databases\\PropertyListing.json")) {
+                file.write(properties.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
-        return null;
+
     }
 
     /**
-     * Returns the realtor given with the associated ID.
+     * Returns the realtor with the associated ID.
      *
      * @param ID: ID of the user to return
      * @return The user with the associated ID
@@ -134,22 +139,6 @@ public class LoginManager {
                     securityQuestion, securityAnswer);
         }
         return null;
-    }
-
-    public void saveToRealtorListing(Realtor realtor) throws IOException {
-        String jsonString = Files.readString(Paths.get("src\\main\\Databases\\RealtorListing.json"));
-
-        JSONObject realtorObj = new JSONObject(jsonString);
-        JSONObject realtorInfoObj = new JSONObject();
-        realtorInfoObj.put("name", realtor.getName());
-        realtorInfoObj.put("contact", realtor.getContact());
-        realtorObj.put(realtor.getID(), realtorInfoObj);
-
-        try (FileWriter file = new FileWriter("src\\main\\Databases\\RealtorListing.json")) {
-            file.write(realtorObj.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public void changePassword(){
