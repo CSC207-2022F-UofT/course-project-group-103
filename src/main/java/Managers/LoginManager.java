@@ -123,10 +123,10 @@ public class LoginManager {
      * @param ID: ID of the user to return
      * @return The user with the associated ID
      */
-    public Realtor getRealtor(int ID) throws IOException {
+    public Realtor getRealtor(String ID) throws IOException {
         String jsonString = Files.readString(Paths.get("src\\main\\Databases\\UserListing.json"));
         JSONObject obj = new JSONObject(jsonString);
-        JSONObject info = (JSONObject) obj.get(String.valueOf(ID));
+        JSONObject info = (JSONObject) obj.get(ID);
 
         if (info.getString("user_type").equals("Realtor")) {
             String name = info.getString("name");
@@ -135,7 +135,7 @@ public class LoginManager {
             String securityQuestion = info.getString("securityQuestion");
             String securityAnswer = info.getString("securityAnswer");
 
-            return new Realtor(String.valueOf(ID), name, password, contact,
+            return new Realtor(ID, name, password, contact,
                     securityQuestion, securityAnswer);
         }
         return null;
