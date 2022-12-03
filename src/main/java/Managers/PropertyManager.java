@@ -81,8 +81,8 @@ public class PropertyManager {
         }
 
         if (Objects.equals(user.get("user_type").toString(), "Owner")) {
-            JSONArray reviews = user.getJSONArray("reviews");
-            ArrayList<Review> review_list = new ArrayList<>();
+            reviews = user.getJSONArray("reviews");
+            review_list = new ArrayList<>();
             for (int i = 0; i < reviews.length(); i++) {
                 review_list.add(getReview(reviews.getString(i)));
             }
