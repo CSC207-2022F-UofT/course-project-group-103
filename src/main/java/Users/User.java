@@ -1,5 +1,15 @@
 package Users;
 
+import Messenger.Messenger;
+
+import Review.Review;
+
+import java.util.ArrayList;
+
+import Exceptions.MessengerNotFound;
+
+import Exceptions.MessageNotAppropriate;
+
 public class User {
 
     protected final String ID;
@@ -9,6 +19,8 @@ public class User {
     protected String hiredRealtorID;
     protected String securityQuestion;
     protected String securityAnswer;
+
+    private ArrayList<Messenger> messengers;
 
 
     public User(String ID, String name, String password, String contact, String hiredRealtorID, String securityQuestion, String securityAnswer) {
@@ -62,15 +74,45 @@ public class User {
         this.contact = contact;
     }
 
-    public void sendOffer(){
-
+    public void sendOffer() {
     }
 
-    public void sendBid(){
-
+    public void sendBid() {
     }
 
-    public void hireRealtor(String realtorID){
+    public void hireRealtor(String realtorID) {
         this.hiredRealtorID = realtorID;
+    }
+
+    public void sendMessage(User receiver, String message) throws MessengerNotFound, MessageNotAppropriate{
+        /**
+         * Given a User object (receiver) and a String (message), this method uses the getMessenger method to
+         * locate the User object's Messenger class and logs the String message into the messageLog using addMessage.
+         * This method also checks if a message is inappropriate via the 'calculateIfAppropriate' method.
+         * If the message contains inappropriate language, an error message will be thrown and the message will not
+         * be logged.
+         */
+        Messenger MessengerToBeUsed = getMessenger(receiver);
+        if (Review.calculateIfAppropriate(message)) {
+            MessengerToBeUsed.addMessage(receiver, message);
+        } else {
+            throw new MessageNotAppropriate("This message is inappropriate");
+        }
+    }
+
+    public Messenger getMessenger(User contact) throws MessengerNotFound {
+        /**
+         * This method takes in a User Object and iterates through a user's messengers attribute and returns the
+         * Messenger class that contains the User "contact".
+         * We need this Messenger class in order to store the messages in the correct messageLog since
+         * the messengers attribute contains many Messenger classes, each with their own messageLogs.
+        */
+        for (Messenger MessengerClass : messengers) {
+            if ((this == MessengerClass.getUser1() && contact == MessengerClass.getUser2()) ||
+                    (this == MessengerClass.getUser2() && contact == MessengerClass.getUser1())) {
+                return MessengerClass;
+            }
+        }
+    throw new MessengerNotFound("Messenger not found in messengers");
     }
 }
