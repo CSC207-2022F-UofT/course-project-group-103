@@ -1,5 +1,6 @@
 package Managers;
 
+import Interactors.LoginDatabaseGateway;
 import Review.Review;
 import org.json.*;
 
@@ -14,50 +15,18 @@ import java.util.Iterator;
 
 import Users.*;
 
-public class LoginManager {
-    /**
-     * Logs in a normal user with no title that is not a property owner/buyer or a realtor.
-     *
-     * Goes through the database and checks if the user and password entered by the User
-     * is logged as a regular user (not as an Owner or Realtor). If true, then the User is logged
-     * in and is given access to information pertaining to their account.
-     *
-     * @param user: Username entered by the User
-     * @param password: Password entered by the User
-     */
-    public void login(String user, String password){
 
-    }
+public class LoginManager implements LoginDatabaseGateway {
 
-    /**
-     * Logs in an Owner user that is not a realtor.
-     *
-     * Goes through the database and checks if the user and password entered by the User is
-     * logged as an Owner user (not as a Realtor). If true, then the User is logged in and is
-     * given access to information pertaining to their account and permissions relating to an Owner.
-     *
-     * @param user: Username entered by the User
-     * @param password: Password entered by the User
-     */
-    public void loginOwner(String user, String password){
+    public JSONObject checkDatabase(){
+        try{
+            Path filePath = Path.of("src/main/Databases/PropertyListing.json");
+            String content = Files.readString(filePath);
+            return new JSONObject(content);
 
-    }
-
-    /**
-     * Logs in an Owner user that is not a realtor.
-     *
-     * Goes through the database and checks if the user and password entered by the User is
-     * logged as an Owner user (not as a Realtor). If true, then the User is logged in and is
-     * given access to information pertaining to their account and permissions relating to an Owner.
-     *
-     * @param user: Username entered by the User
-     * @param password: Password entered by the User
-     */
-    public void loginRealtor(String user, String password){
-
-    }
-
-    public void checkDatabase(){
+        }catch(IOException e){
+            throw new RuntimeException();
+        }
 
     }
 
