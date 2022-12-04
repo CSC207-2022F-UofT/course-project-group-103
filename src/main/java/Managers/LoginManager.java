@@ -33,14 +33,14 @@ public class LoginManager implements LoginDatabaseGateway {
 
     /**
      * Adds a new user to the user database if sign up requirements are met.
-     *
+     * <p>
      * Creates a new User object and assigns account information to it, then assigns the
      * object to a unique User ID.
      *
-     * @param user: Username the User signed up with
+     * @param user:     Username the User signed up with
      * @param password: Password the User signed up with
      */
-    public void addUser(String user, String password){
+    public void addUser(String user, String password) {
 
     }
 
@@ -50,16 +50,16 @@ public class LoginManager implements LoginDatabaseGateway {
      *
      * @param userID: User ID of the user deleting their account
      */
-    public void removeUser(String userID){
+    public void removeUser(String userID) {
 
     }
 
-    public User getUsers(){
+    public User getUsers() {
 
         return null;
     }
 
-    public Realtor getRealtors(){
+    public Realtor getRealtors() {
 
         return null;
     }
@@ -73,6 +73,7 @@ public class LoginManager implements LoginDatabaseGateway {
             displayAlert(); //alert saying "invalid password"
 
     }
+
 
     public boolean verifyPassword(String password) {
         int passLength = 8;
@@ -110,6 +111,6 @@ public class LoginManager implements LoginDatabaseGateway {
         public void displayAlert () {
 
         }
-
 }
+
 

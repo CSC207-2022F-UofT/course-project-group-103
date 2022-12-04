@@ -25,18 +25,21 @@ public class LoginInteractor{
     }
 
     public void loginUser(String user, String password){
-        JSONObject data = this.g.checkDatabase();
-        Set<String> keys = data.keySet();
-        for(String id: keys){
-            JSONObject p = data.getJSONObject(id);
 
-            if(Objects.equals(data.getString("user_type"), "User")){
-                String username = p.getString("name");
-                String pass = p.getString("password");
-                //if((Objects.equals(username, user)) && (Objects.equals(pass, password)))
+        //Checks if the user is user type "User". Should go in controller after taking input from UI.
+//        JSONObject data = this.g.checkDatabase();
+//        Set<String> keys = data.keySet();
 
-            }
-        }
+//        for(String id: keys){
+//            JSONObject p = data.getJSONObject(id);
+//
+//            if(Objects.equals(data.getString("user_type"), "User")){
+//                String username = p.getString("name");
+//                String pass = p.getString("password");
+//                if((Objects.equals(username, user)) && (Objects.equals(pass, password)))
+//
+//            }
+//        }
     }
 
     public void loginOwner(String user, String password){
