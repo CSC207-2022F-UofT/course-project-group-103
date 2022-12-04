@@ -6,6 +6,7 @@ import interactors.containers.*;
 import managers.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.font.ShapeGraphicAttribute;
 import java.util.ArrayList;
 
 public class GUI extends JFrame implements Presenter {
@@ -16,7 +17,6 @@ public class GUI extends JFrame implements Presenter {
      * -current implementation of Login Manager doesn't account for any realtors
      * -reviews should be implemented on the account page
      * -messaging should be implemented on the account page
-     * -create sign up functionality and ui *
      * -update the property page so the owner account is accessible to users
      */
 
@@ -26,6 +26,7 @@ public class GUI extends JFrame implements Presenter {
     JPanel screens;
     CardLayout screen;
     LoginScreen loginScreen;
+    SignUpScreen signUpScreen;
     HomeScreen homeScreen;
     ListingScreen listingScreen;
     PropertyScreen propertyScreen;
@@ -52,6 +53,11 @@ public class GUI extends JFrame implements Presenter {
         LoginInteractor loginInteractor = new LoginInteractor(loginManager, activeUser);
         LoginScreenController loginScreenController = new LoginScreenController(loginInteractor, this);
         loginScreen = new LoginScreen(loginScreenController);
+
+        // set up sign-up screen
+        SignUpInteractor signUpInteractor = new SignUpInteractor(activeUser, loginManager);
+        SignUpScreenController signUpScreenController = new SignUpScreenController(signUpInteractor, this);
+        signUpScreen = new SignUpScreen(signUpScreenController);
 
         // set up home screen
         HomeInteractor homeInteractor = new HomeInteractor(accountToDisplay, activeUser);
@@ -95,6 +101,7 @@ public class GUI extends JFrame implements Presenter {
 
         // add all screens to card layout
         screens.add(loginScreen, "Login");
+        screens.add(signUpScreen, "Sign Up");
         screens.add(homeScreen, "Home");
         screens.add(listingScreen, "Listing");
         screens.add(propertyScreen, "Property");
@@ -109,7 +116,13 @@ public class GUI extends JFrame implements Presenter {
     public void displayLogin() {
         // clears the page order otherwise can run into problems
         pageOrder.clear();
+        loginScreen.redraw();
         screen.show(screens, "Login");
+    }
+
+    public void displaySignUp() {
+        signUpScreen.redraw();
+        screen.show(screens, "Sign Up");
     }
 
     public void displayListing() {

@@ -93,16 +93,21 @@ public class PropertyManager implements PropertyListingGateway {
         String name = user.getString("name");
         String password = user.getString("password");
         String contact = user.getString("contact");
-        JSONArray reviews = user.getJSONArray("reviews");
-        ArrayList<Review> review_list = new ArrayList<>();
-        for (int i = 0; i < reviews.length(); i++) {
-            review_list.add(this.getReview(reviews.getString(i)));
-        }
         if (Objects.equals(user.get("user_type").toString(), "Owner")) {
             if (Objects.equals(user.get("hiredRealtor"), null)) {
+                JSONArray reviews = user.getJSONArray("reviews");
+                ArrayList<Review> review_list = new ArrayList<>();
+                for (int i = 0; i < reviews.length(); i++) {
+                    review_list.add(this.getReview(reviews.getString(i)));
+                }
                 return new Owner(ID, name, password, contact, review_list);
             }
             else {
+                JSONArray reviews = user.getJSONArray("reviews");
+                ArrayList<Review> review_list = new ArrayList<>();
+                for (int i = 0; i < reviews.length(); i++) {
+                    review_list.add(this.getReview(reviews.getString(i)));
+                }
                 String hiredRealtorID = user.getString("hiredRealtor");
                 return new Owner(ID, name, password, contact, hiredRealtorID, review_list);
             }

@@ -45,10 +45,10 @@ public class ListingScreen extends JPanel implements ActionListener {
         sqftrange.setAlignmentX(Component.CENTER_ALIGNMENT);
         JPanel types = new JPanel();
         types.setLayout(new BoxLayout(types, BoxLayout.X_AXIS));
-        house = new JCheckBox("House");
-        condo = new JCheckBox("Condo");
-        office = new JCheckBox("Office");
-        restaurant = new JCheckBox("Restaurant");
+        house = new JCheckBox("House", true);
+        condo = new JCheckBox("Condo", true);
+        office = new JCheckBox("Office", true);
+        restaurant = new JCheckBox("Restaurant", true);
         types.add(house);
         types.add(condo);
         types.add(office);

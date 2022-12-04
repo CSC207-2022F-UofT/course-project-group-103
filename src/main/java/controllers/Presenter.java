@@ -15,6 +15,10 @@ public interface Presenter {
      */
     void displayLogin();
     /**
+     * Displays the sign-up page.
+     */
+    void displaySignUp();
+    /**
      * Displays the listing page.
      */
     void displayListing();

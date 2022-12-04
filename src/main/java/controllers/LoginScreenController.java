@@ -27,4 +27,8 @@ public class LoginScreenController {
         }
         return false;
     }
+
+    public void signUp() {
+        this.presenter.displaySignUp();
+    }
 }
