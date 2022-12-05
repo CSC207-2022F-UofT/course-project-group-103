@@ -21,9 +21,9 @@ public class LoginInteractor{
      */
 
     LoginDatabaseGateway g;
-    LoginPresenter p;
+    LoginPresenterOB p;
 
-    public LoginInteractor(LoginDatabaseGateway g, LoginPresenter p){
+    public LoginInteractor(LoginDatabaseGateway g, LoginPresenterOB p){
         this.g = g;
         this.p = p;
     }
@@ -40,7 +40,7 @@ public class LoginInteractor{
                 String username = p.getString("name");
                 String pass = p.getString("password");
                 if((Objects.equals(username, user)) && (Objects.equals(pass, password))){
-                    this.p.changeUI("User");
+                    this.p.present("User");
                 }else
                     throw new LoginNotFoundException("Incorrect login information, please try again.");
 
@@ -48,7 +48,7 @@ public class LoginInteractor{
                 String username = p.getString("name");
                 String pass = p.getString("password");
                 if((Objects.equals(username, user)) && (Objects.equals(pass, password))){
-                    this.p.changeUI("Owner");
+                    this.p.present("Owner");
                 }else
                     throw new LoginNotFoundException("Incorrect login information, please try again.");
 
@@ -56,7 +56,7 @@ public class LoginInteractor{
                 String username = p.getString("name");
                 String pass = p.getString("password");
                 if((Objects.equals(username, user)) && (Objects.equals(pass, password))){
-                    this.p.changeUI("Realtor");
+                    this.p.present("Realtor");
                 }else
                     throw new LoginNotFoundException("Incorrect login information, please try again.");
             }

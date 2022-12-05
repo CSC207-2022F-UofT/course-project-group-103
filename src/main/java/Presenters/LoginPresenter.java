@@ -1,15 +1,19 @@
 package Presenters;
 
+import Interactors.LoginPresenterOB;
+
 import java.util.Objects;
 
-public class LoginPresenter {
-    public void changeUI(String loginType) {
+public class LoginPresenter implements LoginPresenterOB {
 
-        if(Objects.equals(loginType, "User")){
+    //Changes the UI to the screen corresponding to userType
+    @Override
+    public void present(String userType) {
+        if(userType.equals("User")){
 
-        }else if(Objects.equals(loginType, "Realtor")){
+        }else if(userType.equals("Owner")){
 
-        }else if(Objects.equals(loginType, "Owner")){
+        }else if(userType.equals("Realtor")){
 
         }
     }
