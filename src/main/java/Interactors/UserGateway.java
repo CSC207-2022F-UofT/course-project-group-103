@@ -1,6 +1,7 @@
 package Interactors;
 
 import Users.Realtor;
+import Users.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.FileWriter;
@@ -77,5 +78,37 @@ public class UserGateway {
         }
 
         return realtors;
+    }
+
+    /**
+     * Given a realtor ID, returns a list of all clients the realtor has.
+     *
+     * @param ID Realtor ID
+     * @return ArrayList of users
+     */
+    public ArrayList<User> getRealtorClients(String ID) throws IOException {
+        ArrayList<User> clients = new ArrayList<>();
+
+        String jsonString = Files.readString(Paths.get("src\\main\\Databases\\UserListing.json"));
+        JSONObject users = new JSONObject(jsonString);
+        JSONArray keys = users.names();
+
+        String realtorID = users.getString(ID);
+
+        for (int i = 0; i < keys.length(); i++) {
+            String key = keys.getString(i);
+            JSONObject user = users.getJSONObject(key);
+
+            if (user.getString("hiredRealtor").equals(ID)) {
+                String name = user.getString("name");
+                String password = user.getString("password");
+                String contact = user.getString("contact");
+                String securityQuestion = user.getString("securityQuestion");
+                String securityAnswer = user.getString("securityAnswer");
+                clients.add(new User(key, name, password, contact, ID, securityQuestion, securityAnswer));
+            }
+        }
+
+        return clients;
     }
 }
