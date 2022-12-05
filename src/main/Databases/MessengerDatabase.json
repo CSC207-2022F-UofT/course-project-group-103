@@ -1,0 +1,12 @@
+{
+  "1": {
+    "User1_ID" : "4",
+    "User2_ID" : "1",
+    "messageLog" : [["4", "Hi Daniel"], ["4", "How are you?"], ["1", "Hello!"], ["1", "I am doing well!"]]
+  },
+  "2": {
+    "User1_ID" : "2",
+    "User2_ID" : "3",
+    "messageLog" : [["2", "Hello Zein"], ["2", "Is the price negotiable"], ["3", "Hello"], ["3", "No, it is fixed"]]
+  }
+}

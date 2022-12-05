@@ -124,5 +124,4 @@ public class PropertyManager {
         return new Review(ID, reviewString, ownerID, userID, date, rating);
     }
 
-
 }
