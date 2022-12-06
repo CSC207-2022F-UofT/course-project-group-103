@@ -64,6 +64,14 @@ public class User {
         return hiredRealtorID;
     }
 
+    public String getSecurityQuestion() {
+        return securityQuestion;
+    }
+
+    public String getSecurityAnswer() {
+        return securityAnswer;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
