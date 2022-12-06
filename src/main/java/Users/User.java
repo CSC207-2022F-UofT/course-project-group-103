@@ -22,6 +22,7 @@ public class User {
 
     private ArrayList<Messenger> messengers;
 
+
     public User(String ID, String name, String password, String contact, String hiredRealtorID, String securityQuestion, String securityAnswer) {
         this.ID = ID;
         this.name = name;
