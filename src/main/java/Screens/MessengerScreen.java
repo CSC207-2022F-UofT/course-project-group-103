@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MessengerScreen {
-
     public MessengerScreen() {
         JFrame frame = new JFrame();;
 
@@ -20,7 +19,4 @@ public class MessengerScreen {
         frame.setSize(500, 500);
     }
 
-    public static void main(String[] args) {
-        new MessengerScreen();
-    }
 }

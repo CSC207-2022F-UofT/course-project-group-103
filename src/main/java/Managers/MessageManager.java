@@ -13,9 +13,6 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Objects;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -46,7 +43,7 @@ public class MessageManager {
     }
 
 
-    public Messenger retrieveMessenger(String messenger_ID) throws MessengerNotFound, UndefinedUserType, IOException {
+    public static Messenger retrieveMessenger(String messenger_ID) throws MessengerNotFound, UndefinedUserType, IOException {
         String location = "src/main/Databases/MessengerDatabase.json";
         File file = new File(location);
         String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
@@ -65,7 +62,7 @@ public class MessageManager {
         return new Messenger(user1_ID, user2_ID, messenger_ID, messageLog);
     }
 
-    public Messenger getMessenger(String User1_ID, String User2_ID) throws MessengerNotFound, IOException, UndefinedUserType {
+    public static Messenger getMessenger(String User1_ID, String User2_ID) throws MessengerNotFound, IOException, UndefinedUserType {
         String location = "src/main/Databases/MessengerDatabase.json";
         File file = new File(location);
         String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
@@ -85,7 +82,7 @@ public class MessageManager {
         throw new MessengerNotFound("Messenger not found.");
     }
 
-    public void addMessage(String sender_ID, String receiver_ID, String message) throws UndefinedUserType, IOException, MessengerNotFound, MessageNotAppropriate {
+    public static void addMessage(String sender_ID, String receiver_ID, String message) throws UndefinedUserType, IOException, MessengerNotFound, MessageNotAppropriate {
         if (Review.calculateIfAppropriate(message)) {
             String location = "src/main/Databases/MessengerDatabase.json";
             File file = new File(location);
