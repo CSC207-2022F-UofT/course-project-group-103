@@ -1,20 +1,20 @@
 package screens;
 
-import controllers.SingleListingController;
+import presenters.SingleListingPresenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SingleListing extends JPanel implements ActionListener {
-    SingleListingController singleListingController;
+    SingleListingPresenter singleListingPresenter;
 
-    public SingleListing(SingleListingController c) {
-        this.singleListingController = c;
+    public SingleListing(SingleListingPresenter presenter) {
+        this.singleListingPresenter = presenter;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // info
-        for (String s: this.singleListingController.getListingInfo()) {
+        for (String s: this.singleListingPresenter.onListingInfo()) {
             this.add(new JLabel(s));
         }
 
@@ -22,11 +22,11 @@ public class SingleListing extends JPanel implements ActionListener {
         JButton b = new JButton("Go to Property");
         b.addActionListener(this);
         this.add(b);
-
+        this.add(new JLabel(" "));
     }
 
     // Button pressed
     public void actionPerformed(ActionEvent evt) {
-        this.singleListingController.showProperty();
+        this.singleListingPresenter.onShowProperty();
     }
 }

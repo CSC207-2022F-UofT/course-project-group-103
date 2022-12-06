@@ -3,23 +3,45 @@ package interactors;
 import entities.Property;
 import interactors.containers.ListingFilters;
 import interactors.containers.PropertyToDisplay;
+import interactors.gateway_interfaces.PropertyGateway;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ListingInteractor {
-    PropertyListingGateway propertyListingGateway;
+
+    /**
+     * Gateway interface to property JSON with read/write methods.
+     */
+    PropertyGateway propertyGateway;
+    /**
+     * Current property being accessed.
+     */
     PropertyToDisplay propertyToDisplay;
+    /**
+     * Current listing filters.
+     */
     ListingFilters filters;
 
-    public ListingInteractor(PropertyListingGateway g, PropertyToDisplay p, ListingFilters f) {
-        this.propertyListingGateway = g;
+    /**
+     * Constructor for the listing interactor, assigns object instances to its attributes.
+     *
+     * @param g: implementation of propertyGateway interface.
+     * @param p: PropertyToDisplay class for this application instance's current accessed property.
+     * @param f: ListingFilters class for this application instance's of current filters.
+     */
+    public ListingInteractor(PropertyGateway g, PropertyToDisplay p, ListingFilters f) {
+        this.propertyGateway = g;
         this.propertyToDisplay = p;
         this.filters = f;
     }
 
+    /**
+     * Creates an array list of single listing interactors for properties that meet the current filters to
+     * be passed to the presenter.
+     * @return array list of SingleListingInteractors
+     */
     public ArrayList<SingleListingInteractor> createListings() {
-        ArrayList<Property> properties = propertyListingGateway.getProperties();
+        ArrayList<Property> properties = propertyGateway.getProperties();
         ArrayList<SingleListingInteractor> interactors = new ArrayList<>();
         for (Property p: properties) {
             if (this.filters.getMaxPrice()==0 || this.filters.getMaxSqFt()==0 ||
@@ -41,20 +63,31 @@ public class ListingInteractor {
         return interactors;
     }
 
-    public void updateFilter(String price_range, String sqft_range) {
+    /**
+     * Updates the current filters to the inputted filter.
+     *
+     * @param price_range: Formatted string of a price range, example "1-100"
+     * @param sqft_range: Formatted string of a square footage range, example "1-100"
+     * @param house: Whether house should be displayed.
+     * @param condo: Whether condo should be displayed.
+     * @param office: Whether office should be displayed.
+     * @param restaurant: Whether restaurant should be displayed.
+     */
+    public void updateFilter(String price_range, String sqft_range,
+                             boolean  house, boolean condo, boolean office, boolean restaurant) {
         String[] pricerange = price_range.split("-");
         String[] sqftrange = sqft_range.split("-");
         this.filters.setPriceRange(Float.parseFloat(pricerange[0]), Float.parseFloat(pricerange[1]));
-        this.filters.setSqFtRange(Float.parseFloat(sqftrange[0]), Float.parseFloat(sqftrange[1]));
-    }
-
-    public void updateTypeFilter(Boolean house, Boolean condo, Boolean office, Boolean restaurant) {
+        this.filters.setSqFtRange(Integer.parseInt(sqftrange[0]), Integer.parseInt(sqftrange[1]));
         this.filters.setShowHouse(house);
         this.filters.setShowCondo(condo);
         this.filters.setShowOffice(office);
         this.filters.setShowRestaurant(restaurant);
     }
 
+    /**
+     * Resets the current filters.
+     */
     public void resetFilter() {
         this.filters.setPriceRange(0, 0);
         this.filters.setSqFtRange(0,0);

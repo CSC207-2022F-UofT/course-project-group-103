@@ -1,4 +1,4 @@
-package entities;
+package interactors.exceptions;
 
 public class UndefinedUserType extends Exception {
 

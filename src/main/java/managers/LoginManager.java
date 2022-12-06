@@ -2,7 +2,7 @@ package managers;
 
 import entities.Owner;
 import entities.Review;
-import interactors.LoginGateway;
+import interactors.gateway_interfaces.LoginGateway;
 import entities.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -86,6 +86,19 @@ public class LoginManager implements LoginGateway {
                 new FileOutputStream(this.users_filepath), "utf-8"))) {
             writer.write(user_list.toString());
         }
+    }
+
+    public void removeUser(String id) {
+        try {
+            Path filePath = Path.of(this.users_filepath);
+            String content = Files.readString(filePath);
+            JSONObject users = new JSONObject(content);
+            users.remove(id);
+            try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(this.users_filepath), "utf-8"))) {
+                writer.write(users.toString());
+            }
+        } catch (Exception e) {e.printStackTrace();}
     }
 
 }

@@ -1,7 +1,7 @@
-package controllers;
+package presenters;
 
 // controller layer
-public interface Presenter {
+public interface ViewInterface {
     /**
      * Displays the home page.
      */
@@ -35,7 +35,19 @@ public interface Presenter {
      */
     void displayCreateListing();
     /**
+     * Displays the create review page.
+     */
+    void displayCreateReview();
+    /**
      * Displays the previous page.
      */
     void displayPrevious();
+    /**
+     * Clears the order of pages.
+     */
+    void clearPrevious();
+    /**
+     * Refreshes the account page.
+     */
+    void refreshAccount();
 }

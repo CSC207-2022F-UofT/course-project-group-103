@@ -1,6 +1,6 @@
 package screens;
 
-import controllers.SignUpScreenController;
+import presenters.SignUpScreenPresenter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,15 +8,15 @@ import java.awt.event.ActionListener;
 
 public class SignUpScreen extends JPanel implements ActionListener{
 
-    SignUpScreenController signUpScreenController;
+    SignUpScreenPresenter signUpScreenPresenter;
     JTextField username;
     JTextField contact;
     JPasswordField password;
     JPasswordField confirm_password;
 
-    public SignUpScreen(SignUpScreenController controller) {
+    public SignUpScreen(SignUpScreenPresenter presenter) {
         // setup
-        this.signUpScreenController = controller;
+        this.signUpScreenPresenter = presenter;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.draw();
     }
@@ -32,7 +32,7 @@ public class SignUpScreen extends JPanel implements ActionListener{
         JButton back = new JButton("Back");
         back.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(back);
-        back.addActionListener(e -> signUpScreenController.back());
+        back.addActionListener(e -> signUpScreenPresenter.onBack());
 
         // title
         JLabel title = new JLabel("Sign Up");
@@ -80,9 +80,7 @@ public class SignUpScreen extends JPanel implements ActionListener{
         String pass = new String(password.getPassword());
         String confirm_pass = new String(confirm_password.getPassword());
         try {
-            this.signUpScreenController.sendSignUp(u, c, pass, confirm_pass);
-            JOptionPane.showMessageDialog(this, "Account Created.");
-            this.signUpScreenController.showHome();
+            this.signUpScreenPresenter.onSignUp(u, c, pass, confirm_pass);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }

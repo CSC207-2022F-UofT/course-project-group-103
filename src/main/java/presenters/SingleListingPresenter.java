@@ -1,15 +1,15 @@
-package controllers;
+package presenters;
 
 import interactors.SingleListingInteractor;
 import java.util.ArrayList;
 
-public class SingleListingController {
+public class SingleListingPresenter {
     SingleListingInteractor singleListingInteractor;
-    Presenter presenter;
+    ViewInterface viewInterface;
 
-    public SingleListingController(SingleListingInteractor i, Presenter p) {
+    public SingleListingPresenter(SingleListingInteractor i, ViewInterface p) {
         this.singleListingInteractor = i;
-        this.presenter = p;
+        this.viewInterface = p;
     }
 
     /**
@@ -17,7 +17,7 @@ public class SingleListingController {
      *
      * Calls the SingleListingInteractor method listingInfo().
      */
-    public ArrayList<String> getListingInfo() {
+    public ArrayList<String> onListingInfo() {
         return this.singleListingInteractor.listingInfo();
     }
 
@@ -26,8 +26,8 @@ public class SingleListingController {
      *
      * Calls the presenter method to display property implemented in GUI.
      */
-    public void showProperty() {
+    public void onShowProperty() {
         this.singleListingInteractor.updateDisplayProperty();
-        this.presenter.displayProperty();
+        this.viewInterface.displayProperty();
     }
 }

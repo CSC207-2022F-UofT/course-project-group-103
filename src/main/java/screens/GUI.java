@@ -1,23 +1,19 @@
 package screens;
 
-import controllers.*;
+import presenters.*;
 import interactors.*;
 import interactors.containers.*;
 import managers.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.font.ShapeGraphicAttribute;
 import java.util.ArrayList;
 
-public class GUI extends JFrame implements Presenter {
+public class GUI extends JFrame implements ViewInterface {
 
     /**
      * TODO:
-     * -property manager has issues with the getUser() method since it assumes all users have reviews,
      * -current implementation of Login Manager doesn't account for any realtors
-     * -reviews should be implemented on the account page
      * -messaging should be implemented on the account page
-     * -update the property page so the owner account is accessible to users
      */
 
     final String properties_path = "course-project-group-103/src/main/Databases/PropertyListing.json";
@@ -33,15 +29,17 @@ public class GUI extends JFrame implements Presenter {
     AccountScreen accountScreen;
     ActiveAccountScreen activeAccountScreen;
     CreateListingScreen createListingScreen;
+    CreateReviewScreen createReviewScreen;
     ArrayList<String> pageOrder = new ArrayList<>();
 
     public GUI() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setPreferredSize(new Dimension(400, 300));
+        this.setPreferredSize(new Dimension(400, 400));
 
         //set up managers
         PropertyManager propertyManager = new PropertyManager(properties_path, users_path, reviews_path);
         LoginManager loginManager = new LoginManager(users_path, reviews_path);
+        ReviewManager reviewManager = new ReviewManager(reviews_path);
 
         //set up containers
         ActiveUser activeUser = new ActiveUser();
@@ -51,47 +49,52 @@ public class GUI extends JFrame implements Presenter {
 
         // set up login screen
         LoginInteractor loginInteractor = new LoginInteractor(loginManager, activeUser);
-        LoginScreenController loginScreenController = new LoginScreenController(loginInteractor, this);
-        loginScreen = new LoginScreen(loginScreenController);
+        LoginScreenPresenter loginScreenPresenter = new LoginScreenPresenter(loginInteractor, this);
+        loginScreen = new LoginScreen(loginScreenPresenter);
 
         // set up sign-up screen
         SignUpInteractor signUpInteractor = new SignUpInteractor(activeUser, loginManager);
-        SignUpScreenController signUpScreenController = new SignUpScreenController(signUpInteractor, this);
-        signUpScreen = new SignUpScreen(signUpScreenController);
+        SignUpScreenPresenter signUpScreenPresenter = new SignUpScreenPresenter(signUpInteractor, this);
+        signUpScreen = new SignUpScreen(signUpScreenPresenter);
 
         // set up home screen
-        HomeInteractor homeInteractor = new HomeInteractor(accountToDisplay, activeUser);
-        HomeScreenController homeScreenController = new HomeScreenController(this, homeInteractor);
-        homeScreen = new HomeScreen(homeScreenController);
+        HomeScreenPresenter homeScreenPresenter = new HomeScreenPresenter(this);
+        homeScreen = new HomeScreen(homeScreenPresenter);
 
         // set up listing screen
         ListingInteractor listingInteractor = new ListingInteractor(propertyManager, propertyToDisplay, listingFilters);
-        ListingController listingController = new ListingController(listingInteractor, this);
-        listingScreen = new ListingScreen(listingController);
+        ListingScreenPresenter listingScreenPresenter = new ListingScreenPresenter(listingInteractor, this);
+        listingScreen = new ListingScreen(listingScreenPresenter);
 
         // set up property screen
         PropertyInteractor propertyInteractor = new PropertyInteractor(propertyToDisplay, activeUser,
                 accountToDisplay, propertyManager);
-        PropertyScreenController propertyScreenController = new PropertyScreenController(propertyInteractor, this);
-        propertyScreen = new PropertyScreen(propertyScreenController);
+        PropertyScreenPresenter propertyScreenPresenter = new PropertyScreenPresenter(propertyInteractor, this);
+        propertyScreen = new PropertyScreen(propertyScreenPresenter);
 
         // set up account screen
         AccountInteractor accountInteractor = new AccountInteractor(accountToDisplay, activeUser,
-                propertyToDisplay, propertyManager);
-        AccountController accountController = new AccountController(accountInteractor, this);
-        accountScreen = new AccountScreen(accountController);
+                propertyToDisplay, propertyManager, reviewManager);
+        AccountScreenPresenter accountScreenPresenter = new AccountScreenPresenter(accountInteractor, this);
+        accountScreen = new AccountScreen(accountScreenPresenter);
 
         // set up active account screen
         ActiveAccountInteractor activeAccountInteractor = new ActiveAccountInteractor(activeUser,
-                propertyToDisplay, propertyManager);
-        ActiveAccountController activeAccountController = new ActiveAccountController(activeAccountInteractor, this);
-        activeAccountScreen = new ActiveAccountScreen(activeAccountController);
+                propertyToDisplay, propertyManager, loginManager, reviewManager);
+        ActiveAccountPresenter activeAccountPresenter = new ActiveAccountPresenter(activeAccountInteractor, this);
+        activeAccountScreen = new ActiveAccountScreen(activeAccountPresenter);
 
         // set up create listing screen
         CreateListingInteractor createListingInteractor = new CreateListingInteractor(activeUser,
                 propertyManager, loginManager);
-        CreateListingController createListingController = new CreateListingController(this, createListingInteractor);
-        createListingScreen = new CreateListingScreen(createListingController);
+        CreateListingPresenter createListingPresenter = new CreateListingPresenter(this, createListingInteractor);
+        createListingScreen = new CreateListingScreen(createListingPresenter);
+
+        // set up create review screen
+        CreateReviewInteractor createReviewInteractor = new CreateReviewInteractor(reviewManager,
+                activeUser, accountToDisplay);
+        CreateReviewPresenter createReviewPresenter = new CreateReviewPresenter(createReviewInteractor, this);
+        createReviewScreen = new CreateReviewScreen(createReviewPresenter);
 
         // set up card layout
         screen = new CardLayout();
@@ -108,6 +111,7 @@ public class GUI extends JFrame implements Presenter {
         screens.add(accountScreen,"Account");
         screens.add(activeAccountScreen, "Active Account");
         screens.add(createListingScreen, "Create Listing");
+        screens.add(createReviewScreen, "Create Review");
     }
 
     public void displayHome() {
@@ -154,6 +158,12 @@ public class GUI extends JFrame implements Presenter {
         pageOrder.add("Create Listing");
     }
 
+    public void displayCreateReview() {
+        createReviewScreen.redraw();
+        screen.show(screens, "Create Review");
+        pageOrder.add("Create Review");
+    }
+
     public void displayPrevious() {
         if (pageOrder.size()<2) {
             screen.show(screens, "Home");
@@ -164,5 +174,11 @@ public class GUI extends JFrame implements Presenter {
             screen.show(screens,pageOrder.get(pageOrder.size()-1));
         }
     }
+
+    public void clearPrevious() {
+        pageOrder.clear();
+    }
+
+    public void refreshAccount() {accountScreen.redraw();}
 
 }

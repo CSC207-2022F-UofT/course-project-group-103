@@ -1,38 +1,42 @@
-package controllers;
+package presenters;
 
 import interactors.CreateListingInteractor;
 
-public class CreateListingController {
+public class CreateListingPresenter {
 
-    Presenter presenter;
+    ViewInterface viewInterface;
     CreateListingInteractor createListingInteractor;
 
-    public CreateListingController(Presenter p, CreateListingInteractor i) {
-        this.presenter = p;
+    public CreateListingPresenter(ViewInterface p, CreateListingInteractor i) {
+        this.viewInterface = p;
         this.createListingInteractor = i;
     }
 
-    public void back() {
-        this.presenter.displayPrevious();
+    public void onBack() {
+        this.viewInterface.displayPrevious();
     }
 
-    public void sendCreateHouse(String name, String address, String sqFt, String price, String numBed,
+    public void onCreateHouse(String name, String address, String sqFt, String price, String numBed,
                                 String numBath, String numLaundry, String numKitchen) throws Exception {
         this.createListingInteractor.createHouse(name, address, sqFt, price, numBed, numBath, numLaundry, numKitchen);
+        this.viewInterface.displayPrevious();
     }
 
-    public void sendCreateCondo(String name, String address, String sqFt, String price, String numBed,
+    public void onCreateCondo(String name, String address, String sqFt, String price, String numBed,
                                 String numBath, String numLaundry, String numKitchen) throws Exception {
         this.createListingInteractor.createCondo(name, address, sqFt, price, numBed, numBath, numLaundry, numKitchen);
+        this.viewInterface.displayPrevious();
     }
-    public void sendCreateOffice(String name, String address, String sqFt, String price, String numOffice,
+    public void onCreateOffice(String name, String address, String sqFt, String price, String numOffice,
                                 String numReception) throws Exception {
         this.createListingInteractor.createOffice(name, address, sqFt, price, numOffice, numReception);
+        this.viewInterface.displayPrevious();
     }
 
-    public void sendCreateRestaurant(String name, String address, String sqFt, String price,
+    public void onCreateRestaurant(String name, String address, String sqFt, String price,
                                      String spec) throws Exception {
         this.createListingInteractor.createRestaurant(name, address, sqFt, price, spec);
+        this.viewInterface.displayPrevious();
     }
 
 }

@@ -1,15 +1,14 @@
 package screens;
 
-import controllers.ListingController;
-import controllers.SingleListingController;
+import presenters.ListingScreenPresenter;
+import presenters.SingleListingPresenter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ListingScreen extends JPanel implements ActionListener {
-    ListingController listingController;
-
+    ListingScreenPresenter listingScreenPresenter;
     JTextField pricerange;
     JTextField sqftrange;
     JCheckBox house;
@@ -18,8 +17,8 @@ public class ListingScreen extends JPanel implements ActionListener {
     JCheckBox restaurant;
     JPanel panel = new JPanel();
 
-    public ListingScreen(ListingController c) {
-        this.listingController = c;
+    public ListingScreen(ListingScreenPresenter presenter) {
+        this.listingScreenPresenter = presenter;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.draw();
     }
@@ -34,7 +33,7 @@ public class ListingScreen extends JPanel implements ActionListener {
         JButton back = new JButton("Back");
         back.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(back);
-        back.addActionListener(e -> listingController.back());
+        back.addActionListener(e -> listingScreenPresenter.onBack());
 
         // filters setup
         JLabel price_tag = new JLabel("Price Range: ");
@@ -54,10 +53,16 @@ public class ListingScreen extends JPanel implements ActionListener {
         types.add(office);
         types.add(restaurant);
         this.add(types);
-        this.add(price_tag);
-        this.add(pricerange);
-        this.add(sqft_tag);
-        this.add(sqftrange);
+        JPanel inputs = new JPanel();
+        inputs.setLayout(new BoxLayout(inputs, BoxLayout.Y_AXIS));
+        inputs.setAlignmentX(Component.CENTER_ALIGNMENT);
+        inputs.setPreferredSize(new Dimension(200, 100));
+        inputs.setMaximumSize(new Dimension(200, 100));
+        inputs.add(price_tag);
+        inputs.add(pricerange);
+        inputs.add(sqft_tag);
+        inputs.add(sqftrange);
+        this.add(inputs);
         JButton refresh = new JButton("Refresh");
         refresh.setAlignmentX(Component.CENTER_ALIGNMENT);
         refresh.addActionListener(this);
@@ -73,15 +78,15 @@ public class ListingScreen extends JPanel implements ActionListener {
 
     public void setUpListings() {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        for (SingleListingController controller: this.listingController.createListings()) {
-            SingleListing j = new SingleListing(controller);
+        for (SingleListingPresenter p: this.listingScreenPresenter.onCreateListings()) {
+            SingleListing j = new SingleListing(p);
             j.setAlignmentX(Component.CENTER_ALIGNMENT);
             panel.add(j);
         }
     }
 
     public void redraw() {
-        this.listingController.sendListingReset();
+        this.listingScreenPresenter.onListingReset();
         panel.removeAll();
         this.removeAll();
         this.draw();
@@ -90,9 +95,8 @@ public class ListingScreen extends JPanel implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent evt) {
-        this.listingController.sendListingUpdate(pricerange.getText(), sqftrange.getText());
-        this.listingController.sendListingTypeUpdate(house.isSelected(), condo.isSelected(),
-                office.isSelected(),restaurant.isSelected());
+        this.listingScreenPresenter.onListingUpdate(pricerange.getText(), sqftrange.getText(),
+                house.isSelected(), condo.isSelected(), office.isSelected(),restaurant.isSelected());
         panel.removeAll();
         this.setUpListings();
         panel.repaint();
