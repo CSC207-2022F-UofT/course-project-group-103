@@ -139,7 +139,6 @@ public class PropertyManager {
         return new Review(ID, reviewString, ownerID, userID, date, rating);
     }
 
-
     public static float getPrice(String id) {
         try {
             String location = "src/main/Databases/PropertyListing.json";

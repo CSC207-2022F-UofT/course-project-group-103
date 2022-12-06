@@ -35,7 +35,7 @@ public class PropertyPageInteractor {
     /**
      * Sends the given bid to the database.
      *
-     * Checks if the mid is valid (if it is an integer and above 10% of the asking price), and then sends the bid to the
+     * Checks if the bid is valid (if it is an integer and above 10% of the asking price), and then sends the bid to the
      * database. If bid is too low throws an Offer to low exception, if bid is not able to be parsed to string it throws
      * an invalid bid exception.
      *
