@@ -1,6 +1,6 @@
 # Real Estate App
 
-Our program provides a platform for owners, buyers, and real estate agents to connect with each other by sharing and viewing their properties. 
+Our program provides a platform for owners, buyers, and real estate agents to connect with each other by sharing and viewing properties. 
 
 ## Features at a Glance
 
@@ -9,6 +9,7 @@ Our program provides a platform for owners, buyers, and real estate agents to co
 * [Viewing and filtering properties](#3-filtering-and-viewing-properties)
 * [Bidding on properties](#4-bidding-on-a-property)
 * [User messaging system](#5-messaging-users)
+* [Hiring Realtors](#6-hiring-realtors)
 
 ## Running the Program
 
@@ -43,5 +44,7 @@ wip
 ### 5. Messaging Users
 wip
 
+### 6. Hiring Realtors
+wip
 
 ## Contributors
