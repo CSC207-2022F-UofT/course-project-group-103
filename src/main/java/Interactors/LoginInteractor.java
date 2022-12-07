@@ -9,6 +9,15 @@ import java.util.Set;
 
 public class LoginInteractor{
 
+    LoginDatabaseGateway g;
+    LoginPresenterOB p;
+
+
+    public LoginInteractor(LoginDatabaseGateway g, LoginPresenterOB p){
+        this.g = g;
+        this.p = p;
+    }
+
     /**
      * Logs in a normal user with no title that is not a property owner/buyer or a realtor.
      *
@@ -19,15 +28,6 @@ public class LoginInteractor{
      * @param user: Username entered by the User
      * @param password: Password entered by the User
      */
-
-    LoginDatabaseGateway g;
-    LoginPresenterOB p;
-
-    public LoginInteractor(LoginDatabaseGateway g, LoginPresenterOB p){
-        this.g = g;
-        this.p = p;
-    }
-
     public void loginUser(String user, String password) throws LoginNotFoundException {
 
         JSONObject data = this.g.checkDatabase();

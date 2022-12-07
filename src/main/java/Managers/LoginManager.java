@@ -42,7 +42,8 @@ public class LoginManager implements LoginDatabaseGateway {
      * @param securityQuestion: Security question the User signed up with
      * @param securityAnswer: Security answer the User signed up with
      */
-    public void addUser(String name, String password, String contact, String securityQuestion, String securityAnswer) throws IOException {
+    public void addUser(String name, String password, String contact, String securityQuestion,
+                        String securityAnswer) throws IOException {
 
     }
 

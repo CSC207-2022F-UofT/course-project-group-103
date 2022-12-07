@@ -10,11 +10,11 @@ public class LoginPresenter implements LoginPresenterOB {
     @Override
     public void present(String userType) {
         if(userType.equals("User")){
-
+            //open the User home screen
         }else if(userType.equals("Owner")){
-
+            //open the Owner home screen
         }else if(userType.equals("Realtor")){
-
+            //open the Realtor home screen
         }
     }
 }
