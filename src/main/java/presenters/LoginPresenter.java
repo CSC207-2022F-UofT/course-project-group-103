@@ -1,8 +1,6 @@
-package Presenters;
+package presenters;
 
-import Interactors.LoginPresenterOB;
-
-import java.util.Objects;
+import interactors.LoginPresenterOB;
 
 public class LoginPresenter implements LoginPresenterOB {
 

@@ -1,7 +1,7 @@
-package Interactors;
+package interactors;
 
-import Exceptions.LoginNotFoundException;
-import Presenters.LoginPresenter;
+import exceptions.LoginNotFoundException;
+import presenters.LoginPresenter;
 import org.json.JSONObject;
 
 import java.util.Objects;
