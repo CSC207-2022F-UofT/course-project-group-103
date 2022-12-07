@@ -1,11 +1,12 @@
 package screens;
 
+import interactors.SingleListingModel;
 import presenters.ListingScreenPresenter;
-import presenters.SingleListingPresenter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ListingScreen extends JPanel implements ActionListener {
     ListingScreenPresenter listingScreenPresenter;
@@ -68,26 +69,37 @@ public class ListingScreen extends JPanel implements ActionListener {
         refresh.addActionListener(this);
         this.add(refresh);
 
-        // set up the listings scroll panel
-        this.setUpListings();
+        // set up the listings scroll panel (empty until panel loaded)
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         JScrollPane l = new JScrollPane(panel);
         l.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         l.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         this.add(l);
     }
 
-    public void setUpListings() {
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        for (SingleListingPresenter p: this.listingScreenPresenter.onCreateListings()) {
-            SingleListing j = new SingleListing(p);
-            j.setAlignmentX(Component.CENTER_ALIGNMENT);
-            panel.add(j);
+    public void setUpListings(ArrayList<SingleListingModel> info) {
+        panel.removeAll();
+        for (SingleListingModel m: info) {
+            String id = m.getID();
+            JLabel address = new JLabel("Address: " + m.getAddress());
+            address.setAlignmentX(Component.CENTER_ALIGNMENT);
+            JLabel price = new JLabel("Price: " + Float.toString(m.getPrice()));
+            price.setAlignmentX(Component.CENTER_ALIGNMENT);
+            JButton b = new JButton("View Property");
+            b.setAlignmentX(Component.CENTER_ALIGNMENT);
+            b.addActionListener(e -> {
+                this.listingScreenPresenter.onAccessProperty(id);
+            });
+            panel.add(address);
+            panel.add(price);
+            panel.add(b);
+            panel.add(new JLabel(" "));
         }
+        panel.repaint();
+        panel.revalidate();
     }
 
     public void redraw() {
-        this.listingScreenPresenter.onListingReset();
-        panel.removeAll();
         this.removeAll();
         this.draw();
         this.repaint();
@@ -95,11 +107,7 @@ public class ListingScreen extends JPanel implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent evt) {
-        this.listingScreenPresenter.onListingUpdate(pricerange.getText(), sqftrange.getText(),
-                house.isSelected(), condo.isSelected(), office.isSelected(),restaurant.isSelected());
-        panel.removeAll();
-        this.setUpListings();
-        panel.repaint();
-        panel.revalidate();
+        this.listingScreenPresenter.onListingUpdate(pricerange.getText(), sqftrange.getText(), house.isSelected(),
+                condo.isSelected(), office.isSelected(), restaurant.isSelected());
     }
 }

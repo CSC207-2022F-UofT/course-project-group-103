@@ -1,31 +1,31 @@
 package interactors;
 
 import entities.User;
-import interactors.containers.ActiveUser;
 import interactors.gateway_interfaces.LoginGateway;
-
+import interactors.input_boundary.SignUpInput;
+import interactors.output_boundary.SignUpOutput;
 import java.util.ArrayList;
 
-public class SignUpInteractor {
+public class SignUpInteractor implements SignUpInput {
 
-    /**
-     * Current active user of the application.
-     */
-    ActiveUser activeUser;
     /**
      * Gateway interface to property JSON with read/write methods.
      */
     LoginGateway loginGateway;
+    /**
+     * Output interface for sign up interactor.
+     */
+    SignUpOutput singnUpOutput;
 
     /**
      * Constructor for the sign-up interactor, assigns object instances to its attributes.
      *
-     * @param u: ActiveUser class for this application instance's current active user.
      * @param g: implementation of the loginGateway interface.
+     * @param ob: implementation of the output interface for sign up
      */
-    public SignUpInteractor(ActiveUser u, LoginGateway g) {
-        this.activeUser = u;
+    public SignUpInteractor(LoginGateway g, SignUpOutput ob) {
         this.loginGateway = g;
+        this.singnUpOutput = ob;
     }
 
     /**
@@ -36,16 +36,24 @@ public class SignUpInteractor {
      * @param password: password of account to create.
      * @param confirm_password: repetition of password of account to create.
      */
-    public void signUp(String username, String contact, String password, String confirm_password) throws Exception {
+    public void signUp(String username, String contact, String password, String confirm_password) {
         if (!password.equals(confirm_password)) {
-            throw new Exception("Passwords do not match.");
+            this.singnUpOutput.onSignUpFailure("Passwords do not match.");
+            return;
         }
         if (this.usernameExists(username)) {
-            throw new Exception("Username already in use.");
+            this.singnUpOutput.onSignUpFailure("Username already exists.");
+            return;
         }
         User u = new User(this.getValidID(), username, password, contact);
-        this.loginGateway.saveUser(u);
-        this.activeUser.setActiveUser(u);
+        try {
+            this.loginGateway.saveUser(u);
+        }
+        catch (Exception e) {
+            this.singnUpOutput.onSignUpFailure("Failed to save.");
+            return;
+        }
+        this.singnUpOutput.onSignUpSuccess(u.getID());
     }
 
     /**

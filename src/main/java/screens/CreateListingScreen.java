@@ -149,15 +149,9 @@ public class CreateListingScreen extends JPanel {
         JButton b = new JButton("Submit House Listing");
         b.setAlignmentX(Component.CENTER_ALIGNMENT);
         b.addActionListener(e -> {
-            try {
-                this.createListingPresenter.onCreateHouse(name.getText(), address.getText(), sqFt.getText(),
-                        price.getText(), numBed.getText(), numBath.getText(), numLaundry.getText(),
-                        numKitchen.getText());
-                JOptionPane.showMessageDialog(this, "Listing Created.");
-            } catch(Exception exc) {
-                JOptionPane.showMessageDialog(this, exc.getMessage());
-            }
-
+            this.createListingPresenter.onCreateHouse(name.getText(), address.getText(), sqFt.getText(),
+                    price.getText(), numBed.getText(), numBath.getText(), numLaundry.getText(),
+                    numKitchen.getText());
         });
         info.add(b);
         info.repaint();
@@ -196,14 +190,9 @@ public class CreateListingScreen extends JPanel {
         JButton b = new JButton("Submit Condo Listing");
         b.setAlignmentX(Component.CENTER_ALIGNMENT);
         b.addActionListener(e -> {
-            try {
-                this.createListingPresenter.onCreateCondo(name.getText(), address.getText(), sqFt.getText(),
-                        price.getText(), numBed.getText(), numBath.getText(), numLaundry.getText(),
-                        numKitchen.getText());
-                JOptionPane.showMessageDialog(this, "Listing Created.");
-            } catch(Exception exc) {
-                JOptionPane.showMessageDialog(this, exc.getMessage());
-            }
+            this.createListingPresenter.onCreateCondo(name.getText(), address.getText(), sqFt.getText(),
+                    price.getText(), numBed.getText(), numBath.getText(), numLaundry.getText(),
+                    numKitchen.getText());
         });
         info.add(b);
         info.repaint();
@@ -230,13 +219,9 @@ public class CreateListingScreen extends JPanel {
         JButton b = new JButton("Submit Office Listing");
         b.setAlignmentX(Component.CENTER_ALIGNMENT);
         b.addActionListener(e -> {
-            try {
-                this.createListingPresenter.onCreateOffice(name.getText(), address.getText(), sqFt.getText(),
-                        price.getText(), numOfficeRoom.getText(), numReception.getText());
-                JOptionPane.showMessageDialog(this, "Listing Created.");
-            } catch(Exception exc) {
-                JOptionPane.showMessageDialog(this, exc.getMessage());
-            }
+            this.createListingPresenter.onCreateHouse(name.getText(), address.getText(), sqFt.getText(),
+                    price.getText(), numBed.getText(), numBath.getText(), numLaundry.getText(),
+                    numKitchen.getText());
         });
         info.add(b);
         info.repaint();
@@ -257,13 +242,9 @@ public class CreateListingScreen extends JPanel {
         JButton b = new JButton("Submit Restaurant Listing");
         b.setAlignmentX(Component.CENTER_ALIGNMENT);
         b.addActionListener(e -> {
-            try {
-                this.createListingPresenter.onCreateRestaurant(name.getText(), address.getText(), sqFt.getText(),
-                        price.getText(), kitchenSpec.getText());
-                JOptionPane.showMessageDialog(this, "Listing Created.");
-            } catch(Exception exc) {
-                JOptionPane.showMessageDialog(this, exc.getMessage());
-            }
+            this.createListingPresenter.onCreateHouse(name.getText(), address.getText(), sqFt.getText(),
+                    price.getText(), numBed.getText(), numBath.getText(), numLaundry.getText(),
+                    numKitchen.getText());
         });
         info.add(b);
         info.repaint();

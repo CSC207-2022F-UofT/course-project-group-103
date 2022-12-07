@@ -1,32 +1,33 @@
 package presenters;
 
 import interactors.CreateReviewInteractor;
+import interactors.gateway_interfaces.ReviewGateway;
+import interactors.input_boundary.CreateReviewInput;
+import interactors.output_boundary.CreateReviewOutput;
 
-public class CreateReviewPresenter {
+public class CreateReviewPresenter implements CreateReviewOutput {
 
-    CreateReviewInteractor createReviewInteractor;
     ViewInterface viewInterface;
+    CreateReviewInput createReviewInput;
 
-    public CreateReviewPresenter(CreateReviewInteractor i, ViewInterface p) {
-        this.createReviewInteractor = i;
-        this.viewInterface = p;
+    public CreateReviewPresenter(ViewInterface view, ReviewGateway g) {
+        this.viewInterface = view;
+        this.createReviewInput = new CreateReviewInteractor(g, this);
     }
 
-    /**
-     * Sends the create review request to the create-review interactor.
-     *
-     * Calls the active account interactor method createReview() and then calls the presenter methods
-     * refreshAccount() and displayPrevious() if successful
-     *
-     * @param review: String representation of the review given by user
-     * @param rating: String representation of the rating given by user
-     * @throws Exception: failed to create review
-     */
-    public void onCreateReview(String review, String rating) throws Exception {
-        this.createReviewInteractor.createReview(review, rating);
-        // if create review does not throw an exception
-        this.viewInterface.refreshAccount();
-        this.viewInterface.displayPrevious();
+    public void onCreateReview(String content, String rating, String id) {
+        this.createReviewInput.createReview(content, rating, this.viewInterface.getActiveUser(), id);
+    }
+
+    @Override
+    public void onCreateReviewSuccess() {
+        this.viewInterface.displaySuccess("Review created.");
+        this.viewInterface.displayHome();
+    }
+
+    @Override
+    public void onCreateReviewFailure(String message) {
+        this.viewInterface.displayFailure(message);
     }
 
     public void onBack() {

@@ -1,3 +1,4 @@
+/*
 package presenters;
 
 import interactors.SingleBidInteractor;
@@ -19,6 +20,7 @@ public class SingleBidPresenter {
      *
      * Calls the SingleBidInteractor method bidInfo().
      */
+/*
     public ArrayList<String> onBidInfo() {
         return this.singleBidInteractor.bidInfo();
     }
@@ -29,9 +31,11 @@ public class SingleBidPresenter {
      * Calls the SingleBidInteractor method updateAccountDisplay() to update the accounts page current
      * account and then displays the account page.
      */
+/*
     public void onAccount() {
         this.singleBidInteractor.updateAccountDisplay();
         this.viewInterface.displayAccount();
     }
 
 }
+*/

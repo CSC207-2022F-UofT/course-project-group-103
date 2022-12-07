@@ -1,87 +1,105 @@
 package screens;
 
-import presenters.AccountScreenPresenter;
-import presenters.SingleListingPresenter;
-import presenters.SingleReviewPresenter;
-
+import interactors.AccountModel;
+import interactors.ReviewModel;
+import interactors.SingleListingModel;
+import presenters.AccountPresenter;
 import javax.swing.*;
 import java.awt.*;
-
-import static javax.swing.BorderFactory.createEmptyBorder;
+import java.util.ArrayList;
 
 public class AccountScreen extends JPanel {
 
-    AccountScreenPresenter accountScreenPresenter;
+    AccountPresenter accountPresenter;
+    JPanel info;
+    JPanel group;
 
-    public AccountScreen(AccountScreenPresenter presenter) {
-        this.accountScreenPresenter = presenter;
+    public AccountScreen(AccountPresenter presenter) {
+        this.accountPresenter = presenter;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.draw();
     }
 
     public void draw() {
+
         // go back to home
         JButton back = new JButton("Back");
         back.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(back);
-        back.addActionListener(e -> accountScreenPresenter.onBack());
-
-        // info group
-        JPanel group = new JPanel();
-        group.setLayout(new BoxLayout(group, BoxLayout.X_AXIS));
+        back.addActionListener(e -> accountPresenter.onBack());
 
         // account info
-        JPanel info = new JPanel();
+        info = new JPanel();
         info.setLayout(new BoxLayout(info, BoxLayout.Y_AXIS));
-        info.setAlignmentX(Component.CENTER_ALIGNMENT);
-        for (String s: this.accountScreenPresenter.onGetInfo()) {
-            info.add(new JLabel(s));
-        }
         this.add(info);
 
-        // if account is owner
-        if (this.accountScreenPresenter.onOwnerType()) {
-            // properties listed by account
-            JPanel properties = new JPanel();
-            properties.add(new JLabel("Properties Listed: "));
-            properties.add(new JLabel(" "));
-            properties.setLayout(new BoxLayout(properties, BoxLayout.Y_AXIS));
-            for (SingleListingPresenter controller: this.accountScreenPresenter.onCreateUserProperties()) {
-                properties.add(new SingleListing(controller));
-            }
-            JScrollPane prop_scroll = new JScrollPane(properties);
-
-            // reviews of account
-            JPanel reviews = new JPanel();
-            reviews.add(new JLabel("Reviews: "));
-            reviews.add(new JLabel(" "));
-            reviews.setLayout(new BoxLayout(reviews, BoxLayout.Y_AXIS));
-            for (SingleReviewPresenter controller: this.accountScreenPresenter.onCreateUserReviews()) {
-                reviews.add(new SingleReview(controller));
-            }
-            JScrollPane review_scroll = new JScrollPane(reviews);
-
-            group.add(prop_scroll);
-            group.add(review_scroll);
-        }
-        JScrollPane group_scroll = new JScrollPane(group);
-        group_scroll.setBorder(createEmptyBorder());
-        this.add(group_scroll);
-
-        // if owner type to add review button at bottom
-        if (this.accountScreenPresenter.onOwnerType()) {
-            // add review button
-            JButton create_review = new JButton("Add Review");
-            create_review.setAlignmentX(Component.CENTER_ALIGNMENT);
-            this.add(create_review);
-            create_review.addActionListener(e -> accountScreenPresenter.onCreateReview());
-        }
+        // reviews and properties group
+        group = new JPanel();
+        group.setLayout(new BoxLayout(group, BoxLayout.X_AXIS));
+        JScrollPane group_pane = new JScrollPane(group);
+        this.add(group_pane);
     }
 
-    public void redraw() {
-        this.removeAll();
-        this.draw();
-        this.repaint();
-        this.revalidate();
+    public void setUpAccount(ArrayList<SingleListingModel> listings,
+                             ArrayList<ReviewModel> reviews, AccountModel account) {
+        // basic account info
+        info.removeAll();
+        JLabel name = new JLabel(account.getName());
+        name.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel contact = new JLabel(account.getContact());
+        contact.setAlignmentX(Component.CENTER_ALIGNMENT);
+        info.add(name);
+        info.add(contact);
+
+        // add review button
+        JButton review = new JButton("Add Review");
+        review.setAlignmentX(Component.CENTER_ALIGNMENT);
+        info.add(review);
+        review.addActionListener(e -> {
+            this.accountPresenter.onAddReview(account.getID());});
+
+        info.repaint();
+        info.revalidate();
+
+        // properties listed and reviews
+        group.removeAll();
+        JPanel user_properties = new JPanel();
+        user_properties.setLayout(new BoxLayout(user_properties, BoxLayout.Y_AXIS));
+        user_properties.add(new JLabel("Properties Listed: "));
+        user_properties.add(new JLabel(" "));
+        for (SingleListingModel m: listings) {
+            String id = m.getID();
+            JLabel address = new JLabel("Address: " + m.getAddress());
+            JLabel price = new JLabel("Price: " + m.getPrice());
+            JButton b = new JButton("See Property");
+            b.addActionListener(e -> {
+                this.accountPresenter.onAccessProperty(id);
+            });
+            user_properties.add(address);
+            user_properties.add(price);
+            user_properties.add(b);
+            user_properties.add(new JLabel(" "));
+        }
+        JPanel user_reviews = new JPanel();
+        user_reviews.setLayout(new BoxLayout(user_reviews, BoxLayout.Y_AXIS));
+        user_reviews.add(new JLabel("Reviews: "));
+        user_reviews.add(new JLabel(" "));
+        for (ReviewModel m: reviews) {
+            JLabel writer = new JLabel("Writer: " + m.getWriterName());
+            JLabel rating = new JLabel("Rating: " + m.getRating());
+            JLabel content = new JLabel("Review: " + m.getContent());
+            JLabel date = new JLabel("Date: " + m.getDate());
+            user_reviews.add(writer);
+            user_reviews.add(rating);
+            user_reviews.add(content);
+            user_reviews.add(date);
+            user_reviews.add(new JLabel(" "));
+        }
+        JScrollPane listings_pane = new JScrollPane(user_properties);
+        group.add(listings_pane);
+        JScrollPane reviews_pane = new JScrollPane(user_reviews);
+        group.add(reviews_pane);
+        group.repaint();
+        group.revalidate();
     }
 }

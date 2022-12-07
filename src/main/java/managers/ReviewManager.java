@@ -67,4 +67,15 @@ public class ReviewManager implements ReviewGateway {
         catch(Exception e) {throw new Exception("Save failed");}
 
     }
+
+    public void deleteReview(String id) throws Exception {
+        Path filePath = Path.of(this.reviews_filepath);
+        String content = Files.readString(filePath);
+        JSONObject a = new JSONObject(content);
+        a.remove(id);
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(this.reviews_filepath), "utf-8"))) {
+            writer.write(a.toString());
+        }
+    }
 }
