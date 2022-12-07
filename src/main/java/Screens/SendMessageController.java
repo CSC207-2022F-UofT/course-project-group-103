@@ -17,4 +17,6 @@ public class SendMessageController {
     public void sendMessage() throws MessengerNotFound, UndefinedUserType, IOException, MessageNotAppropriate {
         this.sendMessageInteractor.sendMessage();
     }
+
+
 }
