@@ -1,14 +1,17 @@
 package presenters;
 import interactors.LoginInteractor;
+import interactors.gateway_interfaces.LoginGateway;
+import interactors.input_boundary.LoginInput;
+import interactors.output_boundary.LoginOuput;
 
-public class LoginScreenPresenter {
+public class LoginScreenPresenter implements LoginOuput {
 
-    LoginInteractor loginInteractor;
     ViewInterface viewInterface;
+    LoginInput loginInteractor;
 
-    public LoginScreenPresenter(LoginInteractor interactor, ViewInterface view) {
-        this.loginInteractor = interactor;
+    public LoginScreenPresenter(ViewInterface view, LoginGateway g) {
         this.viewInterface = view;
+        this.loginInteractor = new LoginInteractor(g,this);
     }
 
     /**
@@ -19,16 +22,27 @@ public class LoginScreenPresenter {
      * @param username: String representing the given username.
      * @param password: String representing the given password.
      */
-    public void onLogin(String username, String password) throws Exception {
+    public void onLogin(String username, String password) {
         this.loginInteractor.login(username, password);
-        // if login doesn't throw exception
+    }
+
+    /**
+     * Displays home screen.
+     */
+    public void onLoginSuccess(String id) {
+        this.viewInterface.setActiveUser(id);
         this.viewInterface.displayHome();
     }
 
     /**
+     * Displays a failure message.
+     */
+    public void onLoginFailure(String message) {
+        this.viewInterface.displayFailure(message);
+    }
+
+    /**
      * Displays sign up page.
-     *
-     * Calls the present method displaySignUp().
      */
     public void onSignUp() {
         this.viewInterface.displaySignUp();

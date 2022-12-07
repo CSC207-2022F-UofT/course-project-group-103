@@ -1,32 +1,27 @@
 package presenters;
 
-import interactors.ListingInteractor;
-import interactors.SingleListingInteractor;
+import interactors.AccessPropertyInteractor;
+import interactors.PropertyModel;
+import interactors.RefreshListingInteractor;
+import interactors.SingleListingModel;
+import interactors.gateway_interfaces.LoginGateway;
+import interactors.gateway_interfaces.PropertyGateway;
+import interactors.input_boundary.RefreshListingInput;
+import interactors.output_boundary.AccessPropertyOutput;
+import interactors.output_boundary.RefreshListingOutput;
 
 import java.util.ArrayList;
 
-public class ListingScreenPresenter {
+public class ListingScreenPresenter implements RefreshListingOutput, AccessPropertyOutput {
 
-    ListingInteractor listingInteractor;
     ViewInterface viewInterface;
+    RefreshListingInput refreshListingInput;
+    AccessPropertyInteractor accessPropertyInput;
 
-    public ListingScreenPresenter(ListingInteractor i, ViewInterface p) {
-        this.listingInteractor = i;
-        this.viewInterface = p;
-    }
-
-    /**
-     * Creates controllers for each single listing panel.
-     *
-     * Calls the listing interactor to create single listing interactors and
-     * loops over them creating a list of single listing controllers.
-     */
-    public ArrayList<SingleListingPresenter> onCreateListings() {
-        ArrayList<SingleListingPresenter> controllers = new ArrayList<>();
-        for (SingleListingInteractor i: this.listingInteractor.createListings()) {
-            controllers.add(new SingleListingPresenter(i, this.viewInterface));
-        }
-        return controllers;
+    public ListingScreenPresenter(ViewInterface view, PropertyGateway g, LoginGateway l) {
+        this.viewInterface = view;
+        this.refreshListingInput = new RefreshListingInteractor(g, this);
+        this.accessPropertyInput = new AccessPropertyInteractor(g,l ,this);
     }
 
     /**
@@ -49,15 +44,28 @@ public class ListingScreenPresenter {
      * @param office: boolean of whether office should be displayed
      * @param restaurant: boolean of whether restaurant should be displayed
      */
-    public void onListingUpdate(String price, String sqft,
-                                  boolean house, boolean condo, boolean office, boolean restaurant) {
-        this.listingInteractor.updateFilter(price, sqft, house, condo, office, restaurant);
+    public void onListingUpdate(String price, String sqft, boolean house, boolean condo,
+                                boolean office, boolean restaurant) {
+        this.refreshListingInput.updateFilter(price, sqft, house, condo, office, restaurant);
     }
 
-    /**
-     * Sends a filter reset request to the listing interactor.
-     *
-     * Calls the listing interactor method resetFilter()
-     */
-    public void onListingReset() {this.listingInteractor.resetFilter();}
+    public void onUpdateFilterSuccess(ArrayList<SingleListingModel> info) {
+        this.viewInterface.refreshListing(info);
+    }
+
+    public void onUpdateFilterFailure(String message) {
+        this.viewInterface.displayFailure(message);
+    }
+
+    public void onAccessProperty(String PropertyID) {
+        this.accessPropertyInput.accessProperty(PropertyID);
+    }
+
+    public void onAccessPropertySuccess(PropertyModel property) {
+        this.viewInterface.displayProperty(property);
+    }
+
+    public void onAccessPropertyFailure(String message) {
+        this.viewInterface.displayFailure(message);
+    }
 }

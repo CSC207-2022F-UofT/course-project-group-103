@@ -1,19 +1,16 @@
 package interactors;
 
 import entities.*;
-import interactors.containers.ActiveUser;
 import interactors.gateway_interfaces.LoginGateway;
 import interactors.gateway_interfaces.PropertyGateway;
+import interactors.input_boundary.CreateListingInput;
+import interactors.output_boundary.CreateListingOutput;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CreateListingInteractor {
+public class CreateListingInteractor implements CreateListingInput {
 
-    /**
-     * Current user of the application.
-     */
-    ActiveUser activeUser;
     /**
      * Gateway interface to property JSON with read/write methods.
      */
@@ -22,18 +19,22 @@ public class CreateListingInteractor {
      * Gateway interface to user JSON with read/write methods.
      */
     LoginGateway loginGateway;
+    /**
+     * Output boundary for create listing interactor.
+     */
+    CreateListingOutput createListingOutput;
 
     /**
      * Constructor for the create-listing interactor, assigns object instances to its attributes.
      *
-     * @param u: ActiveUser class for this application instance's current active user.
      * @param g: implementation of propertyGateway interface.
      * @param l: implementation of the loginGateway interface.
+     * @param ob: implementation of output interface for this interactor.
      */
-    public CreateListingInteractor(ActiveUser u, PropertyGateway g, LoginGateway l) {
-        this.activeUser = u;
+    public CreateListingInteractor(PropertyGateway g, LoginGateway l, CreateListingOutput ob) {
         this.propertyGateway = g;
         this.loginGateway = l;
+        this.createListingOutput = ob;
     }
 
     /**
@@ -47,11 +48,9 @@ public class CreateListingInteractor {
      * @param numBath: number of bathrooms in house to create
      * @param numLaundry: number of laundry rooms in house to create
      * @param numKitchen: number of kitchens in house to create
-     *
-     * @throws Exception: failed to create the house.
      */
     public void createHouse(String name, String address, String sqFt, String price, String numBed,
-                            String numBath, String numLaundry, String numKitchen) throws Exception {
+                            String numBath, String numLaundry, String numKitchen, String userID) {
         int sqFt_int;
         float price_float;
         int numBed_int;
@@ -61,28 +60,35 @@ public class CreateListingInteractor {
 
         try {
             sqFt_int = Integer.parseInt(sqFt);
-        } catch(Exception e) {throw new Exception("Enter an integer amount for SqFt.");}
+        } catch(Exception e) {this.createListingOutput.onCreateListingFailure(
+                "Enter an integer amount for SqFt."); return;}
         try {
             price_float = Float.parseFloat(price);
-        } catch(Exception e) {throw new Exception("Enter a decimal amount for price.");}
+        } catch(Exception e) {this.createListingOutput.onCreateListingFailure(
+                "Enter a decimal amount for price."); return;}
         try {
             numBed_int = Integer.parseInt(numBed);
-        } catch (Exception e) {throw new Exception("Enter an integer amount for number of bedrooms.");}
+        } catch (Exception e) {this.createListingOutput.onCreateListingFailure(
+                "Enter an integer amount for number of bedrooms."); return;}
         try {
             numBath_int = Integer.parseInt(numBath);
-        } catch (Exception e) {throw new Exception("Enter an integer amount for number of bathrooms.");}
+        } catch (Exception e) {this.createListingOutput.onCreateListingFailure(
+                "Enter an integer amount for number of bathrooms."); return;}
         try {
             numLaundry_int = Integer.parseInt(numLaundry);
-        } catch (Exception e) {throw new Exception("Enter an integer amount for number of laundry rooms.");}
+        } catch (Exception e) {this.createListingOutput.onCreateListingFailure(
+                "Enter an integer amount for number of laundry rooms."); return;}
         try {
             numKitchen_int = Integer.parseInt(numKitchen);
-        } catch (Exception e) {throw new Exception("Enter an integer amount for number of kitchens.");}
+        } catch (Exception e) {this.createListingOutput.onCreateListingFailure(
+                "Enter an integer amount for number of kitchens."); return;}
         try {
-            this.upgradeToOwner();
-        } catch (Exception e) {throw new Exception("Save failed.");}
-        House h = new House(name, address, this.getValidID(), (Owner) this.activeUser.getActiveUser(),
-                sqFt_int, price_float, numBed_int, numBath_int, numLaundry_int, numKitchen_int, new HashMap<>());
-        this.propertyGateway.save(h);
+            this.upgradeToOwner(userID);
+            House h = new House(name, address, this.getValidID(), (Owner) propertyGateway.getUser(userID),
+                    sqFt_int, price_float, numBed_int, numBath_int, numLaundry_int, numKitchen_int, new HashMap<>());
+            this.propertyGateway.save(h);
+            this.createListingOutput.onCreateListingSuccess();
+        } catch (Exception e) {this.createListingOutput.onCreateListingFailure("Save failed.");}
     }
 
     /**
@@ -96,11 +102,9 @@ public class CreateListingInteractor {
      * @param numBath: number of bathrooms in condo to create
      * @param numLaundry: number of laundry rooms in condo to create
      * @param numKitchen: number of kitchens in condo to create
-     *
-     * @throws Exception: failed to create the condo.
      */
     public void createCondo(String name, String address, String sqFt, String price, String numBed,
-                            String numBath, String numLaundry, String numKitchen) throws Exception {
+                            String numBath, String numLaundry, String numKitchen, String userID) {
         int sqFt_int;
         float price_float;
         int numBed_int;
@@ -110,28 +114,35 @@ public class CreateListingInteractor {
 
         try {
             sqFt_int = Integer.parseInt(sqFt);
-        } catch(Exception e) {throw new Exception("Enter an integer amount for SqFt.");}
+        } catch(Exception e) {this.createListingOutput.onCreateListingFailure(
+                "Enter an integer amount for SqFt."); return;}
         try {
             price_float = Float.parseFloat(price);
-        } catch(Exception e) {throw new Exception("Enter a decimal amount for price.");}
+        } catch(Exception e) {this.createListingOutput.onCreateListingFailure(
+                "Enter a decimal amount for price."); return;}
         try {
             numBed_int = Integer.parseInt(numBed);
-        } catch (Exception e) {throw new Exception("Enter an integer amount for number of bedrooms.");}
+        } catch (Exception e) {this.createListingOutput.onCreateListingFailure(
+                "Enter an integer amount for number of bedrooms."); return;}
         try {
             numBath_int = Integer.parseInt(numBath);
-        } catch (Exception e) {throw new Exception("Enter an integer amount for number of bathrooms.");}
+        } catch (Exception e) {this.createListingOutput.onCreateListingFailure(
+                "Enter an integer amount for number of bathrooms."); return;}
         try {
             numLaundry_int = Integer.parseInt(numLaundry);
-        } catch (Exception e) {throw new Exception("Enter an integer amount for number of laundry rooms.");}
+        } catch (Exception e) {this.createListingOutput.onCreateListingFailure(
+                "Enter an integer amount for number of laundry rooms."); return;}
         try {
             numKitchen_int = Integer.parseInt(numKitchen);
-        } catch (Exception e) {throw new Exception("Enter an integer amount for number of kitchens.");}
+        } catch (Exception e) {this.createListingOutput.onCreateListingFailure(
+                "Enter an integer amount for number of kitchens."); return;}
         try {
-            this.upgradeToOwner();
-        } catch (Exception e) {throw new Exception("Save failed.");}
-        Condo c = new Condo(name, address, this.getValidID(), (Owner) this.activeUser.getActiveUser(),
-                sqFt_int, price_float, numBed_int, numBath_int, numLaundry_int, numKitchen_int, new HashMap<>());
-        this.propertyGateway.save(c);
+            this.upgradeToOwner(userID);
+            Condo c = new Condo(name, address, this.getValidID(), (Owner) propertyGateway.getUser(userID),
+                    sqFt_int, price_float, numBed_int, numBath_int, numLaundry_int, numKitchen_int, new HashMap<>());
+            this.propertyGateway.save(c);
+            this.createListingOutput.onCreateListingSuccess();
+        } catch (Exception e) {this.createListingOutput.onCreateListingFailure("Save failed.");}
     }
 
     /**
@@ -143,11 +154,9 @@ public class CreateListingInteractor {
      * @param price: price of office to create
      * @param numOffice: number of office rooms in office to create
      * @param numReception: number of receptions in office to create
-     *
-     * @throws Exception: failed to create the office.
      */
     public void createOffice(String name, String address, String sqFt, String price, String numOffice,
-                            String numReception) throws Exception {
+                             String numReception, String userID) {
         int sqFt_int;
         float price_float;
         int numOffice_int;
@@ -155,22 +164,27 @@ public class CreateListingInteractor {
 
         try {
             sqFt_int = Integer.parseInt(sqFt);
-        } catch(Exception e) {throw new Exception("Enter an integer amount for SqFt.");}
+        } catch(Exception e) {this.createListingOutput.onCreateListingFailure(
+                "Enter an integer amount for SqFt."); return;}
         try {
             price_float = Float.parseFloat(price);
-        } catch(Exception e) {throw new Exception("Enter a decimal amount for price.");}
+        } catch(Exception e) {this.createListingOutput.onCreateListingFailure(
+                "Enter a decimal amount for price."); return;}
         try {
             numOffice_int = Integer.parseInt(numOffice);
-        } catch (Exception e) {throw new Exception("Enter an integer amount for number of bedrooms.");}
+        } catch (Exception e) {this.createListingOutput.onCreateListingFailure(
+                "Enter an integer amount for number of bedrooms."); return;}
         try {
             numReception_int = Integer.parseInt(numReception);
-        } catch (Exception e) {throw new Exception("Enter an integer amount for number of bathrooms.");}
+        } catch (Exception e) {this.createListingOutput.onCreateListingFailure(
+                "Enter an integer amount for number of bathrooms."); return;}
         try {
-            this.upgradeToOwner();
-        } catch (Exception e) {throw new Exception("Save failed.");}
-        Office o = new Office(name, address, this.getValidID(), (Owner) this.activeUser.getActiveUser(),
-                sqFt_int, price_float, numOffice_int, numReception_int, new HashMap<>());
-        this.propertyGateway.save(o);
+            this.upgradeToOwner(userID);
+            Office o = new Office(name, address, this.getValidID(), (Owner) propertyGateway.getUser(userID),
+                    sqFt_int, price_float, numOffice_int, numReception_int, new HashMap<>());
+            this.propertyGateway.save(o);
+            this.createListingOutput.onCreateListingSuccess();
+        } catch (Exception e) {this.createListingOutput.onCreateListingFailure("Save failed.");}
     }
 
     /**
@@ -181,26 +195,28 @@ public class CreateListingInteractor {
      * @param sqFt: square footage of restaurant to create
      * @param price: price of restaurant to create
      * @param spec: kitchen specifications of restaurant to create
-     *
-     * @throws Exception: failed to create the restaurant.
      */
     public void createRestaurant(String name, String address, String sqFt, String price,
-                                 String spec) throws Exception {
+                                 String spec, String userID) {
         int sqFt_int;
         float price_float;
 
         try {
             sqFt_int = Integer.parseInt(sqFt);
-        } catch(Exception e) {throw new Exception("Enter an integer amount for SqFt.");}
+        } catch(Exception e) {this.createListingOutput.onCreateListingFailure(
+                "Enter an integer amount for SqFt."); return;}
         try {
             price_float = Float.parseFloat(price);
-        } catch(Exception e) {throw new Exception("Enter a decimal amount for price.");}
+        } catch(Exception e) {this.createListingOutput.onCreateListingFailure(
+                "Enter a decimal amount for price."); return;}
         try {
-            this.upgradeToOwner();
-        } catch (Exception e) {throw new Exception("Save failed.");}
-        Restaurant r = new Restaurant(name, address, this.getValidID(), (Owner) this.activeUser.getActiveUser(),
-                sqFt_int, price_float, spec, new HashMap<>());
-        this.propertyGateway.save(r);
+            this.upgradeToOwner(userID);
+            Restaurant r = new Restaurant(name, address, this.getValidID(), (Owner) propertyGateway.getUser(userID),
+                    sqFt_int, price_float, spec, new HashMap<>());
+            this.propertyGateway.save(r);
+            this.createListingOutput.onCreateListingSuccess();
+        } catch (Exception e) {this.createListingOutput.onCreateListingFailure(
+                "Save failed.");}
     }
 
     /**
@@ -208,18 +224,18 @@ public class CreateListingInteractor {
      *
      * @throws Exception: failed to upgrade user.
      */
-    private void upgradeToOwner() throws Exception {
-        if (!this.activeUser.getActiveUser().getClass().getName().replace(
+    private void upgradeToOwner(String userID) throws Exception {
+        User u = propertyGateway.getUser(userID);
+        if (!u.getClass().getName().replace(
                 "entities.", "").equals("Owner")) {
             Owner o = new Owner(
-                    this.activeUser.getActiveUser().getID(),
-                    this.activeUser.getActiveUser().getName(),
-                    this.activeUser.getActiveUser().getPassword(),
-                    this.activeUser.getActiveUser().getContact(),
+                    u.getID(),
+                    u.getName(),
+                    u.getPassword(),
+                    u.getContact(),
                     new ArrayList<>()
             );
             this.loginGateway.saveUser(o);
-            this.activeUser.setActiveUser(o);
         }
     }
 

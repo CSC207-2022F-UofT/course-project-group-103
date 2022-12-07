@@ -1,40 +1,21 @@
 package interactors;
 
 import entities.Review;
-import interactors.containers.AccountToDisplay;
-import interactors.containers.ActiveUser;
 import interactors.gateway_interfaces.ReviewGateway;
-import managers.ReviewManager;
+import interactors.input_boundary.CreateReviewInput;
+import interactors.output_boundary.CreateReviewOutput;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class CreateReviewInteractor {
+public class CreateReviewInteractor implements CreateReviewInput {
 
-    /**
-     * Gateway interface to review JSON with read/write methods.
-     */
     ReviewGateway reviewGateway;
-    /**
-     * Current user of the application.
-     */
-    ActiveUser activeUser;
-    /**
-     * Current account being accessed.
-     */
-    AccountToDisplay accountToDisplay;
+    CreateReviewOutput createReviewOutput;
 
-    /**
-     * Constructor for the create-review interactor, assigns object instances to its attributes.
-     *
-     * @param g: implementation of propertyGateway interface.
-     * @param u: ActiveUser class for this application instance's current active user.
-     * @param a: AccountToDisplay class for this application instance's account being accessed.
-     */
-    public CreateReviewInteractor(ReviewManager g, ActiveUser u, AccountToDisplay a) {
+    public CreateReviewInteractor(ReviewGateway g, CreateReviewOutput ob) {
         this.reviewGateway = g;
-        this.activeUser = u;
-        this.accountToDisplay = a;
+        this.createReviewOutput = ob;
     }
 
     /**
@@ -42,22 +23,26 @@ public class CreateReviewInteractor {
      *
      * @param review: content of the review.
      * @param rating: rating given.
-     *
-     * @throws Exception: failed to create the review.
+     * @param userID: ID of the user who wrote the review.
+     * @param ownerID: ID of the owner who wrote the review.
      */
-    public void createReview(String review, String rating) throws Exception {
+    public void createReview(String review, String rating, String userID, String ownerID) {
         int rating_int;
         try {
             rating_int = Integer.parseInt(rating);
             if (rating_int > 5 || rating_int < 1) {
-                throw new Exception();
+                this.createReviewOutput.onCreateReviewFailure("Enter an integer from 1-5 as a rating.");
+                return;
             }
-        } catch (Exception e) {throw new Exception("Enter an integer 1-5 for rating.");}
+        } catch (Exception e) {this.createReviewOutput.onCreateReviewFailure("Invalid rating format."); return;}
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
-        Review r = new Review(this.getValidID(), review, this.accountToDisplay.getAccountDisplay().getID(),
-                this.activeUser.getActiveUser().getID(), dtf.format(now), rating_int);
-        this.reviewGateway.saveReview(r);
+        Review r = new Review(this.getValidID(), review, ownerID,
+                userID, dtf.format(now), rating_int);
+        try {
+            this.reviewGateway.saveReview(r);
+        } catch (Exception e) {this.createReviewOutput.onCreateReviewFailure("Failed to save review."); return;}
+        this.createReviewOutput.onCreateReviewSuccess();
     }
 
     /**

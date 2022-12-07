@@ -126,6 +126,14 @@ public abstract class Property {
     public void addBid(float bid, String user) {bids.put(user, bid);}
 
     /**
+     * Removes the bid associated with the user id.
+     * @param userID: removeBid.
+     */
+    public void removeBid(String userID) {
+        this.bids.remove(userID);
+    }
+
+    /**
      * Creates an array list of strings and adds all attributes apart from ID and bids
      * to the list in string form preceded by a label of the attribute.
      * @return Array List of formatted string representations of the property attributes.
