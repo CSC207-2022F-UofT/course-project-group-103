@@ -32,8 +32,11 @@ in your IDE terminal
 
 When the program first starts, users are met with the login screen, where they can choose to create an account with their desired credentials or login to an exising user account.
 ![](images/loginscreen.png)
+Pressing Sign Up takes users to a separate screen where they are prompted to enter a name, email, and password for a new account.
 ### 2. Listing a Property
-After account creation and logging in, 
+After account creation and logging in, users can choose to list a property
+![](images/listhouse.png)
+All the fields must be filled to add the listing to the property database
 
 ### 3. Filtering and Viewing Properties
 wip
