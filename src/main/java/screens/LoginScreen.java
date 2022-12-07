@@ -1,6 +1,6 @@
 package screens;
 
-import controllers.LoginScreenController;
+import presenters.LoginScreenPresenter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,13 +9,13 @@ import java.awt.event.ActionListener;
 
 public class LoginScreen extends JPanel implements ActionListener{
 
-    LoginScreenController LoginPageController;
+    LoginScreenPresenter loginScreenPresenter;
     JTextField username;
     JPasswordField password;
 
-    public LoginScreen(LoginScreenController controller) {
+    public LoginScreen(LoginScreenPresenter presenter) {
         // setup
-        this.LoginPageController = controller;
+        this.loginScreenPresenter = presenter;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.draw();
     }
@@ -23,8 +23,15 @@ public class LoginScreen extends JPanel implements ActionListener{
     public void draw() {
 
         // input field setup
+        JPanel inputs = new JPanel();
+        inputs.setLayout(new BoxLayout(inputs, BoxLayout.Y_AXIS));
+        inputs.setAlignmentX(Component.CENTER_ALIGNMENT);
+        inputs.setPreferredSize(new Dimension(200, 50));
+        inputs.setMaximumSize(new Dimension(200, 50));
         username = new JTextField(15);
         password = new JPasswordField(15);
+        inputs.add(username);
+        inputs.add(password);
 
         // title
         JLabel title = new JLabel("Login Screen");
@@ -37,10 +44,9 @@ public class LoginScreen extends JPanel implements ActionListener{
 
         JButton signUp = new JButton("Sign Up");
         signUp.setAlignmentX(Component.CENTER_ALIGNMENT);
-        signUp.addActionListener(e -> {LoginPageController.signUp();});
+        signUp.addActionListener(e -> {loginScreenPresenter.onSignUp();});
 
-        this.add(username);
-        this.add(password);
+        this.add(inputs);
         this.add(login);
         this.add(signUp);
     }
@@ -56,8 +62,10 @@ public class LoginScreen extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent evt) {
         String u = username.getText();
         String p = new String(password.getPassword());
-        if (!LoginPageController.login(u,p)) {
-            JOptionPane.showMessageDialog(this, "Invalid Username or Password.");
+        try {
+            loginScreenPresenter.onLogin(u, p);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
 }

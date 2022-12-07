@@ -1,15 +1,15 @@
 package screens;
 
-import controllers.HomeScreenController;
+import presenters.HomeScreenPresenter;
 import javax.swing.*;
 import java.awt.*;
 
 public class HomeScreen extends JPanel {
 
-    HomeScreenController homeScreenController;
+    HomeScreenPresenter homeScreenPresenter;
 
-    public HomeScreen(HomeScreenController c) {
-        this.homeScreenController = c;
+    public HomeScreen(HomeScreenPresenter presenter) {
+        this.homeScreenPresenter = presenter;
         // setup
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -29,8 +29,11 @@ public class HomeScreen extends JPanel {
         this.add(account_button);
         this.add(create_listing_button);
 
-        listing_button.addActionListener(e -> {homeScreenController.listing();});
-        account_button.addActionListener(e -> {homeScreenController.account();});
-        create_listing_button.addActionListener(e -> {homeScreenController.createListing();});
+        listing_button.addActionListener(e -> {
+            homeScreenPresenter.onLoadListing();});
+        account_button.addActionListener(e -> {
+            homeScreenPresenter.onLoadAccount();});
+        create_listing_button.addActionListener(e -> {
+            homeScreenPresenter.onCreateListing();});
     }
 }

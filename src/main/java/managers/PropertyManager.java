@@ -1,9 +1,9 @@
 package managers;
 
-import entities.UndefinedPropertyType;
-import entities.UndefinedUserType;
+import interactors.exceptions.UndefinedPropertyType;
+import interactors.exceptions.UndefinedUserType;
 import entities.*;
-import interactors.PropertyListingGateway;
+import interactors.gateway_interfaces.PropertyGateway;
 import entities.Owner;
 import entities.Realtor;
 import entities.User;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class PropertyManager implements PropertyListingGateway {
+public class PropertyManager implements PropertyGateway {
     String properties_filepath;
     String users_filepath;
     String reviews_filepath;
@@ -204,5 +204,18 @@ public class PropertyManager implements PropertyListingGateway {
             }
             return properties;
         } catch (Exception e) {e.printStackTrace(); return null;}
+    }
+
+    public void removePropertyById(String id) {
+        try {
+            Path filePath = Path.of(this.properties_filepath);
+            String content = Files.readString(filePath);
+            JSONObject a = new JSONObject(content);
+            a.remove(id);
+            try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(this.properties_filepath), "utf-8"))) {
+                writer.write(a.toString());
+            }
+        } catch (Exception e) {e.printStackTrace();}
     }
 }

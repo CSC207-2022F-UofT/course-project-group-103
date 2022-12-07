@@ -1,29 +1,50 @@
 package interactors;
 
 import entities.User;
-import interactors.containers.ActiveUser;
+import interactors.gateway_interfaces.LoginGateway;
+import interactors.input_boundary.LoginInput;
+import interactors.output_boundary.LoginOuput;
 
 import java.util.ArrayList;
 
-public class LoginInteractor {
+public class LoginInteractor implements LoginInput {
+    /**
+     * Gateway interface to user JSON with read/write methods.
+     */
     LoginGateway loginGateway;
-    ActiveUser activeUser;
+    /**
+     * Output interface for login interactor.
+     */
+    LoginOuput loginOuput;
 
-    public LoginInteractor(LoginGateway g, ActiveUser a) {
+    /**
+     * Constructor for the login interactor, assigns object instances to its attributes.
+     *
+     * @param g: implementation of loginGateway interface.
+     * @param ob: implementation of output boundary interface.
+     */
+    public LoginInteractor(LoginGateway g, LoginOuput ob) {
         this.loginGateway = g;
-        this.activeUser = a;
+        this.loginOuput = ob;
     }
 
-    public boolean login(String username, String password) {
+    /**
+     * Searches database to find whether password and username exist in it, if they do
+     * log the user in under the associated account.
+     *
+     * @param username: given username.
+     * @param password: given password.
+     */
+    public void login(String username, String password) {
         ArrayList<User> users = loginGateway.getUsers();
         for (User u: users) {
             String user = u.getName();
             String pass = u.getPassword();
             if (user.equals(username) && pass.equals(password)) {
-                this.activeUser.setActiveUser(u);
-                return true;
+                this.loginOuput.onLoginSuccess(u.getID());
+                return;
             }
         }
-        return false;
+        this.loginOuput.onLoginFailure("Account Does Not Exist");
     }
 }

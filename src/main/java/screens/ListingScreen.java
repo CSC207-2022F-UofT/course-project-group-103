@@ -1,15 +1,15 @@
 package screens;
 
-import controllers.ListingController;
-import controllers.SingleListingController;
+import interactors.SingleListingModel;
+import presenters.ListingScreenPresenter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ListingScreen extends JPanel implements ActionListener {
-    ListingController listingController;
-
+    ListingScreenPresenter listingScreenPresenter;
     JTextField pricerange;
     JTextField sqftrange;
     JCheckBox house;
@@ -18,8 +18,8 @@ public class ListingScreen extends JPanel implements ActionListener {
     JCheckBox restaurant;
     JPanel panel = new JPanel();
 
-    public ListingScreen(ListingController c) {
-        this.listingController = c;
+    public ListingScreen(ListingScreenPresenter presenter) {
+        this.listingScreenPresenter = presenter;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.draw();
     }
@@ -34,7 +34,7 @@ public class ListingScreen extends JPanel implements ActionListener {
         JButton back = new JButton("Back");
         back.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(back);
-        back.addActionListener(e -> listingController.back());
+        back.addActionListener(e -> listingScreenPresenter.onBack());
 
         // filters setup
         JLabel price_tag = new JLabel("Price Range: ");
@@ -54,35 +54,52 @@ public class ListingScreen extends JPanel implements ActionListener {
         types.add(office);
         types.add(restaurant);
         this.add(types);
-        this.add(price_tag);
-        this.add(pricerange);
-        this.add(sqft_tag);
-        this.add(sqftrange);
+        JPanel inputs = new JPanel();
+        inputs.setLayout(new BoxLayout(inputs, BoxLayout.Y_AXIS));
+        inputs.setAlignmentX(Component.CENTER_ALIGNMENT);
+        inputs.setPreferredSize(new Dimension(200, 100));
+        inputs.setMaximumSize(new Dimension(200, 100));
+        inputs.add(price_tag);
+        inputs.add(pricerange);
+        inputs.add(sqft_tag);
+        inputs.add(sqftrange);
+        this.add(inputs);
         JButton refresh = new JButton("Refresh");
         refresh.setAlignmentX(Component.CENTER_ALIGNMENT);
         refresh.addActionListener(this);
         this.add(refresh);
 
-        // set up the listings scroll panel
-        this.setUpListings();
+        // set up the listings scroll panel (empty until panel loaded)
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         JScrollPane l = new JScrollPane(panel);
         l.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         l.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         this.add(l);
     }
 
-    public void setUpListings() {
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        for (SingleListingController controller: this.listingController.createListings()) {
-            SingleListing j = new SingleListing(controller);
-            j.setAlignmentX(Component.CENTER_ALIGNMENT);
-            panel.add(j);
+    public void setUpListings(ArrayList<SingleListingModel> info) {
+        panel.removeAll();
+        for (SingleListingModel m: info) {
+            String id = m.getID();
+            JLabel address = new JLabel("Address: " + m.getAddress());
+            address.setAlignmentX(Component.CENTER_ALIGNMENT);
+            JLabel price = new JLabel("Price: " + Float.toString(m.getPrice()));
+            price.setAlignmentX(Component.CENTER_ALIGNMENT);
+            JButton b = new JButton("View Property");
+            b.setAlignmentX(Component.CENTER_ALIGNMENT);
+            b.addActionListener(e -> {
+                this.listingScreenPresenter.onAccessProperty(id);
+            });
+            panel.add(address);
+            panel.add(price);
+            panel.add(b);
+            panel.add(new JLabel(" "));
         }
+        panel.repaint();
+        panel.revalidate();
     }
 
     public void redraw() {
-        this.listingController.sendListingReset();
-        panel.removeAll();
         this.removeAll();
         this.draw();
         this.repaint();
@@ -90,12 +107,7 @@ public class ListingScreen extends JPanel implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent evt) {
-        this.listingController.sendListingUpdate(pricerange.getText(), sqftrange.getText());
-        this.listingController.sendListingTypeUpdate(house.isSelected(), condo.isSelected(),
-                office.isSelected(),restaurant.isSelected());
-        panel.removeAll();
-        this.setUpListings();
-        panel.repaint();
-        panel.revalidate();
+        this.listingScreenPresenter.onListingUpdate(pricerange.getText(), sqftrange.getText(), house.isSelected(),
+                condo.isSelected(), office.isSelected(), restaurant.isSelected());
     }
 }
