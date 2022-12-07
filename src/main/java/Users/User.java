@@ -10,6 +10,8 @@ import Exceptions.MessengerNotFound;
 
 import Exceptions.MessageNotAppropriate;
 
+import java.util.ArrayList;
+
 public class User {
 
     protected final String ID;
@@ -121,5 +123,12 @@ public class User {
             }
         }
     throw new MessengerNotFound("Messenger not found in messengers");
+    }
+
+    public ArrayList<String> info() {
+        ArrayList<String> info = new ArrayList<>();
+        info.add("Name: " + this.getName());
+        info.add("Contact: " + this.getContact());
+        return info;
     }
 }

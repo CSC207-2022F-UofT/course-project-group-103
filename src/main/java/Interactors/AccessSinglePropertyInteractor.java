@@ -5,13 +5,13 @@ import Managers.PropertyManager;
 import Properties.Property;
 
 public class AccessSinglePropertyInteractor {
+    String property_id;
 
-    public static void main(String[] args) throws UndefinedPropertyType {
-        Property property = PropertyManager.getProperty("0");
-        System.out.println(property.getAddress());
+    public AccessSinglePropertyInteractor(String property_id) {
+        this.property_id = property_id;
     }
 
-    public static Property access_single_property(String property_id) throws UndefinedPropertyType {
-        return PropertyManager.getProperty(property_id);
+    public Property access_single_property() throws UndefinedPropertyType {
+        return PropertyManager.getProperty(this.property_id);
     }
 }
