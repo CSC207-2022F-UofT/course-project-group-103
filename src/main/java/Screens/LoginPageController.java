@@ -1,7 +1,7 @@
-package Screens;
+package screens;
 
-import Exceptions.LoginNotFoundException;
-import Interactors.LoginInteractor;
+import exceptions.LoginNotFoundException;
+import interactors.LoginInteractor;
 
 public class LoginPageController {
 

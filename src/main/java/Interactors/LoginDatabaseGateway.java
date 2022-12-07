@@ -1,4 +1,4 @@
-package Interactors;
+package interactors;
 
 import org.json.JSONObject;
 

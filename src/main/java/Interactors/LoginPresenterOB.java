@@ -1,4 +1,4 @@
-package Interactors;
+package interactors;
 
 public interface LoginPresenterOB {
 
