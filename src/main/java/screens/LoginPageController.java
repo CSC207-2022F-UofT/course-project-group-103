@@ -1,3 +1,4 @@
+/*
 package screens;
 
 import exceptions.LoginNotFoundException;
@@ -17,3 +18,4 @@ public class LoginPageController {
         loginInteractor.loginUser(user, password);
     }
 }
+*/

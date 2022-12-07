@@ -1,8 +1,9 @@
+/*
 package interactors;
 
 import exceptions.UndefinedPropertyType;
 import managers.PropertyManager;
-import entities.properties.Property;
+import entities.*;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -33,3 +34,4 @@ public class Feature4Interactor {
         }
     }
 
+*/

@@ -1,6 +1,5 @@
-package entities.Messenger;
+package entities;
 
-import entities.users.User;
 
 import java.util.ArrayList;
 

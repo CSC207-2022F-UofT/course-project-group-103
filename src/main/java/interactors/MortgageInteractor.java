@@ -1,6 +1,6 @@
 package interactors;
 
-import entities.properties.Property;
+import entities.Property;
 
 public class MortgageInteractor {
 
