@@ -41,15 +41,11 @@ public class MessengerChatScreen {
         message.setPreferredSize(new Dimension(100, 25));
         pane2.add(message, BorderLayout.PAGE_END);
 
-        JLabel receiver = new JLabel(openMessengerController.getUsername("4"));
-        receiver.setAlignmentX(Component.CENTER_ALIGNMENT);
-        pane2.add(receiver, BorderLayout.PAGE_START);
-
         JLabel test = new JLabel("test this is a test");
         test.setBounds(200, 400, 100, 15);
         test.setAlignmentY(Component.TOP_ALIGNMENT);
         test.setAlignmentX(Component.LEFT_ALIGNMENT);
-        pane2.add(test);
+        pane2.add(test, BorderLayout.CENTER);
 
         frame.add(pane1, BorderLayout.WEST);
         frame.add(pane2, BorderLayout.CENTER);
