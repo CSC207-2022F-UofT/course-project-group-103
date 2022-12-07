@@ -16,8 +16,13 @@ public class UserGateway {
      * database. Removes their properties and bids from all databases and unassigns their ID.
      */
 
-    public void removeUser(String name, String password, String ID) throws IOException {
-        String jsonStringUser = Files.readString(Paths.get("src\\main\\Databases\\UserListing.json"));
+    public void removeUser(String name, String password, String ID) {
+        String jsonStringUser = null;
+        try {
+            jsonStringUser = Files.readString(Paths.get("src\\main\\Databases\\UserListing.json"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         JSONObject users = new JSONObject(jsonStringUser);
         JSONObject userInfo = (JSONObject) users.get(String.valueOf(ID));
 
@@ -25,7 +30,12 @@ public class UserGateway {
                 userInfo.getString("password").equals(password)) {
 
             users.remove(ID);
-            String jsonStringProperty = Files.readString(Paths.get("src\\main\\Databases\\PropertyListing.json"));
+            String jsonStringProperty = null;
+            try {
+                jsonStringProperty = Files.readString(Paths.get("src\\main\\Databases\\PropertyListing.json"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             JSONObject properties = new JSONObject(jsonStringProperty);
             JSONArray keys = properties.names();
 
@@ -59,10 +69,15 @@ public class UserGateway {
      * @return ArrayList of all realtors
      */
 
-    public ArrayList<Realtor> getRealtors() throws IOException {
+    public ArrayList<Realtor> getRealtors() {
         ArrayList<Realtor> realtors = new ArrayList<>();
 
-        String jsonString = Files.readString(Paths.get("src\\main\\Databases\\UserListing.json"));
+        String jsonString = null;
+        try {
+            jsonString = Files.readString(Paths.get("src\\main\\Databases\\UserListing.json"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         JSONObject users = new JSONObject(jsonString);
         JSONArray keys = users.names();
 
@@ -89,10 +104,15 @@ public class UserGateway {
      * @param ID Realtor ID
      * @return ArrayList of users
      */
-    public ArrayList<User> getRealtorClients(String ID) throws IOException {
+    public ArrayList<User> getRealtorClients(String ID){
         ArrayList<User> clients = new ArrayList<>();
 
-        String jsonString = Files.readString(Paths.get("src\\main\\Databases\\UserListing.json"));
+        String jsonString = null;
+        try {
+            jsonString = Files.readString(Paths.get("src\\main\\Databases\\UserListing.json"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         JSONObject users = new JSONObject(jsonString);
         JSONArray keys = users.names();
 

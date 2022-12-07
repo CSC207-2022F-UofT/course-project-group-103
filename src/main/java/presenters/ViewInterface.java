@@ -50,4 +50,6 @@ public interface ViewInterface {
      * Refreshes the account page.
      */
     void refreshAccount();
+
+    void displayRealtorListing();
 }

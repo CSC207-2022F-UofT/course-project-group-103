@@ -30,6 +30,7 @@ public class GUI extends JFrame implements ViewInterface {
     ActiveAccountScreen activeAccountScreen;
     CreateListingScreen createListingScreen;
     CreateReviewScreen createReviewScreen;
+    RealtorListingScreen realtorListingScreen;
     ArrayList<String> pageOrder = new ArrayList<>();
 
     public GUI() {
@@ -96,6 +97,10 @@ public class GUI extends JFrame implements ViewInterface {
         CreateReviewPresenter createReviewPresenter = new CreateReviewPresenter(createReviewInteractor, this);
         createReviewScreen = new CreateReviewScreen(createReviewPresenter);
 
+        RealtorSearchInteractor realtorSearchInteractor = new RealtorSearchInteractor();
+        RealtorListingPresenter realtorListingPresenter = new RealtorListingPresenter(realtorSearchInteractor, this);
+        realtorListingScreen = new RealtorListingScreen(realtorListingPresenter);
+
         // set up card layout
         screen = new CardLayout();
         screens = new JPanel(screen);
@@ -112,6 +117,7 @@ public class GUI extends JFrame implements ViewInterface {
         screens.add(activeAccountScreen, "Active Account");
         screens.add(createListingScreen, "Create Listing");
         screens.add(createReviewScreen, "Create Review");
+        screens.add(realtorListingScreen, "Realtor Listing");
     }
 
     public void displayHome() {
@@ -163,6 +169,14 @@ public class GUI extends JFrame implements ViewInterface {
         screen.show(screens, "Create Review");
         pageOrder.add("Create Review");
     }
+
+    public void displayRealtorListing() {
+        createReviewScreen.redraw();
+        screen.show(screens, "Realtor Listing");
+        pageOrder.add("Realtor Listing");
+    }
+
+
 
     public void displayPrevious() {
         if (pageOrder.size()<2) {

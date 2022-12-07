@@ -34,4 +34,8 @@ public class HomeScreenPresenter {
     public void onCreateListing() {
         this.viewInterface.displayCreateListing();
     }
+
+    public void onRealtorListing() {
+        this.viewInterface.displayRealtorListing();
+    }
 }
