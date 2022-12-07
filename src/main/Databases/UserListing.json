@@ -26,6 +26,7 @@
     "user_type": "Realtor",
     "password": "Sean111",
     "contact": "sean@gmail.com",
+    "hiredRealtor": null,
     "securityQuestion": "Am I stronger than Daniel?",
     "securityAnswer": "Yes"
   }

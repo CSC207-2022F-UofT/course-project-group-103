@@ -9,13 +9,13 @@ import Users.Realtor;
 import Users.User;
 import org.json.JSONObject;
 import org.json.JSONArray;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.io.PrintWriter;
 
 public class PropertyManager {
     public static Property getProperty(String ID) throws UndefinedPropertyType {
@@ -79,16 +79,10 @@ public class PropertyManager {
                 review_list.add(getReview(reviews.getString(i)));
             }
             if (Objects.equals(user.get("hiredRealtor"), null)) {
-                Owner owner = new Owner(ID, name, password, contact, securityQuestion, securityAnswer);
-                owner.setReviews(review_list);
-                return owner;
-
-            }
-            else {
+                return new Owner(ID, name, password, contact, securityQuestion, securityAnswer, review_list);
+            } else {
                 String hiredRealtorID = user.getString("hiredRealtor");
-                Owner owner = new Owner(ID, name, password, contact, hiredRealtorID,securityQuestion, securityAnswer);
-                owner.setReviews(review_list);
-                return owner;
+                return new Owner(ID, name, password, contact, securityQuestion, securityAnswer, hiredRealtorID, review_list);
             }
         }
         else if (Objects.equals(user.get("user_type").toString(), "User")) {
@@ -125,4 +119,60 @@ public class PropertyManager {
     }
 
 
+    public static float getPrice(String id) {
+        try {
+            String location = "src/main/Databases/PropertyListing.json";
+            File file = new File(location);
+            String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
+            JSONObject obj = new JSONObject(content);
+            float price = obj.getJSONObject(id).getFloat("price");
+            return price;
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static String getPropertyType(String id) {
+        try {
+            String location = "src/main/Databases/PropertyListing.json";
+            File file = new File(location);
+            String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
+            JSONObject obj = new JSONObject(content);
+            String ptype = obj.getJSONObject(id).getString("property_type");
+            return ptype;
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static boolean getSold(String id) {
+        try {
+            String location = "src/main/Databases/PropertyListing.json";
+            File file = new File(location);
+            String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
+            JSONObject obj = new JSONObject(content);
+            String name = obj.getJSONObject(id).getString("sold");
+            return name.equals("true");
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void markSold(String id) throws IOException {
+        String location = "src/main/Databases/PropertyListing.json";
+        File file = new File(location);
+        String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
+        JSONObject obj = new JSONObject(content);
+        obj.getJSONObject(id).put("sold", "true");
+        try (PrintWriter file2 = new PrintWriter(location)) {
+            file2.write(obj.toString());
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
