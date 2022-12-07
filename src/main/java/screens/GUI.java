@@ -16,9 +16,9 @@ public class GUI extends JFrame implements ViewInterface {
      * -weird bug on delete account with bids
      */
 
-    final String properties_path = "course-project-group-103/src/main/Databases/PropertyListing.json";
-    final String users_path = "course-project-group-103/src/main/Databases/UserListing.json";
-    final String reviews_path = "course-project-group-103/src/main/Databases/ReviewList.json";
+    final String properties_path = "src/main/Databases/PropertyListing.json";
+    final String users_path = "src/main/Databases/UserListing.json";
+    final String reviews_path = "src/main/Databases/ReviewList.json";
     JPanel screens;
     CardLayout screen;
     LoginScreen loginScreen;
