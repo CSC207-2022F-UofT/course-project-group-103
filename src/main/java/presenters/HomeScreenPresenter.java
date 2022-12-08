@@ -1,6 +1,8 @@
 package presenters;
 
 import interactors.*;
+import interactors.exceptions.MessengerNotFound;
+import interactors.exceptions.UndefinedUserType;
 import interactors.gateway_interfaces.LoginGateway;
 import interactors.gateway_interfaces.PropertyGateway;
 import interactors.gateway_interfaces.ReviewGateway;
@@ -9,6 +11,7 @@ import interactors.input_boundary.LoadListingInput;
 import interactors.output_boundary.LoadAccountOutput;
 import interactors.output_boundary.LoadListingOutput;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class HomeScreenPresenter implements LoadListingOutput, LoadAccountOutput {
@@ -67,4 +70,7 @@ public class HomeScreenPresenter implements LoadListingOutput, LoadAccountOutput
     public void onCreateListing() {
         this.viewInterface.displayCreateListing();
     }
+
+    public void onOpenMessenger() throws MessengerNotFound, UndefinedUserType, IOException
+    {this.viewInterface.displayChat(null);}
 }

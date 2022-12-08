@@ -4,7 +4,10 @@ import interactors.AccountModel;
 import interactors.PropertyModel;
 import interactors.ReviewModel;
 import interactors.SingleListingModel;
+import interactors.exceptions.MessengerNotFound;
+import interactors.exceptions.UndefinedUserType;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 // controller layer
@@ -77,4 +80,7 @@ public interface ViewInterface {
      */
     void displayChangePassword(String securityQuestion);
     void displayChangePasswordInactive(String securityQuestion);
+
+    void displayChat(String User2ID) throws MessengerNotFound, UndefinedUserType, IOException;
+
 }

@@ -1,5 +1,8 @@
 package screens;
 
+import interactors.exceptions.MessengerNotFound;
+import interactors.exceptions.UndefinedUserType;
+import interactors.gateway_interfaces.MessengerGateway;
 import presenters.*;
 import interactors.*;
 import managers.*;
@@ -20,6 +23,8 @@ public class GUI extends JFrame implements ViewInterface {
     final String properties_path = "src/main/Databases/PropertyListing.json";
     final String users_path = "src/main/Databases/UserListing.json";
     final String reviews_path = "src/main/Databases/ReviewList.json";
+    final String messengers_path = "src/main/Databases/MessengerDatabase.json";
+
     JPanel screens;
     CardLayout screen;
     LoginScreen loginScreen;
@@ -32,10 +37,11 @@ public class GUI extends JFrame implements ViewInterface {
     AccountScreen accountScreen;
     CreateReviewScreen createReviewScreen;
     ChangePasswordScreen changePasswordScreen;
+    MessengerChatScreen messengerChatScreen;
     ArrayList<String> pageOrder = new ArrayList<>();
     String activeUser;
 
-    public GUI() throws IOException {
+    public GUI() throws IOException, MessengerNotFound, UndefinedUserType {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setPreferredSize(new Dimension(400, 400));
 
@@ -43,6 +49,7 @@ public class GUI extends JFrame implements ViewInterface {
         LoginManager loginManager = new LoginManager(users_path, reviews_path);
         PropertyManager propertyManager = new PropertyManager(properties_path, users_path, reviews_path, loginManager);
         ReviewManager reviewManager = new ReviewManager(reviews_path);
+        MessageManager messageManager = new MessageManager(messengers_path);
 
         // set up sign-up screen
         SignUpScreenPresenter signUpScreenPresenter = new SignUpScreenPresenter(this, loginManager);
@@ -90,6 +97,11 @@ public class GUI extends JFrame implements ViewInterface {
         CreateReviewPresenter createReviewPresenter = new CreateReviewPresenter(this, reviewManager);
         createReviewScreen = new CreateReviewScreen(createReviewPresenter);
 
+        // set up chat screen
+        MessengerPresenter messengerPresenter = new MessengerPresenter(this, messageManager, loginManager);
+        SendMessagePresenter sendMessagePresenter = new SendMessagePresenter(this, messageManager, loginManager);
+        messengerChatScreen = new MessengerChatScreen(messengerPresenter, sendMessagePresenter);
+
 
         // set up card layout
         screen = new CardLayout();
@@ -108,6 +120,7 @@ public class GUI extends JFrame implements ViewInterface {
         screens.add(accountScreen, "Account");
         screens.add(changePasswordScreen, "Change Password");
         screens.add(createReviewScreen, "Create Review");
+        screens.add(messengerChatScreen, "Messenger");
     }
 
     public void displayLogin() {
@@ -205,5 +218,11 @@ public class GUI extends JFrame implements ViewInterface {
         changePasswordScreen.redraw(securityQuestion, false);
         screen.show(screens, "Change Password");
         pageOrder.add("Change Password");
+    }
+
+    public void displayChat(String user2ID) throws MessengerNotFound, UndefinedUserType, IOException {
+        messengerChatScreen.draw(user2ID);
+        screen.show(screens, "Messenger");
+        pageOrder.add("Messenger");
     }
 }

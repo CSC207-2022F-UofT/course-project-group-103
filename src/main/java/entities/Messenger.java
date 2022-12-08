@@ -4,31 +4,32 @@ package entities;
 import java.util.ArrayList;
 
 public class Messenger {
-    private User User1;
-    private User User2;
-    private String ID;
+    private final String user1ID;
+    private final String user2ID;
+    private final String ID;
     private ArrayList<ArrayList<String>> messageLog = new ArrayList<>();
 
-    public User getUser1() {
-        return User1;
+    public Messenger(String user1ID, String user2ID, String ID, ArrayList<ArrayList<String>> messageLog) {
+        this.ID = ID;
+        this.user1ID = user1ID;
+        this.user2ID = user2ID;
+        this.messageLog = messageLog;
     }
 
-    public User getUser2() {
-        return User2;
+    public String getUser1ID() {
+        return user1ID;
+    }
+
+    public String getUser2ID() {
+        return user2ID;
+    }
+
+    public String getID() {
+        return ID;
     }
 
     public ArrayList<ArrayList<String>> getMessageLog() {
         return this.messageLog;
     }
 
-    public void addMessage(User sender, String message) {
-        /**
-         * This method takes in a User object (sender) and a String (message) and creates an arrayList containing the
-         * sender's ID and the message they have sent. This Arraylist is then stored in the message Log.
-         */
-        ArrayList<String> newLog = new ArrayList<>();
-        newLog.add(sender.getID());
-        newLog.add(message);
-        messageLog.add(newLog);
-    }
 }

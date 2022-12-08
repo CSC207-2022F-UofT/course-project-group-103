@@ -7,6 +7,7 @@ import interactors.input_boundary.ChangePasswordInput;
 import interactors.output_boundary.ChangePasswordOutput;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ChangePasswordInteractor implements ChangePasswordInput {
     /**
@@ -35,5 +36,4 @@ public class ChangePasswordInteractor implements ChangePasswordInput {
     public String getSecurityQuestion(String user_id) throws IOException {
         return this.loginGateway.getSecurityQuestion(user_id);
     }
-
 }
