@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 public class RealtorSearchInteractor {
     /**
-     * Returns a list of list of realtors, where each inner list has a single realtor's name and contact information.
+     * Returns a list of list of realtors, where each inner list has a single realtor's name,
+     * contact information, and ID.
      * @return List of list of realtors
      */
     public ArrayList<ArrayList<String>> listRealtors(){
@@ -21,6 +22,7 @@ public class RealtorSearchInteractor {
                 ArrayList<String> realtorInfo = new ArrayList<>();
                 realtorInfo.add(u.getName());
                 realtorInfo.add(u.getContact());
+                realtorInfo.add(u.getID());
                 realtors.add(realtorInfo);
             }
         }

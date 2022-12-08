@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class RealtorListingPresenter {
     RealtorSearchInteractor realtorSearchInteractor;
+    RealtorClientsInteractor realtorClientsInteractor;
     ViewInterface viewInterface;
 
     public RealtorListingPresenter(RealtorSearchInteractor i, ViewInterface p) {
@@ -19,7 +20,7 @@ public class RealtorListingPresenter {
         return realtorSearchInteractor.listRealtors();
     }
 
-    public void realtorHire() {
+    public void onRealtorHire() {
         this.viewInterface.displayHome();
         this.viewInterface.displaySuccess("Successfully hired realtor");
     }
