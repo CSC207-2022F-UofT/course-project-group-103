@@ -66,4 +66,8 @@ public class HomeScreenPresenter implements LoadListingOutput, LoadAccountOutput
     public void onCreateListing() {
         this.viewInterface.displayCreateListing();
     }
+
+    public void onRealtorListing() {
+        this.viewInterface.displayRealtorListing();
+    }
 }

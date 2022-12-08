@@ -31,7 +31,9 @@ public class GUI extends JFrame implements ViewInterface {
     ActiveAccountScreen activeAccountScreen;
     AccountScreen accountScreen;
     CreateReviewScreen createReviewScreen;
+    RealtorListingScreen realtorListingScreen;
     EstimateMortgageScreen mortgageEstimatorScreen;
+
     ArrayList<String> pageOrder = new ArrayList<>();
     String activeUser;
 
@@ -84,9 +86,15 @@ public class GUI extends JFrame implements ViewInterface {
         CreateReviewPresenter createReviewPresenter = new CreateReviewPresenter(this, reviewManager);
         createReviewScreen = new CreateReviewScreen(createReviewPresenter);
 
+        // set up realtor listing screen
+        RealtorSearchInteractor realtorSearchInteractor = new RealtorSearchInteractor();
+        RealtorListingPresenter realtorListingPresenter = new RealtorListingPresenter(realtorSearchInteractor, this);
+        realtorListingScreen = new RealtorListingScreen(realtorListingPresenter);
+
         // set up mortgage estimator screen
         EstimateMortgagePresenter estimateMortgagePresenter = new EstimateMortgagePresenter(this);
         mortgageEstimatorScreen = new EstimateMortgageScreen(estimateMortgagePresenter);
+
 
         // set up card layout
         screen = new CardLayout();
@@ -104,6 +112,7 @@ public class GUI extends JFrame implements ViewInterface {
         screens.add(activeAccountScreen, "Active Account");
         screens.add(accountScreen, "Account");
         screens.add(createReviewScreen, "Create Review");
+        screens.add(realtorListingScreen, "Realtor Listing");
         screens.add(mortgageEstimatorScreen, "Estimate Mortgage");
     }
 
@@ -147,6 +156,13 @@ public class GUI extends JFrame implements ViewInterface {
         screen.show(screens, "Property");
         pageOrder.add("Property");
     }
+
+    public void displayRealtorListing() {
+        screen.show(screens, "Realtor Listing");
+        pageOrder.add("Realtor Listing");
+    }
+
+
 
     public void displayPrevious() {
         if (pageOrder.size()<2) {

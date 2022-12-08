@@ -72,6 +72,7 @@ public interface ViewInterface {
      */
     String getActiveUser();
 
+    void displayRealtorListing();
     /**
      * Displays the mortgage estimator page for a specific property.
      */
