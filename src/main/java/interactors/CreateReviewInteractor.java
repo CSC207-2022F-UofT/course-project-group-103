@@ -10,22 +10,31 @@ import java.util.ArrayList;
 
 public class CreateReviewInteractor implements CreateReviewInput {
 
+    /**
+     * Gateway interface for the review's database.
+     */
     ReviewGateway reviewGateway;
+    /**
+     * Output interface for this interactor.
+     */
     CreateReviewOutput createReviewOutput;
 
+    /**
+     * Constructor for the interactor, assigns its attributes.
+     *
+     * @param g: implementation of the review gateway interface.
+     * @param ob: implementation of the interacts output.
+     */
     public CreateReviewInteractor(ReviewGateway g, CreateReviewOutput ob) {
         this.reviewGateway = g;
         this.createReviewOutput = ob;
     }
 
     /**
-     * Creates a review object associated with the accessed account and active user and saves it to the database.
-     *
-     * @param review: content of the review.
-     * @param rating: rating given.
-     * @param userID: ID of the user who wrote the review.
-     * @param ownerID: ID of the owner who wrote the review.
+     * @see CreateReviewInput
+     * Creates a review object and saves it to the database.
      */
+    @Override
     public void createReview(String review, String rating, String userID, String ownerID) {
         int rating_int;
         try {

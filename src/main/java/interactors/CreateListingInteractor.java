@@ -38,17 +38,10 @@ public class CreateListingInteractor implements CreateListingInput {
     }
 
     /**
-     * Creates a house object listed by the user and saves it to the database.
-     *
-     * @param name: name of the house to create
-     * @param address: address of the house to create
-     * @param sqFt: square footage of house to create
-     * @param price: price of house to create
-     * @param numBed: number of bedrooms in house to create
-     * @param numBath: number of bathrooms in house to create
-     * @param numLaundry: number of laundry rooms in house to create
-     * @param numKitchen: number of kitchens in house to create
+     * @see CreateListingInput
+     * Creates a house object and saves it to the database.
      */
+    @Override
     public void createHouse(String name, String address, String sqFt, String price, String numBed,
                             String numBath, String numLaundry, String numKitchen, String userID) {
         int sqFt_int;
@@ -92,17 +85,10 @@ public class CreateListingInteractor implements CreateListingInput {
     }
 
     /**
-     * Creates a condo object listed by the user and saves it to the database.
-     *
-     * @param name: name of the condo to create
-     * @param address: address of the condo to create
-     * @param sqFt: square footage of condo to create
-     * @param price: price of condo to create
-     * @param numBed: number of bedrooms in condo to create
-     * @param numBath: number of bathrooms in condo to create
-     * @param numLaundry: number of laundry rooms in condo to create
-     * @param numKitchen: number of kitchens in condo to create
+     * @see CreateListingInput
+     * Creates a condo object and saves it to the database.
      */
+    @Override
     public void createCondo(String name, String address, String sqFt, String price, String numBed,
                             String numBath, String numLaundry, String numKitchen, String userID) {
         int sqFt_int;
@@ -146,15 +132,10 @@ public class CreateListingInteractor implements CreateListingInput {
     }
 
     /**
-     * Creates an office object listed by the user and saves it to the database.
-     *
-     * @param name: name of the office to create
-     * @param address: address of the office to create
-     * @param sqFt: square footage of office to create
-     * @param price: price of office to create
-     * @param numOffice: number of office rooms in office to create
-     * @param numReception: number of receptions in office to create
+     * @see CreateListingInput
+     * Creates an office object and saves it to the database.
      */
+    @Override
     public void createOffice(String name, String address, String sqFt, String price, String numOffice,
                              String numReception, String userID) {
         int sqFt_int;
@@ -188,14 +169,10 @@ public class CreateListingInteractor implements CreateListingInput {
     }
 
     /**
-     * Creates a restaurant object listed by the user and saves it to the database.
-     *
-     * @param name: name of the restaurant to create
-     * @param address: address of the restaurant to create
-     * @param sqFt: square footage of restaurant to create
-     * @param price: price of restaurant to create
-     * @param spec: kitchen specifications of restaurant to create
+     * @see CreateListingInput
+     * Creates a restaurant object and saves it to the database.
      */
+    @Override
     public void createRestaurant(String name, String address, String sqFt, String price,
                                  String spec, String userID) {
         int sqFt_int;

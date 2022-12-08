@@ -29,11 +29,10 @@ public class LoginInteractor implements LoginInput {
     }
 
     /**
-     * Searches database to find whether password and username exist in it, if they do
-     * log the user in under the associated account.
-     *
-     * @param username: given username.
-     * @param password: given password.
+     * @see LoginInput
+     * Accesses all user objects stored in the user database and searches through them to see if
+     * any username password combination matches and then calls the output interface passing in
+     * the users ID.
      */
     public void login(String username, String password) {
         ArrayList<User> users = loginGateway.getUsers();

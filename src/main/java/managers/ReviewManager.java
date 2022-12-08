@@ -12,12 +12,26 @@ import java.util.ArrayList;
 
 public class ReviewManager implements ReviewGateway {
 
+    /**
+     * Path to the review database.
+     */
     String reviews_filepath;
 
+    /**
+     * Constructor that assigns the filepath.
+     *
+     * @param r: path to the review database.
+     */
     public ReviewManager(String r) {
         this.reviews_filepath = r;
     }
 
+    /**
+     * @see ReviewGateway
+     * Reads reviews json from file and reconstructs all entries into review objects and
+     * returns them as a list.
+     */
+    @Override
     public ArrayList<Review> getReviews() {
         try {
             Path filePath = Path.of(this.reviews_filepath);
@@ -32,6 +46,13 @@ public class ReviewManager implements ReviewGateway {
         } catch (Exception e) {e.printStackTrace(); return null;}
     }
 
+    /**
+     * Reads reviews json from file gets the entry with the given ID as a key and reconstructs
+     * it into a review object.
+     *
+     * @param ID: id of review to get.
+     * @return Review object associated with the id.
+     */
     public Review getReview(String ID) throws IOException {
         String location = this.reviews_filepath;
         File file = new File(location);
@@ -46,6 +67,11 @@ public class ReviewManager implements ReviewGateway {
         return new Review(ID, reviewString, ownerID, userID, date, rating);
     }
 
+    /**
+     * @see ReviewGateway
+     * Converts review object into json format and that saves it to the file.
+     */
+    @Override
     public void saveReview(Review r) throws Exception {
         try {
             JSONObject review = new JSONObject();
@@ -60,7 +86,7 @@ public class ReviewManager implements ReviewGateway {
             JSONObject a = new JSONObject(content);
             a.put(r.getID(), review);
             try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(this.reviews_filepath), "utf-8"))) {
+                    new FileOutputStream(this.reviews_filepath)))) {
                 writer.write(a.toString());
             }
         }
@@ -68,13 +94,19 @@ public class ReviewManager implements ReviewGateway {
 
     }
 
+    /**
+     * @see ReviewGateway
+     * Reads the review file and then deletes the entry with the given id as a key before saving the
+     * updated json object back to the file.
+     */
+    @Override
     public void deleteReview(String id) throws Exception {
         Path filePath = Path.of(this.reviews_filepath);
         String content = Files.readString(filePath);
         JSONObject a = new JSONObject(content);
         a.remove(id);
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(this.reviews_filepath), "utf-8"))) {
+                new FileOutputStream(this.reviews_filepath)))) {
             writer.write(a.toString());
         }
     }

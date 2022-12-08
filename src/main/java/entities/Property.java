@@ -1,7 +1,6 @@
 package entities;
 
 import java.util.HashMap;
-import java.util.ArrayList;
 
 public abstract class Property {
 
@@ -131,22 +130,5 @@ public abstract class Property {
      */
     public void removeBid(String userID) {
         this.bids.remove(userID);
-    }
-
-    /**
-     * Creates an array list of strings and adds all attributes apart from ID and bids
-     * to the list in string form preceded by a label of the attribute.
-     * @return Array List of formatted string representations of the property attributes.
-     */
-    public ArrayList<String> info() {
-        ArrayList<String> info = new ArrayList<>();
-        info.add("Type: " + this.getType());
-        info.add("Name: " + this.getName());
-        info.add("Address: " + this.getAddress());
-        info.add("Owner: " + this.getOwner().getName());
-        info.add("SqFt: " + this.getSqFt());
-        info.add("Price: " + this.getPrice());
-        return info;
-
     }
 }

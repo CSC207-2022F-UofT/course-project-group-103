@@ -14,14 +14,32 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class LoginManager implements LoginGateway {
+
+    /**
+     * filepath to the user database.
+     */
     String users_filepath;
+    /**
+     * filepath to the review database.
+     */
     String reviews_filepath;
 
+    /**
+     * Constructor for a login manager, assigns the filepaths.
+     *
+     * @param u: filepath to the user database.
+     * @param r: filepath to the review database.
+     */
     public LoginManager(String u, String r) {
         this.users_filepath = u;
         this.reviews_filepath = r;
     }
 
+    /**
+     * @see LoginGateway
+     * reads the user_listing json and reconstructs user objects from the information.
+     */
+    @Override
     public ArrayList<User> getUsers() {
         try {
             Path filePath = Path.of(this.users_filepath);
@@ -48,10 +66,14 @@ public class LoginManager implements LoginGateway {
                 }
             }
             return users;
-        } catch(Exception e) {}
-        return null;
+        } catch(Exception e) {return null;}
     }
 
+    /**
+     * Reads the review json and reconstructs the review of the associated id.
+     *
+     * @param ID: ID of review to get.
+     */
     public Review getReview(String ID) throws IOException {
         String location = this.reviews_filepath;
         File file = new File(location);
@@ -66,6 +88,12 @@ public class LoginManager implements LoginGateway {
         return new Review(ID, reviewString, ownerID, userID, date, rating);
     }
 
+    /**
+     * @see LoginGateway
+     * converts a user object into a json format and the reads the user_listing json placing the new
+     * user json into the user_listing and save the file.
+     */
+    @Override
     public void saveUser(User u) throws Exception {
         JSONObject user = new JSONObject();
         String type = u.getClass().getName().replace("entities.", "");
@@ -83,11 +111,17 @@ public class LoginManager implements LoginGateway {
         JSONObject user_list = new JSONObject(content);
         user_list.put(u.getID(),user);
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(this.users_filepath), "utf-8"))) {
+                new FileOutputStream(this.users_filepath)))) {
             writer.write(user_list.toString());
         }
     }
 
+    /**
+     * @see LoginGateway
+     * reads the user_listing json and the removes the entry with the given ID as the key, then saves
+     * the updated json back to the file.
+     */
+    @Override
     public void removeUser(String id) {
         try {
             Path filePath = Path.of(this.users_filepath);
@@ -95,7 +129,7 @@ public class LoginManager implements LoginGateway {
             JSONObject users = new JSONObject(content);
             users.remove(id);
             try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(this.users_filepath), "utf-8"))) {
+                    new FileOutputStream(this.users_filepath)))) {
                 writer.write(users.toString());
             }
         } catch (Exception e) {e.printStackTrace();}
