@@ -145,4 +145,7 @@ public class PropertyScreenPresenter implements SendBidOutput, LoadAccountOutput
     public void onDeletePropertyFailure(String message) {
         this.viewInterface.displayFailure(message);
     }
+
+    public void onEstimateMortgage(float price) {this.viewInterface.displayMortgageEstimator(price);}
+
 }

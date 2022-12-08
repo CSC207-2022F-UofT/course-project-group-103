@@ -2,6 +2,7 @@ package interactors.gateway_interfaces;
 
 import entities.Review;
 import java.util.ArrayList;
+import java.util.Set;
 
 public interface ReviewGateway {
     /**
@@ -21,4 +22,11 @@ public interface ReviewGateway {
      * @param id: ID of review to delete.
      */
     void deleteReview(String id) throws Exception;
+    /**
+     * Creates a set containing a list of words deemed inappropriate that won't be allowed in reviews
+     *
+     *
+     * @return Set<String> of bad words taken from InappropriateWordsList.json
+     */
+    Set<String> InappropriateWordsList();
 }

@@ -44,7 +44,7 @@ public class LoginScreen extends JPanel implements ActionListener{
 
         JButton signUp = new JButton("Sign Up");
         signUp.setAlignmentX(Component.CENTER_ALIGNMENT);
-        signUp.addActionListener(e -> {loginScreenPresenter.onSignUp();});
+        signUp.addActionListener(e -> loginScreenPresenter.onSignUp());
 
         this.add(inputs);
         this.add(login);

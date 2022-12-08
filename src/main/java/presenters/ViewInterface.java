@@ -92,4 +92,10 @@ public interface ViewInterface {
      * @return id of active user.
      */
     String getActiveUser();
+
+    void displayRealtorListing();
+    /**
+     * Displays the mortgage estimator page for a specific property.
+     */
+    void displayMortgageEstimator(float price);
 }

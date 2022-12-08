@@ -19,6 +19,7 @@ public class GUI extends JFrame implements ViewInterface {
     final String properties_path = "src/main/Databases/PropertyListing.json";
     final String users_path = "src/main/Databases/UserListing.json";
     final String reviews_path = "src/main/Databases/ReviewList.json";
+    final String inappropriate_words_path = "src/main/Databases/InappropriateWordsList.json";
     JPanel screens;
     CardLayout screen;
     LoginScreen loginScreen;
@@ -30,6 +31,9 @@ public class GUI extends JFrame implements ViewInterface {
     ActiveAccountScreen activeAccountScreen;
     AccountScreen accountScreen;
     CreateReviewScreen createReviewScreen;
+    RealtorListingScreen realtorListingScreen;
+    EstimateMortgageScreen mortgageEstimatorScreen;
+
     ArrayList<String> pageOrder = new ArrayList<>();
     String activeUser;
 
@@ -40,7 +44,7 @@ public class GUI extends JFrame implements ViewInterface {
         //set up managers
         PropertyManager propertyManager = new PropertyManager(properties_path, users_path, reviews_path);
         LoginManager loginManager = new LoginManager(users_path, reviews_path);
-        ReviewManager reviewManager = new ReviewManager(reviews_path);
+        ReviewManager reviewManager = new ReviewManager(reviews_path, inappropriate_words_path);
 
         // set up login screen
         LoginScreenPresenter loginScreenPresenter = new LoginScreenPresenter(this, loginManager);
@@ -82,6 +86,16 @@ public class GUI extends JFrame implements ViewInterface {
         CreateReviewPresenter createReviewPresenter = new CreateReviewPresenter(this, reviewManager);
         createReviewScreen = new CreateReviewScreen(createReviewPresenter);
 
+        // set up realtor listing screen
+        RealtorSearchInteractor realtorSearchInteractor = new RealtorSearchInteractor();
+        RealtorListingPresenter realtorListingPresenter = new RealtorListingPresenter(realtorSearchInteractor, this);
+        realtorListingScreen = new RealtorListingScreen(realtorListingPresenter);
+
+        // set up mortgage estimator screen
+        EstimateMortgagePresenter estimateMortgagePresenter = new EstimateMortgagePresenter(this);
+        mortgageEstimatorScreen = new EstimateMortgageScreen(estimateMortgagePresenter);
+
+
         // set up card layout
         screen = new CardLayout();
         screens = new JPanel(screen);
@@ -98,6 +112,8 @@ public class GUI extends JFrame implements ViewInterface {
         screens.add(activeAccountScreen, "Active Account");
         screens.add(accountScreen, "Account");
         screens.add(createReviewScreen, "Create Review");
+        screens.add(realtorListingScreen, "Realtor Listing");
+        screens.add(mortgageEstimatorScreen, "Estimate Mortgage");
     }
 
     public void displayLogin() {
@@ -141,6 +157,13 @@ public class GUI extends JFrame implements ViewInterface {
         pageOrder.add("Property");
     }
 
+    public void displayRealtorListing() {
+        screen.show(screens, "Realtor Listing");
+        pageOrder.add("Realtor Listing");
+    }
+
+
+
     public void displayPrevious() {
         if (pageOrder.size()<2) {
             screen.show(screens, "Home");
@@ -178,6 +201,12 @@ public class GUI extends JFrame implements ViewInterface {
         pageOrder.add("Create Review");
     }
 
+    public void displayMortgageEstimator(float price) {
+        mortgageEstimatorScreen.draw(price);
+        screen.show(screens, "Estimate Mortgage");
+        pageOrder.add("Estimate Mortgage");
+    }
+
     public void setActiveUser(String id) {
         this.activeUser = id;
     }
@@ -185,4 +214,6 @@ public class GUI extends JFrame implements ViewInterface {
     public String getActiveUser() {
         return this.activeUser;
     }
+
+
 }
