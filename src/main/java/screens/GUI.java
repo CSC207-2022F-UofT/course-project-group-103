@@ -19,6 +19,7 @@ public class GUI extends JFrame implements ViewInterface {
     final String properties_path = "src/main/Databases/PropertyListing.json";
     final String users_path = "src/main/Databases/UserListing.json";
     final String reviews_path = "src/main/Databases/ReviewList.json";
+    final String inappropriate_words_path = "src/main/Databases/InappropriateWordsList.json";
     JPanel screens;
     CardLayout screen;
     LoginScreen loginScreen;
@@ -41,7 +42,7 @@ public class GUI extends JFrame implements ViewInterface {
         //set up managers
         PropertyManager propertyManager = new PropertyManager(properties_path, users_path, reviews_path);
         LoginManager loginManager = new LoginManager(users_path, reviews_path);
-        ReviewManager reviewManager = new ReviewManager(reviews_path);
+        ReviewManager reviewManager = new ReviewManager(reviews_path, inappropriate_words_path);
 
         // set up login screen
         LoginScreenPresenter loginScreenPresenter = new LoginScreenPresenter(this, loginManager);
