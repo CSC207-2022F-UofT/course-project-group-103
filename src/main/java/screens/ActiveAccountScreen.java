@@ -43,8 +43,7 @@ public class ActiveAccountScreen extends JPanel {
         JButton b = new JButton("Sign Out");
         b.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(b);
-        b.addActionListener(e -> {
-            activeAccountPresenter.onSignOut();});
+        b.addActionListener(e -> activeAccountPresenter.onSignOut());
 
         // delete account button
         JButton delete = new JButton("Delete Account");
@@ -73,14 +72,14 @@ public class ActiveAccountScreen extends JPanel {
         group.removeAll();
         JPanel user_properties = new JPanel();
         user_properties.setLayout(new BoxLayout(user_properties, BoxLayout.Y_AXIS));
+        user_properties.add(new JLabel("Properties Listed: "));
+        user_properties.add(new JLabel(" "));
         for (SingleListingModel m: listings) {
             String id = m.getID();
             JLabel address = new JLabel("Address: " + m.getAddress());
             JLabel price = new JLabel("Price: " + m.getPrice());
             JButton b = new JButton("See Property");
-            b.addActionListener(e -> {
-                this.activeAccountPresenter.onAccessProperty(id);
-            });
+            b.addActionListener(e -> this.activeAccountPresenter.onAccessProperty(id));
             user_properties.add(address);
             user_properties.add(price);
             user_properties.add(b);
@@ -88,6 +87,8 @@ public class ActiveAccountScreen extends JPanel {
         }
         JPanel user_reviews = new JPanel();
         user_reviews.setLayout(new BoxLayout(user_reviews, BoxLayout.Y_AXIS));
+        user_reviews.add(new JLabel("Reviews: "));
+        user_reviews.add(new JLabel(" "));
         for (ReviewModel m: reviews) {
             JLabel writer = new JLabel("Writer: " + m.getWriterName());
             JLabel rating = new JLabel("Rating: " + m.getRating());

@@ -40,7 +40,12 @@ public class SendBidInteractor implements SendBidInput {
         for (Property p: properties) {
             if (p.getID().equals(propertyID)) {
                 try {
-                    p.addBid(Float.parseFloat(bid), bidderID);
+                    float bid_float = Float.parseFloat(bid);
+                    if (bid_float < Math.round(p.getPrice()*0.1)) {
+                        this.sendBidOutput.onSendBidFailure("Bid at least 10% of asking price.");
+                        return;
+                    }
+                    p.addBid(bid_float, bidderID);
                     this.propertyGateway.save(p);
                 } catch (Exception e) {this.sendBidOutput.onSendBidFailure("Bid failed to save."); return;}
                 this.sendBidOutput.onSendBidSuccess();

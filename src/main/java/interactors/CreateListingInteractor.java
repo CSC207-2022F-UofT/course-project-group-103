@@ -154,11 +154,11 @@ public class CreateListingInteractor implements CreateListingInput {
         try {
             numOffice_int = Integer.parseInt(numOffice);
         } catch (Exception e) {this.createListingOutput.onCreateListingFailure(
-                "Enter an integer amount for number of bedrooms."); return;}
+                "Enter an integer amount for number of office rooms."); return;}
         try {
             numReception_int = Integer.parseInt(numReception);
         } catch (Exception e) {this.createListingOutput.onCreateListingFailure(
-                "Enter an integer amount for number of bathrooms."); return;}
+                "Enter an integer amount for number of receptions."); return;}
         try {
             this.upgradeToOwner(userID);
             Office o = new Office(name, address, this.getValidID(), (Owner) propertyGateway.getUser(userID),

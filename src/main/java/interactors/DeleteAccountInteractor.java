@@ -77,6 +77,7 @@ public class DeleteAccountInteractor implements DeleteAccountInput {
                     if (bidID.equals(id)) {
                         p.removeBid(id);
                         this.propertyGateway.save(p);
+                        break;
                     }
                 }
             } catch (Exception e) {this.deleteAccountOutput.onDeleteAccountFailure("Failed to delete bids"); return;}
