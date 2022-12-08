@@ -4,6 +4,8 @@ import interactors.gateway_interfaces.LoginGateway;
 import interactors.input_boundary.LoginInput;
 import interactors.output_boundary.LoginOuput;
 
+import java.io.IOException;
+
 public class LoginScreenPresenter implements LoginOuput {
 
     ViewInterface viewInterface;
@@ -46,5 +48,17 @@ public class LoginScreenPresenter implements LoginOuput {
      */
     public void onSignUp() {
         this.viewInterface.displaySignUp();
+    }
+
+    public void onOpenChangePassword(String name, String failure_message) throws IOException {
+        if (this.loginInteractor.getSecurityQuestion(name) == null) {
+            onChangePasswordFailure(failure_message);
+        } else {
+            this.viewInterface.displayChangePasswordInactive(this.loginInteractor.getSecurityQuestion(name));
+        }
+    }
+
+    public void onChangePasswordFailure(String message) {
+        this.viewInterface.displayFailure(message);
     }
 }

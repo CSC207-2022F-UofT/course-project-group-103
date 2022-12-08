@@ -47,4 +47,22 @@ public class LoginInteractor implements LoginInput {
         }
         this.loginOuput.onLoginFailure("Account Does Not Exist");
     }
+
+    /**
+     * Searches database to find the security question corresponding to the inputted user.
+     *
+     * @param username: given username.
+     * @return securityQuestion: corresponding security question.
+     */
+
+    public String getSecurityQuestion(String username) {
+        ArrayList<User> users = loginGateway.getUsers();
+        for (User u: users) {
+            if (u.getName().equals(username)) {
+                return u.getSecurityQuestion();
+            }
+        }
+        return null;
+
+    }
 }

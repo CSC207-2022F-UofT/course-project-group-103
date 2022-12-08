@@ -33,10 +33,13 @@ public class SignUpScreenPresenter implements SignUpOutput {
      * @param contact: String representation of the contact info
      * @param password: String representation of password
      * @param confirm_password: String representation of the user password confirmation
+     * @param securityQuestion: String representation of the user security question
+     * @param securityAnswer: String representation of the user security answer
      */
     public void onSignUp(String username, String contact, String password,
-                         String confirm_password) {
-        this.signUpInput.signUp(username, contact, password, confirm_password);
+                         String confirm_password, String securityQuestion,
+                         String securityAnswer) {
+        this.signUpInput.signUp(username, contact, password, confirm_password, securityQuestion, securityAnswer);
     }
 
     public void onSignUpSuccess(String id) {

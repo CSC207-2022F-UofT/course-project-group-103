@@ -27,7 +27,7 @@ public class AccessPropertyInteractor implements AccessPropertyInput {
                 ArrayList<BidModel> property_bids = new ArrayList<>();
                 for (String k: p.getBids().keySet()) {
                     try {
-                        property_bids.add(new BidModel(k, this.propertyGateway.getUser(k).getName(), p.getBids().get(k)));
+                        property_bids.add(new BidModel(k, this.loginGateway.getUser(k).getName(), p.getBids().get(k)));
                     } catch (Exception e) {this.accessPropertyOutput.onAccessPropertyFailure("Failed to get bids.");};
                 }
                 PropertyModel model = new PropertyModel(p, property_bids);

@@ -3,6 +3,7 @@ package interactors;
 import entities.Property;
 import entities.Review;
 import entities.User;
+import interactors.gateway_interfaces.LoginGateway;
 import interactors.gateway_interfaces.PropertyGateway;
 import interactors.gateway_interfaces.ReviewGateway;
 import interactors.input_boundary.LoadAccountInput;
@@ -13,11 +14,13 @@ import java.util.ArrayList;
 public class LoadAccountInteractor implements LoadAccountInput {
 
     PropertyGateway propertyGateway;
+    LoginGateway loginGateway;
     ReviewGateway reviewGateway;
     LoadAccountOutput loadAccountOutput;
 
-    public LoadAccountInteractor(PropertyGateway g, ReviewGateway rg, LoadAccountOutput ob) {
+    public LoadAccountInteractor(PropertyGateway g, LoginGateway lg, ReviewGateway rg, LoadAccountOutput ob) {
         this.propertyGateway = g;
+        this.loginGateway = lg;
         this.reviewGateway = rg;
         this.loadAccountOutput = ob;
     }
@@ -36,13 +39,14 @@ public class LoadAccountInteractor implements LoadAccountInput {
             if (r.getOwner().equals(id)) {
                 try {
                     account_reviews.add(new ReviewModel(r.getReview(),
-                            r.getRating(), this.propertyGateway.getUser(r.getUser()).getName(), r.getDate()));
+                            r.getRating(), this.loginGateway.getUser(r.getUser()).getName(), r.getDate()));
                 } catch (Exception e) {this.loadAccountOutput.onLoadAccountFailure("Failed to load review.");}
             }
         }
         try {
-            User u = this.propertyGateway.getUser(id);
-            AccountModel account = new AccountModel(u.getName(), id, u.getContact());
+            User u = this.loginGateway.getUser(id);
+            AccountModel account = new AccountModel(u.getName(), id, u.getContact(), u.getSecurityQuestion(),
+                    u.getSecurityAnswer());
             this.loadAccountOutput.onLoadAccountSuccess(account_listings, account_reviews, account);
         } catch (Exception e) {this.loadAccountOutput.onLoadAccountFailure("Failed to load account info.");}
     }

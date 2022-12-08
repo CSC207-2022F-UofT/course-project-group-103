@@ -6,6 +6,7 @@ import interactors.SingleListingModel;
 import presenters.ActiveAccountPresenter;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ActiveAccountScreen extends JPanel {
@@ -13,6 +14,7 @@ public class ActiveAccountScreen extends JPanel {
     ActiveAccountPresenter activeAccountPresenter;
     JPanel info;
     JPanel group;
+    JButton change_password;
 
     public ActiveAccountScreen(ActiveAccountPresenter presenter) {
         this.activeAccountPresenter = presenter;
@@ -43,8 +45,7 @@ public class ActiveAccountScreen extends JPanel {
         JButton b = new JButton("Sign Out");
         b.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(b);
-        b.addActionListener(e -> {
-            activeAccountPresenter.onSignOut();});
+        b.addActionListener(e -> activeAccountPresenter.onSignOut());
 
         // delete account button
         JButton delete = new JButton("Delete Account");
@@ -54,6 +55,11 @@ public class ActiveAccountScreen extends JPanel {
             String password = JOptionPane.showInputDialog(this, "Enter Password: ");
             this.activeAccountPresenter.onDeleteAccount(password);
         });
+
+        // change password button
+        change_password = new JButton("Change Password");
+        change_password.setAlignmentX(CENTER_ALIGNMENT);
+        this.add(change_password);
     }
 
     public void setUpAccount(ArrayList<SingleListingModel> listings,
@@ -78,9 +84,7 @@ public class ActiveAccountScreen extends JPanel {
             JLabel address = new JLabel("Address: " + m.getAddress());
             JLabel price = new JLabel("Price: " + m.getPrice());
             JButton b = new JButton("See Property");
-            b.addActionListener(e -> {
-                this.activeAccountPresenter.onAccessProperty(id);
-            });
+            b.addActionListener(e -> this.activeAccountPresenter.onAccessProperty(id));
             user_properties.add(address);
             user_properties.add(price);
             user_properties.add(b);
@@ -105,5 +109,13 @@ public class ActiveAccountScreen extends JPanel {
         group.add(reviews_pane);
         group.repaint();
         group.revalidate();
+
+        change_password.addActionListener(e -> {
+            try {
+                this.activeAccountPresenter.onOpenChangePassword(account.getSecurityQuestion());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
     }
 }

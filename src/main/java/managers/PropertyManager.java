@@ -21,11 +21,13 @@ public class PropertyManager implements PropertyGateway {
     String properties_filepath;
     String users_filepath;
     String reviews_filepath;
+    LoginManager loginManager;
 
-    public PropertyManager(String p, String u, String r) {
+    public PropertyManager(String p, String u, String r, LoginManager loginManager) {
         this.properties_filepath = p;
         this.users_filepath = u;
         this.reviews_filepath = r;
+        this.loginManager = loginManager;
     }
 
     public Property getProperty(String ID) throws UndefinedPropertyType {
@@ -46,26 +48,27 @@ public class PropertyManager implements PropertyGateway {
                 int numBathrooms = property.getInt("numBathrooms");
                 int numLaundry = property.getInt("numLaundry");
                 int numKitchens = property.getInt("numKitchens");
-                return new House(name, address, ID, (Owner) this.getUser(ownerID), sqFt, price,
+                return new House(name, address, ID, (Owner) loginManager.getUser(ownerID), sqFt, price,
                         numBedrooms, numBathrooms, numLaundry, numKitchens, bids);
+
             }
             if (Objects.equals(property.get("property_type").toString(), "Condo")) {
                 int numBedrooms = property.getInt("numBedrooms");
                 int numBathrooms = property.getInt("numBathrooms");
                 int numLaundry = property.getInt("numLaundry");
                 int numKitchens = property.getInt("numKitchens");
-                return new Condo(name, address, ID, (Owner) this.getUser(ownerID), sqFt, price,
+                return new Condo(name, address, ID, (Owner) loginManager.getUser(ownerID), sqFt, price,
                         numBedrooms, numBathrooms, numLaundry, numKitchens, bids);
             }
             if (Objects.equals(property.get("property_type").toString(), "Office")) {
                 int numOfficeRooms = property.getInt("numOfficeRooms");
                 int numReceptions = property.getInt("numReceptions");
-                return new Office(name, address, ID, (Owner) this.getUser(ownerID), sqFt, price,
+                return new Office(name, address, ID, (Owner) loginManager.getUser(ownerID), sqFt, price,
                         numOfficeRooms, numReceptions, bids);
             }
             if (Objects.equals(property.get("property_type").toString(), "Restaurant")) {
                 String kitchenSpecifications = property.getString("kitchenSpecifications");
-                return new Restaurant(name, address, ID, (Owner) this.getUser(ownerID), sqFt, price,
+                return new Restaurant(name, address, ID, (Owner) loginManager.getUser(ownerID), sqFt, price,
                         kitchenSpecifications, bids);
             }
             else {
@@ -84,50 +87,7 @@ public class PropertyManager implements PropertyGateway {
         return bids;
     }
 
-    public User getUser(String ID) throws IOException, UndefinedUserType {
-        String location = this.users_filepath;
-        File file = new File(location);
-        String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
-        JSONObject user_listing = new JSONObject(content);
-        JSONObject user = user_listing.getJSONObject(ID);
-        String name = user.getString("name");
-        String password = user.getString("password");
-        String contact = user.getString("contact");
-        if (Objects.equals(user.get("user_type").toString(), "Owner")) {
-            if (Objects.equals(user.get("hiredRealtor"), null)) {
-                JSONArray reviews = user.getJSONArray("reviews");
-                ArrayList<Review> review_list = new ArrayList<>();
-                for (int i = 0; i < reviews.length(); i++) {
-                    review_list.add(this.getReview(reviews.getString(i)));
-                }
-                return new Owner(ID, name, password, contact, review_list);
-            }
-            else {
-                JSONArray reviews = user.getJSONArray("reviews");
-                ArrayList<Review> review_list = new ArrayList<>();
-                for (int i = 0; i < reviews.length(); i++) {
-                    review_list.add(this.getReview(reviews.getString(i)));
-                }
-                String hiredRealtorID = user.getString("hiredRealtor");
-                return new Owner(ID, name, password, contact, hiredRealtorID, review_list);
-            }
-        }
-        else if (Objects.equals(user.get("user_type").toString(), "User")) {
-            if (Objects.equals(user.get("hiredRealtor"), null)) {
-                return new User(ID, name, password, contact);
-            }
-            else {
-                String hiredRealtorID = user.getString("hiredRealtor");
-                return new User(ID, name, password, contact, hiredRealtorID);
-            }
-        }
-        else if (Objects.equals(user.get("user_type").toString(), "Realtor")) {
-            return new Realtor(ID, name, password, contact);
-        }
-        else {
-            throw new UndefinedUserType((user.getString("user_type") + " is not implemented as a user type yet."));
-        }
-    }
+
 
     public Review getReview(String ID) throws IOException {
         String location = this.reviews_filepath;

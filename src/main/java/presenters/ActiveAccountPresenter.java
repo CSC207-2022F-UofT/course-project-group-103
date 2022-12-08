@@ -5,15 +5,19 @@ import interactors.gateway_interfaces.LoginGateway;
 import interactors.gateway_interfaces.PropertyGateway;
 import interactors.gateway_interfaces.ReviewGateway;
 import interactors.input_boundary.AccessPropertyInput;
+import interactors.input_boundary.ChangePasswordInput;
 import interactors.input_boundary.DeleteAccountInput;
 import interactors.output_boundary.AccessPropertyOutput;
 import interactors.output_boundary.DeleteAccountOutput;
 
-public class ActiveAccountPresenter implements AccessPropertyOutput, DeleteAccountOutput {
+import java.io.IOException;
+
+public class ActiveAccountPresenter implements AccessPropertyOutput, DeleteAccountOutput{
 
     ViewInterface viewInterface;
     AccessPropertyInput accessPropertyInput;
     DeleteAccountInput deleteAccountInput;
+    ChangePasswordInput changePasswordInput;
 
     public ActiveAccountPresenter(ViewInterface view, PropertyGateway g, LoginGateway lg, ReviewGateway rg) {
         this.viewInterface = view;
@@ -53,5 +57,9 @@ public class ActiveAccountPresenter implements AccessPropertyOutput, DeleteAccou
 
     public void onDeleteAccountFailure(String message) {
         this.viewInterface.displayFailure(message);
+    }
+
+    public void onOpenChangePassword(String securityQuestion) throws IOException {
+        this.viewInterface.displayChangePassword(securityQuestion);
     }
 }

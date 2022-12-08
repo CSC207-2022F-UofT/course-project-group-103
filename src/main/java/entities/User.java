@@ -22,6 +22,14 @@ public class User {
      * ID of user's hired realtor.
      */
     private String hiredRealtorID;
+    /**
+     * Security Question chosen by the User.
+     */
+    private String securityQuestion;
+    /**
+     * Security Answer chosen by the User.
+     */
+    private String securityAnswer;
 
     /**
      * One of the constructors for the user class, assigns values to its attributes. This constructor
@@ -32,30 +40,38 @@ public class User {
      * @param password: Password of the user.
      * @param contact: Contact information of the user.
      * @param hiredRealtorID: ID of the user's hired realtor.
+     * @param securityQuestion: Security Question chosen by the User.
+     * @param securityAnswer: Security Answer chosen by the User.
      */
-    public User(String ID, String name, String password, String contact, String hiredRealtorID) {
+    public User(String ID, String name, String password, String contact, String hiredRealtorID, String securityQuestion, String securityAnswer) {
         this.ID = ID;
         this.name = name;
         this.password = password;
         this.contact = contact;
         this.hiredRealtorID = hiredRealtorID;
+        this.securityQuestion = securityQuestion;
+        this.securityAnswer = securityAnswer;
     }
 
     /**
      * One of the constructors for the user class, assigns values to its attributes. This constructor
-     * will assign a hiredRealtorID.
+     * will not assign a hiredRealtorID.
      *
      * @param ID: Unique ID of the user.
      * @param name: Name of the user.
      * @param password: Password of the user.
      * @param contact: Contact information of the user.
+     * @param securityQuestion: Security Question chosen by the User.
+     * @param securityAnswer: Security Answer chosen by the User.
      */
-    public User(String ID, String name, String password, String contact) {
+    public User(String ID, String name, String password, String contact, String securityQuestion, String securityAnswer) {
         this.ID = ID;
         this.name = name;
         this.password = password;
         this.contact = contact;
         this.hiredRealtorID = null;
+        this.securityQuestion = securityQuestion;
+        this.securityAnswer = securityAnswer;
     }
 
     /**
@@ -99,6 +115,21 @@ public class User {
     }
 
     /**
+     * Returns the Security Question chosen by the User.
+     * @return string of the Security Question chosen by the User.
+     */
+    public String getSecurityQuestion() {
+        return securityQuestion;
+    }
+    /**
+     * Returns the Security Answer chosen by the User.
+     * @return string of the Security Answer chosen by the User.
+     */
+    public String getSecurityAnswer() {
+        return securityAnswer;
+    }
+
+    /**
      * Changes the name of the user.
      *
      * @param name: new name of the user.
@@ -133,4 +164,24 @@ public class User {
     public void hireRealtor(String realtorID){
         this.hiredRealtorID = realtorID;
     }
+
+    /**
+     * Changes the Security Question chosen by the user.
+     *
+     * @param securityQuestion: new string of the Security Question chosen by the user.
+     */
+    public void setSecurityQuestion(String securityQuestion) {
+        this.securityQuestion = securityQuestion;
+    }
+
+    /**
+     * Changes the Security Answer chosen by the user.
+     *
+     * @param securityAnswer: new string of the Security Answer chosen by the user.
+     */
+    public void setSecurityAnswer(String securityAnswer) {
+        this.securityAnswer = securityAnswer;
+    }
+
+
 }

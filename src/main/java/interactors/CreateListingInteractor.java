@@ -84,7 +84,7 @@ public class CreateListingInteractor implements CreateListingInput {
                 "Enter an integer amount for number of kitchens."); return;}
         try {
             this.upgradeToOwner(userID);
-            House h = new House(name, address, this.getValidID(), (Owner) propertyGateway.getUser(userID),
+            House h = new House(name, address, this.getValidID(), (Owner) loginGateway.getUser(userID),
                     sqFt_int, price_float, numBed_int, numBath_int, numLaundry_int, numKitchen_int, new HashMap<>());
             this.propertyGateway.save(h);
             this.createListingOutput.onCreateListingSuccess();
@@ -138,7 +138,7 @@ public class CreateListingInteractor implements CreateListingInput {
                 "Enter an integer amount for number of kitchens."); return;}
         try {
             this.upgradeToOwner(userID);
-            Condo c = new Condo(name, address, this.getValidID(), (Owner) propertyGateway.getUser(userID),
+            Condo c = new Condo(name, address, this.getValidID(), (Owner) loginGateway.getUser(userID),
                     sqFt_int, price_float, numBed_int, numBath_int, numLaundry_int, numKitchen_int, new HashMap<>());
             this.propertyGateway.save(c);
             this.createListingOutput.onCreateListingSuccess();
@@ -180,7 +180,7 @@ public class CreateListingInteractor implements CreateListingInput {
                 "Enter an integer amount for number of bathrooms."); return;}
         try {
             this.upgradeToOwner(userID);
-            Office o = new Office(name, address, this.getValidID(), (Owner) propertyGateway.getUser(userID),
+            Office o = new Office(name, address, this.getValidID(), (Owner) loginGateway.getUser(userID),
                     sqFt_int, price_float, numOffice_int, numReception_int, new HashMap<>());
             this.propertyGateway.save(o);
             this.createListingOutput.onCreateListingSuccess();
@@ -211,7 +211,7 @@ public class CreateListingInteractor implements CreateListingInput {
                 "Enter a decimal amount for price."); return;}
         try {
             this.upgradeToOwner(userID);
-            Restaurant r = new Restaurant(name, address, this.getValidID(), (Owner) propertyGateway.getUser(userID),
+            Restaurant r = new Restaurant(name, address, this.getValidID(), (Owner) loginGateway.getUser(userID),
                     sqFt_int, price_float, spec, new HashMap<>());
             this.propertyGateway.save(r);
             this.createListingOutput.onCreateListingSuccess();
@@ -225,7 +225,7 @@ public class CreateListingInteractor implements CreateListingInput {
      * @throws Exception: failed to upgrade user.
      */
     private void upgradeToOwner(String userID) throws Exception {
-        User u = propertyGateway.getUser(userID);
+        User u = loginGateway.getUser(userID);
         if (!u.getClass().getName().replace(
                 "entities.", "").equals("Owner")) {
             Owner o = new Owner(
@@ -233,7 +233,9 @@ public class CreateListingInteractor implements CreateListingInput {
                     u.getName(),
                     u.getPassword(),
                     u.getContact(),
-                    new ArrayList<>()
+                    new ArrayList<>(),
+                    u.getSecurityQuestion(),
+                    u.getSecurityAnswer()
             );
             this.loginGateway.saveUser(o);
         }

@@ -1,6 +1,7 @@
 package presenters;
 
 import interactors.*;
+import interactors.gateway_interfaces.LoginGateway;
 import interactors.gateway_interfaces.PropertyGateway;
 import interactors.gateway_interfaces.ReviewGateway;
 import interactors.input_boundary.LoadAccountInput;
@@ -16,10 +17,10 @@ public class HomeScreenPresenter implements LoadListingOutput, LoadAccountOutput
     LoadListingInput loadListingInput;
     LoadAccountInput loadAccountInput;
 
-    public HomeScreenPresenter(ViewInterface p, PropertyGateway g, ReviewGateway rg) {
+    public HomeScreenPresenter(ViewInterface p, PropertyGateway g, LoginGateway l, ReviewGateway rg) {
         this.viewInterface = p;
         this.loadListingInput = new LoadListingInteractor(g, this);
-        this.loadAccountInput = new LoadAccountInteractor(g, rg, this);
+        this.loadAccountInput = new LoadAccountInteractor(g, l, rg, this);
     }
 
     /**

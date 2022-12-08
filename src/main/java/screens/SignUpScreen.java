@@ -13,7 +13,8 @@ public class SignUpScreen extends JPanel implements ActionListener{
     JTextField contact;
     JPasswordField password;
     JPasswordField confirm_password;
-
+    JTextField securityQuestion;
+    JTextField securityAnswer;
     public SignUpScreen(SignUpScreenPresenter presenter) {
         // setup
         this.signUpScreenPresenter = presenter;
@@ -26,7 +27,9 @@ public class SignUpScreen extends JPanel implements ActionListener{
         username = new JTextField(15);
         contact = new JTextField(15);
         password = new JPasswordField(15);
-        confirm_password=  new JPasswordField(15);
+        confirm_password =  new JPasswordField(15);
+        securityQuestion = new JTextField(15);
+        securityAnswer = new JTextField(15);
 
         // back button
         JButton back = new JButton("Back");
@@ -54,6 +57,12 @@ public class SignUpScreen extends JPanel implements ActionListener{
         JLabel confirm_password_tag = new JLabel("Confirm Password: ");
         confirm_password_tag.setAlignmentX(Component.CENTER_ALIGNMENT);
         confirm_password.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel security_question_tag = new JLabel("Enter Security Question: ");
+        security_question_tag.setAlignmentX(Component.CENTER_ALIGNMENT);
+        securityQuestion.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel security_answer_tag = new JLabel("Enter Security Answer: ");
+        security_answer_tag.setAlignmentX(Component.CENTER_ALIGNMENT);
+        securityAnswer.setAlignmentX(Component.CENTER_ALIGNMENT);
         signup.addActionListener(this);
         this.add(username_tag);
         this.add(username);
@@ -63,6 +72,10 @@ public class SignUpScreen extends JPanel implements ActionListener{
         this.add(password);
         this.add(confirm_password_tag);
         this.add(confirm_password);
+        this.add(security_question_tag);
+        this.add(securityQuestion);
+        this.add(security_answer_tag);
+        this.add(securityAnswer);
         this.add(signup);
     }
 
@@ -79,6 +92,8 @@ public class SignUpScreen extends JPanel implements ActionListener{
         String c = contact.getText();
         String pass = new String(password.getPassword());
         String confirm_pass = new String(confirm_password.getPassword());
-        this.signUpScreenPresenter.onSignUp(u, c, pass, confirm_pass);
+        String sq = securityQuestion.getText();
+        String sa = securityAnswer.getText();
+        this.signUpScreenPresenter.onSignUp(u, c, pass, confirm_pass, sq, sa);
     }
 }

@@ -71,4 +71,10 @@ public interface ViewInterface {
      * Retrieves the current user of the app.
      */
     String getActiveUser();
+
+    /**
+     * Displays the change password page.
+     */
+    void displayChangePassword(String securityQuestion);
+    void displayChangePasswordInactive(String securityQuestion);
 }

@@ -15,7 +15,6 @@ public interface PropertyGateway {
      */
     void save(Property p) throws Exception;
     ArrayList<Property> getProperties();
-    User getUser(String ID) throws IOException, UndefinedUserType;
     void removePropertyById(String id);
 
 }

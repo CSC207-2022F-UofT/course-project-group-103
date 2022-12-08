@@ -18,10 +18,12 @@ public class Owner extends User{
      * @param contact: Contact information of the owner.
      * @param hiredRealtorID: ID of the owner's hired realtor.
      * @param reviews: Array list of reviews of the owner.
+     * @param securityQuestion: Security Question chosen by the Owner.
+     * @param securityAnswer: Security Answer chosen by the Owner.
      */
     public Owner(String ID, String name, String password, String contact, String hiredRealtorID,
-                 ArrayList<Review> reviews) {
-        super(ID, name, password, contact, hiredRealtorID);
+                 ArrayList<Review> reviews, String securityQuestion, String securityAnswer) {
+        super(ID, name, password, contact, hiredRealtorID, securityQuestion, securityAnswer);
         this.reviews = reviews;
     }
 
@@ -34,9 +36,12 @@ public class Owner extends User{
      * @param password: Password of the owner.
      * @param contact: Contact information of the owner.
      * @param reviews: Array list of reviews of the owner.
+     * @param securityQuestion: Security Question chosen by the Owner.
+     * @param securityAnswer: Security Answer chosen by the Owner.
      */
-    public Owner(String ID, String name, String password, String contact, ArrayList<Review> reviews) {
-        super(ID, name, password, contact);
+    public Owner(String ID, String name, String password, String contact, ArrayList<Review> reviews,
+                 String securityQuestion, String securityAnswer) {
+        super(ID, name, password, contact, securityQuestion, securityAnswer);
         this.reviews = reviews;
     }
 

@@ -35,8 +35,11 @@ public class SignUpInteractor implements SignUpInput {
      * @param contact: contact information of account to create.
      * @param password: password of account to create.
      * @param confirm_password: repetition of password of account to create.
+     * @param securityQuestion: Chosen Security Question of account to create.
+     * @param securityAnswer: Chosen Security Answer of account to create.
      */
-    public void signUp(String username, String contact, String password, String confirm_password) {
+    public void signUp(String username, String contact, String password, String confirm_password,
+                       String securityQuestion, String securityAnswer) {
         if (!password.equals(confirm_password)) {
             this.singnUpOutput.onSignUpFailure("Passwords do not match.");
             return;
@@ -45,7 +48,7 @@ public class SignUpInteractor implements SignUpInput {
             this.singnUpOutput.onSignUpFailure("Username already exists.");
             return;
         }
-        User u = new User(this.getValidID(), username, password, contact);
+        User u = new User(this.getValidID(), username, password, contact, securityQuestion, securityAnswer);
         try {
             this.loginGateway.saveUser(u);
         }
@@ -61,12 +64,12 @@ public class SignUpInteractor implements SignUpInput {
      * @return if a username is in the database (true) or not (false).
      */
     private boolean usernameExists(String username) {
-        ArrayList<User> users = this.loginGateway.getUsers();
-        for (User u: users) {
-            if (u.getName().equals(username)) {
-                return true;
-            }
-        }
+//        ArrayList<User> users = this.loginGateway.getUsers();
+//        for (User u: users) {
+//            if (u.getName().equals(username)) {
+//                return true;
+//            }
+//        }
         return false;
     }
 

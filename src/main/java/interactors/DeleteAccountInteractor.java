@@ -26,7 +26,7 @@ public class DeleteAccountInteractor implements DeleteAccountInput {
 
     public void deleteAccount(String id, String password) {
         try {
-            if (!this.propertyGateway.getUser(id).getPassword().equals(password)) {
+            if (!this.loginGateway.getUser(id).getPassword().equals(password)) {
                 this.deleteAccountOutput.onDeleteAccountFailure("Passwords do not match.");
                 return;
             }

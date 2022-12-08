@@ -1,21 +1,30 @@
 package screens;
 
+import presenters.ActiveAccountPresenter;
+import presenters.ChangePasswordScreenPresenter;
 import presenters.LoginScreenPresenter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.Objects;
 
 public class LoginScreen extends JPanel implements ActionListener{
 
     LoginScreenPresenter loginScreenPresenter;
+    ActiveAccountPresenter activeAccountPresenter;
+    ChangePasswordScreenPresenter changePasswordScreenPresenter;
     JTextField username;
     JPasswordField password;
 
-    public LoginScreen(LoginScreenPresenter presenter) {
+    public LoginScreen(LoginScreenPresenter presenter, ActiveAccountPresenter activeAccountPresenter,
+                       ChangePasswordScreenPresenter changePasswordScreenPresenter) {
         // setup
         this.loginScreenPresenter = presenter;
+        this.activeAccountPresenter = activeAccountPresenter;
+        this.changePasswordScreenPresenter = changePasswordScreenPresenter;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.draw();
     }
@@ -46,9 +55,21 @@ public class LoginScreen extends JPanel implements ActionListener{
         signUp.setAlignmentX(Component.CENTER_ALIGNMENT);
         signUp.addActionListener(e -> {loginScreenPresenter.onSignUp();});
 
+        JButton forgot_password = new JButton("Forgot Password");
+        forgot_password.setAlignmentX(CENTER_ALIGNMENT);
+        forgot_password.addActionListener(e -> {
+            String name = username.getText();
+            try {
+                loginScreenPresenter.onOpenChangePassword(name, "Please input a username.");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
         this.add(inputs);
         this.add(login);
         this.add(signUp);
+        this.add(forgot_password);
     }
 
     public void redraw() {
@@ -68,4 +89,5 @@ public class LoginScreen extends JPanel implements ActionListener{
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
+
 }

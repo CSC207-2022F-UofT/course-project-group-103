@@ -2,6 +2,7 @@ package presenters;
 
 import entities.Review;
 import interactors.*;
+import interactors.gateway_interfaces.LoginGateway;
 import interactors.gateway_interfaces.PropertyGateway;
 import interactors.gateway_interfaces.ReviewGateway;
 import interactors.input_boundary.DeletePropertyInput;
@@ -20,10 +21,10 @@ public class PropertyScreenPresenter implements SendBidOutput, LoadAccountOutput
     LoadAccountInput loadAccountInput;
     DeletePropertyInput deletePropertyInput;
 
-    public PropertyScreenPresenter(ViewInterface view, PropertyGateway g, ReviewGateway gr) {
+    public PropertyScreenPresenter(ViewInterface view, PropertyGateway g, LoginGateway l, ReviewGateway gr) {
         this.viewInterface = view;
         this.sendBidInput = new SendBidInteractor(g, this);
-        this.loadAccountInput = new LoadAccountInteractor(g, gr, this);
+        this.loadAccountInput = new LoadAccountInteractor(g, l, gr, this);
         this.deletePropertyInput = new DeletePropertyInteractor(g, this);
     }
     public void onBack() {

@@ -5,6 +5,7 @@ import interactors.*;
 import managers.*;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GUI extends JFrame implements ViewInterface {
@@ -16,9 +17,9 @@ public class GUI extends JFrame implements ViewInterface {
      * -weird bug on delete account with bids
      */
 
-    final String properties_path = "=src/main/Databases/PropertyListing.json";
-    final String users_path = "=src/main/Databases/UserListing.json";
-    final String reviews_path = "=src/main/Databases/ReviewList.json";
+    final String properties_path = "src/main/Databases/PropertyListing.json";
+    final String users_path = "src/main/Databases/UserListing.json";
+    final String reviews_path = "src/main/Databases/ReviewList.json";
     JPanel screens;
     CardLayout screen;
     LoginScreen loginScreen;
@@ -30,28 +31,26 @@ public class GUI extends JFrame implements ViewInterface {
     ActiveAccountScreen activeAccountScreen;
     AccountScreen accountScreen;
     CreateReviewScreen createReviewScreen;
+    ChangePasswordScreen changePasswordScreen;
     ArrayList<String> pageOrder = new ArrayList<>();
     String activeUser;
 
-    public GUI() {
+    public GUI() throws IOException {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setPreferredSize(new Dimension(400, 400));
 
         //set up managers
-        PropertyManager propertyManager = new PropertyManager(properties_path, users_path, reviews_path);
         LoginManager loginManager = new LoginManager(users_path, reviews_path);
+        PropertyManager propertyManager = new PropertyManager(properties_path, users_path, reviews_path, loginManager);
         ReviewManager reviewManager = new ReviewManager(reviews_path);
-
-        // set up login screen
-        LoginScreenPresenter loginScreenPresenter = new LoginScreenPresenter(this, loginManager);
-        loginScreen = new LoginScreen(loginScreenPresenter);
 
         // set up sign-up screen
         SignUpScreenPresenter signUpScreenPresenter = new SignUpScreenPresenter(this, loginManager);
         signUpScreen = new SignUpScreen(signUpScreenPresenter);
 
         // set up home screen
-        HomeScreenPresenter homeScreenPresenter = new HomeScreenPresenter(this, propertyManager, reviewManager);
+        HomeScreenPresenter homeScreenPresenter = new HomeScreenPresenter(this, propertyManager, loginManager,
+                reviewManager);
         homeScreen = new HomeScreen(homeScreenPresenter);
 
         // set up listing screen
@@ -61,7 +60,7 @@ public class GUI extends JFrame implements ViewInterface {
 
         // set up property screen
         PropertyScreenPresenter propertyScreenPresenter = new PropertyScreenPresenter(this,
-                propertyManager, reviewManager);
+                propertyManager, loginManager, reviewManager);
         propertyScreen = new PropertyScreen(propertyScreenPresenter);
 
         // set up create listing screen
@@ -78,9 +77,19 @@ public class GUI extends JFrame implements ViewInterface {
         AccountPresenter accountPresenter = new AccountPresenter(this, propertyManager, loginManager);
         accountScreen = new AccountScreen(accountPresenter);
 
+        // set up change password screen
+        ChangePasswordScreenPresenter changePasswordScreenPresenter =
+                new ChangePasswordScreenPresenter(this, loginManager);
+        changePasswordScreen = new ChangePasswordScreen(changePasswordScreenPresenter);
+
+        // set up login screen
+        LoginScreenPresenter loginScreenPresenter = new LoginScreenPresenter(this, loginManager);
+        loginScreen = new LoginScreen(loginScreenPresenter, activeAccountPresenter, changePasswordScreenPresenter);
+
         // set up create review screen
         CreateReviewPresenter createReviewPresenter = new CreateReviewPresenter(this, reviewManager);
         createReviewScreen = new CreateReviewScreen(createReviewPresenter);
+
 
         // set up card layout
         screen = new CardLayout();
@@ -97,6 +106,7 @@ public class GUI extends JFrame implements ViewInterface {
         screens.add(createListingScreen, "Create Listing");
         screens.add(activeAccountScreen, "Active Account");
         screens.add(accountScreen, "Account");
+        screens.add(changePasswordScreen, "Change Password");
         screens.add(createReviewScreen, "Create Review");
     }
 
@@ -184,5 +194,16 @@ public class GUI extends JFrame implements ViewInterface {
 
     public String getActiveUser() {
         return this.activeUser;
+    }
+
+    public void displayChangePassword(String securityQuestion) {
+        changePasswordScreen.redraw(securityQuestion, true);
+        screen.show(screens, "Change Password");
+        pageOrder.add("Change Password");
+    }
+    public void displayChangePasswordInactive(String securityQuestion) {
+        changePasswordScreen.redraw(securityQuestion, false);
+        screen.show(screens, "Change Password");
+        pageOrder.add("Change Password");
     }
 }
