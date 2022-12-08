@@ -1,6 +1,7 @@
-package Interactors;
+package interactors;
+import entities.User;
+import interactors.UserGateway;
 
-import Users.User;
 import java.io.IOException;
 import java.util.ArrayList;
 
