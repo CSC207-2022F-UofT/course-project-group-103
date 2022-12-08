@@ -71,4 +71,9 @@ public interface ViewInterface {
      * Retrieves the current user of the app.
      */
     String getActiveUser();
+
+    /**
+     * Displays the mortgage estimator page for a specific property.
+     */
+    void displayMortgageEstimator(float price);
 }

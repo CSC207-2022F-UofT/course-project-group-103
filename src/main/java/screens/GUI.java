@@ -30,6 +30,7 @@ public class GUI extends JFrame implements ViewInterface {
     ActiveAccountScreen activeAccountScreen;
     AccountScreen accountScreen;
     CreateReviewScreen createReviewScreen;
+    EstimateMortgageScreen mortgageEstimatorScreen;
     ArrayList<String> pageOrder = new ArrayList<>();
     String activeUser;
 
@@ -82,6 +83,10 @@ public class GUI extends JFrame implements ViewInterface {
         CreateReviewPresenter createReviewPresenter = new CreateReviewPresenter(this, reviewManager);
         createReviewScreen = new CreateReviewScreen(createReviewPresenter);
 
+        // set up mortgage estimator screen
+        EstimateMortgagePresenter estimateMortgagePresenter = new EstimateMortgagePresenter(this);
+        mortgageEstimatorScreen = new EstimateMortgageScreen(estimateMortgagePresenter);
+
         // set up card layout
         screen = new CardLayout();
         screens = new JPanel(screen);
@@ -98,6 +103,7 @@ public class GUI extends JFrame implements ViewInterface {
         screens.add(activeAccountScreen, "Active Account");
         screens.add(accountScreen, "Account");
         screens.add(createReviewScreen, "Create Review");
+        screens.add(mortgageEstimatorScreen, "Estimate Mortgage");
     }
 
     public void displayLogin() {
@@ -178,6 +184,12 @@ public class GUI extends JFrame implements ViewInterface {
         pageOrder.add("Create Review");
     }
 
+    public void displayMortgageEstimator(float price) {
+        mortgageEstimatorScreen.draw(price);
+        screen.show(screens, "Estimate Mortgage");
+        pageOrder.add("Estimate Mortgage");
+    }
+
     public void setActiveUser(String id) {
         this.activeUser = id;
     }
@@ -185,4 +197,6 @@ public class GUI extends JFrame implements ViewInterface {
     public String getActiveUser() {
         return this.activeUser;
     }
+
+
 }
