@@ -148,7 +148,6 @@ public class GUI extends JFrame implements ViewInterface {
     }
 
     public void displayRealtorListing() {
-        createReviewScreen.redraw();
         screen.show(screens, "Realtor Listing");
         pageOrder.add("Realtor Listing");
     }

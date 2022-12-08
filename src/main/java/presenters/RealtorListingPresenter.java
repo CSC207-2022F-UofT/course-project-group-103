@@ -2,6 +2,7 @@ package presenters;
 
 import interactors.*;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -16,6 +17,11 @@ public class RealtorListingPresenter {
 
     public ArrayList<ArrayList<String>> realtors(){
         return realtorSearchInteractor.listRealtors();
+    }
+
+    public void realtorHire() {
+        this.viewInterface.displayHome();
+        this.viewInterface.displaySuccess("Successfully hired realtor");
     }
 
     public void onBack() {

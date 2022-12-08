@@ -71,4 +71,6 @@ public interface ViewInterface {
      * Retrieves the current user of the app.
      */
     String getActiveUser();
+
+    void displayRealtorListing();
 }

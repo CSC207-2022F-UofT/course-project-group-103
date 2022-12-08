@@ -1,6 +1,7 @@
 package managers;
 
 import entities.Owner;
+import entities.Realtor;
 import entities.Review;
 import interactors.gateway_interfaces.LoginGateway;
 import entities.User;
@@ -41,9 +42,12 @@ public class LoginManager implements LoginGateway {
                     }
                     Owner o = new Owner(id, name, password, contact, review_list);
                     users.add(o);
-                }
-                else {
-                    User u = new User(id, name, password, contact);
+                } else if (j.getString("user_type").equals("Realtor")) {
+                    Realtor r = new Realtor(id, name, password, contact);
+                    users.add(r);
+                } else {
+                    String hiredRealtorID = j.getString("hiredRealtor");
+                    User u = new User(id, name, password, contact, hiredRealtorID);
                     users.add(u);
                 }
             }
@@ -74,7 +78,7 @@ public class LoginManager implements LoginGateway {
         user.put("password", u.getPassword());
         user.put("contact", u.getContact());
         // no realtor implementation yet
-        user.put("hiredRealtor", "NA");
+        user.put("hiredRealtor", u.getHiredRealtorID());
         if (type.equals("Owner")) {
             user.put("reviews", ((Owner) u).getReviews());
         }
