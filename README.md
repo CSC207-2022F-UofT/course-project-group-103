@@ -75,4 +75,5 @@ Users can locate realtors via a realtor listings page, and hire them through our
 
 ## Contributors (alphabetical)
 Group 103: Real estate listing app + Shakeeb
+
 Omar Al Jaljuli, Rakan Alhamoury, Juliet Li, Sean Malla, Shakeeb Monzer, Eric Shi, Zein Sulayman, Kyle Vavasour
