@@ -1,9 +1,8 @@
-package Interactors;
+package interactors;
 
-import Review.Review;
-import Users.Owner;
-import Users.User;
+import entities.Review;
 
+/*
 public class Feature5Interactor {
     public static void addReviewNow (Review review){
         if(!review.calculateIfAppropriate(review.getReview())){
@@ -15,3 +14,4 @@ public class Feature5Interactor {
     }
 
 }
+*/

@@ -1,7 +1,8 @@
-package Screens;
+/*
+package screens;
 
-import Exceptions.LoginNotFoundException;
-import Interactors.LoginInteractor;
+import exceptions.LoginNotFoundException;
+import interactors.LoginInteractor;
 
 public class LoginPageController {
 
@@ -17,3 +18,4 @@ public class LoginPageController {
         loginInteractor.loginUser(user, password);
     }
 }
+*/

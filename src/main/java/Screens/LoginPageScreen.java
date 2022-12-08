@@ -1,4 +1,5 @@
-package Screens;
+/*
+package screens;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,3 +19,4 @@ public class LoginPageScreen extends JPanel implements ActionListener {
 
     }
 }
+*/

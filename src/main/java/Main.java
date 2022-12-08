@@ -1,12 +1,13 @@
-import Interactors.RealtorSearchInteractor;
-import Managers.LoginManager;
-import Users.Owner;
-import Users.Realtor;
-import Users.User;
-import org.json.JSONObject;
-import java.io.IOException;
+import screens.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    /**
+     * Filepaths for the database can be changed in the GUI class,
+     * run main to start.
+     */
+    public static void main(String[] args) {
+        GUI application = new GUI();
+        application.pack();
+        application.setVisible(true);
     }
 }

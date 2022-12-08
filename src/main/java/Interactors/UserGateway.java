@@ -1,6 +1,7 @@
-package Interactors;
+/*
+package interactors;
 
-import Users.Realtor;
+import entities.users.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.FileWriter;
@@ -14,6 +15,7 @@ public class UserGateway {
      * Removes the User with the specified user and password/user ID from the User
      * database. Removes their properties and bids from all databases and unassigns their ID.
      */
+/*
     public void removeUser(String name, String password, String ID) throws IOException {
         String jsonStringUser = Files.readString(Paths.get("src\\main\\Databases\\UserListing.json"));
         JSONObject users = new JSONObject(jsonStringUser);
@@ -49,12 +51,15 @@ public class UserGateway {
         }
 
     }
+    */
+    /*
 
     /**
      * Returns a list of all realtors.
      *
      * @return ArrayList of all realtors
      */
+/*
     public ArrayList<Realtor> getRealtors() throws IOException {
         ArrayList<Realtor> realtors = new ArrayList<>();
 
@@ -79,3 +84,4 @@ public class UserGateway {
         return realtors;
     }
 }
+*/

@@ -1,66 +1,50 @@
-package Interactors;
+package interactors;
 
-import Exceptions.LoginNotFoundException;
-import Presenters.LoginPresenter;
-import org.json.JSONObject;
+import entities.User;
+import interactors.gateway_interfaces.LoginGateway;
+import interactors.input_boundary.LoginInput;
+import interactors.output_boundary.LoginOuput;
 
-import java.util.Objects;
-import java.util.Set;
+import java.util.ArrayList;
 
-public class LoginInteractor{
+public class LoginInteractor implements LoginInput {
+    /**
+     * Gateway interface to user JSON with read/write methods.
+     */
+    LoginGateway loginGateway;
+    /**
+     * Output interface for login interactor.
+     */
+    LoginOuput loginOuput;
 
     /**
-     * Logs in a normal user with no title that is not a property owner/buyer or a realtor.
+     * Constructor for the login interactor, assigns object instances to its attributes.
      *
-     * Goes through the database and checks if the user and password entered by the User
-     * is logged as a regular user (not as an Owner or Realtor). If true, then the User is logged
-     * in and is given access to information pertaining to their account.
-     *
-     * @param user: Username entered by the User
-     * @param password: Password entered by the User
+     * @param g: implementation of loginGateway interface.
+     * @param ob: implementation of output boundary interface.
      */
-
-    LoginDatabaseGateway g;
-    LoginPresenterOB p;
-
-    public LoginInteractor(LoginDatabaseGateway g, LoginPresenterOB p){
-        this.g = g;
-        this.p = p;
+    public LoginInteractor(LoginGateway g, LoginOuput ob) {
+        this.loginGateway = g;
+        this.loginOuput = ob;
     }
 
-    public void loginUser(String user, String password) throws LoginNotFoundException {
-
-        JSONObject data = this.g.checkDatabase();
-        Set<String> keys = data.keySet();
-
-        for(String id: keys){
-            JSONObject p = data.getJSONObject(id);
-
-            if(Objects.equals(data.getString("user_type"), "User")){
-                String username = p.getString("name");
-                String pass = p.getString("password");
-                if((Objects.equals(username, user)) && (Objects.equals(pass, password))){
-                    this.p.present("User");
-                }else
-                    throw new LoginNotFoundException("Incorrect login information, please try again.");
-
-            }else if(Objects.equals(data.getString("user_type"), "Owner")){
-                String username = p.getString("name");
-                String pass = p.getString("password");
-                if((Objects.equals(username, user)) && (Objects.equals(pass, password))){
-                    this.p.present("Owner");
-                }else
-                    throw new LoginNotFoundException("Incorrect login information, please try again.");
-
-            }else if(Objects.equals(data.getString("user_type"), "Realtor")){
-                String username = p.getString("name");
-                String pass = p.getString("password");
-                if((Objects.equals(username, user)) && (Objects.equals(pass, password))){
-                    this.p.present("Realtor");
-                }else
-                    throw new LoginNotFoundException("Incorrect login information, please try again.");
+    /**
+     * Searches database to find whether password and username exist in it, if they do
+     * log the user in under the associated account.
+     *
+     * @param username: given username.
+     * @param password: given password.
+     */
+    public void login(String username, String password) {
+        ArrayList<User> users = loginGateway.getUsers();
+        for (User u: users) {
+            String user = u.getName();
+            String pass = u.getPassword();
+            if (user.equals(username) && pass.equals(password)) {
+                this.loginOuput.onLoginSuccess(u.getID());
+                return;
             }
         }
+        this.loginOuput.onLoginFailure("Account Does Not Exist");
     }
-
 }

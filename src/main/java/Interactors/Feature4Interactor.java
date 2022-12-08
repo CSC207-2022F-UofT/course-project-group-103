@@ -1,8 +1,9 @@
-package Interactors;
+/*
+package interactors;
 
-import Exceptions.UndefinedPropertyType;
-import Managers.PropertyManager;
-import Properties.Property;
+import exceptions.UndefinedPropertyType;
+import managers.PropertyManager;
+import entities.*;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -33,3 +34,4 @@ public class Feature4Interactor {
         }
     }
 
+*/

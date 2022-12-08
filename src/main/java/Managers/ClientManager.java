@@ -1,5 +1,4 @@
-package Managers;
+package managers;
 
 public class ClientManager {
-
 }

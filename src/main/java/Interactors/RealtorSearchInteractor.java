@@ -1,6 +1,7 @@
-package Interactors;
+/*
+package interactors;
 
-import Users.Realtor;
+import entities.Realtor;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -10,3 +11,4 @@ public class RealtorSearchInteractor {
         return userGateway.getRealtors();
     }
 }
+*/

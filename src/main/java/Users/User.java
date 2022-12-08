@@ -1,15 +1,14 @@
 package Users;
 
-import Managers.PropertyManager;
-import Messenger.Messenger;
+import entities.Messenger;
 
-import Review.Review;
+import entities.Review;
 
 import java.util.ArrayList;
 
-import Exceptions.MessengerNotFound;
+import interactors.exceptions.MessengerNotFound;
 
-import Exceptions.MessageNotAppropriate;
+import interactors.exceptions.MessageNotAppropriate;
 
 public class User {
 
