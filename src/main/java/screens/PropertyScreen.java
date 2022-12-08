@@ -41,6 +41,7 @@ public class PropertyScreen extends JPanel {
         info_panel.removeAll();
         String propertyID = property.getPropertyID();
         String ownerID = property.getOwnerID();
+        float propertyPrice = property.getPrice();
         boolean isOwner = property.getOwnerID().equals(userID);
         JLabel type = new JLabel("Type: " + property.getType());
         type.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -128,6 +129,12 @@ public class PropertyScreen extends JPanel {
             info_panel.add(bid);
             info_panel.add(sendOffer);
             sendOffer.addActionListener(e -> {propertyScreenPresenter.onSendBid(propertyID, bid.getText());});
+
+            // estimate mortgage
+            JButton estimateMortgage = new JButton("Estimate Mortgage");
+            estimateMortgage.setAlignmentX(Component.CENTER_ALIGNMENT);
+            info_panel.add(estimateMortgage);
+            estimateMortgage.addActionListener(e -> {propertyScreenPresenter.onEstimateMortgage(propertyPrice);});
         }
         info_panel.repaint();
         info_panel.revalidate();
