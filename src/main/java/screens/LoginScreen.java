@@ -28,6 +28,7 @@ public class LoginScreen extends JPanel implements ActionListener{
         inputs.setAlignmentX(Component.CENTER_ALIGNMENT);
         inputs.setPreferredSize(new Dimension(200, 50));
         inputs.setMaximumSize(new Dimension(200, 50));
+        this.setBackground(new Color(207, 242, 250));
         username = new JTextField(15);
         password = new JPasswordField(15);
         inputs.add(username);

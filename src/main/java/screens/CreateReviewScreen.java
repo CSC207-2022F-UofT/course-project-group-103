@@ -8,15 +8,27 @@ import java.awt.*;
 public class CreateReviewScreen extends JPanel {
 
     CreateReviewPresenter createReviewPresenter;
+
+    //Text field where the user can write their review
     JTextField review;
+
+    //Allows user input their rating on someone out of 5
     JComboBox<String> rating;
 
-
+    /**
+     * Constructor that sets up the layout
+     *
+     * @param controller: Presenter that tells his UI how to update
+     */
     public CreateReviewScreen(CreateReviewPresenter controller) {
         this.createReviewPresenter = controller;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
 
+    /**
+     * Adds components to the background panel and creates a review for the user corresponding to ownerID.
+     * @param ownerID: ID of the owner that is being reviewed
+     */
     public void draw(String ownerID) {
         this.removeAll();
         // back button
