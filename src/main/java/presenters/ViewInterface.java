@@ -1,55 +1,74 @@
 package presenters;
 
+import interactors.AccountModel;
+import interactors.PropertyModel;
+import interactors.ReviewModel;
+import interactors.SingleListingModel;
+
+import java.util.ArrayList;
+
 // controller layer
 public interface ViewInterface {
-    /**
-     * Displays the home page.
-     */
-    void displayHome();
-    /**
-     * Displays a property page.
-     */
-    void displayProperty();
     /**
      * Displays the login page.
      */
     void displayLogin();
     /**
+     * Displays a failure message.
+     */
+    void displayFailure(String message);
+    /**
+     * Displays a success message.
+     */
+    void displaySuccess(String message);
+    /**
+     * Displays the home page.
+     */
+    void displayHome();
+    /**
      * Displays the sign-up page.
      */
     void displaySignUp();
     /**
-     * Displays the listing page.
+     * Refreshes the listing page.
      */
-    void displayListing();
+    void refreshListing(ArrayList<SingleListingModel> info);
     /**
-     * Displays the account page.
+     * Displays the property page.
      */
-    void displayAccount();
-    /**
-     * Displays the active user account page.
-     */
-    void displayActiveAccount();
-    /**
-     * Displays the create listing page.
-     */
-    void displayCreateListing();
-    /**
-     * Displays the create review page.
-     */
-    void displayCreateReview();
+    void displayProperty(PropertyModel property);
     /**
      * Displays the previous page.
      */
     void displayPrevious();
     /**
-     * Clears the order of pages.
+     * Displays the listings page.
      */
-    void clearPrevious();
+    void displayListing();
     /**
-     * Refreshes the account page.
+     * Displays the create-listing page.
      */
-    void refreshAccount();
-
-    void displayRealtorListing();
+    void displayCreateListing();
+    /**
+     * Displays the account of active user.
+     */
+    void displayActiveAccount(ArrayList<SingleListingModel> listings,
+                              ArrayList<ReviewModel> reviews, AccountModel account);
+    /**
+     * Displays the account of a user.
+     */
+    void displayAccount(ArrayList<SingleListingModel> listings, ArrayList<ReviewModel> reviews,
+                        AccountModel account);
+    /**
+     * Displays the create-review page for a specified user
+     */
+    void displayCreateReview(String id);
+    /**
+     * Updates the current user using the app.
+     */
+    void setActiveUser(String id);
+    /**
+     * Retrieves the current user of the app.
+     */
+    String getActiveUser();
 }

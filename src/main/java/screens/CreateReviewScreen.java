@@ -14,10 +14,10 @@ public class CreateReviewScreen extends JPanel {
     public CreateReviewScreen(CreateReviewPresenter controller) {
         this.createReviewPresenter = controller;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.draw();
     }
 
-    public void draw() {
+    public void draw(String ownerID) {
+        this.removeAll();
         // back button
         JButton back = new JButton("Back");
         back.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -40,15 +40,8 @@ public class CreateReviewScreen extends JPanel {
         this.add(rating);
         this.add(submit);
         submit.addActionListener(e -> {
-            try {
-                this.createReviewPresenter.onCreateReview(review.getText(), rating.getText());
-            } catch (Exception exc) {JOptionPane.showMessageDialog(this, exc.getMessage());}
+            this.createReviewPresenter.onCreateReview(review.getText(), rating.getText(), ownerID);
         });
-    }
-
-    public void redraw() {
-        this.removeAll();
-        this.draw();
         this.repaint();
         this.revalidate();
     }

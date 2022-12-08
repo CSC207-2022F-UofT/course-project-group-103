@@ -79,10 +79,6 @@ public class SignUpScreen extends JPanel implements ActionListener{
         String c = contact.getText();
         String pass = new String(password.getPassword());
         String confirm_pass = new String(confirm_password.getPassword());
-        try {
-            this.signUpScreenPresenter.onSignUp(u, c, pass, confirm_pass);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
+        this.signUpScreenPresenter.onSignUp(u, c, pass, confirm_pass);
     }
 }

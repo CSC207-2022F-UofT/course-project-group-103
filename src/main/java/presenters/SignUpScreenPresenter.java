@@ -1,15 +1,18 @@
 package presenters;
 
 import interactors.SignUpInteractor;
+import interactors.gateway_interfaces.LoginGateway;
+import interactors.input_boundary.SignUpInput;
+import interactors.output_boundary.SignUpOutput;
 
-public class SignUpScreenPresenter {
+public class SignUpScreenPresenter implements SignUpOutput {
 
-    SignUpInteractor signUpInteractor;
     ViewInterface viewInterface;
+    SignUpInput signUpInput;
 
-    public SignUpScreenPresenter(SignUpInteractor i, ViewInterface p) {
-        this.signUpInteractor = i;
+    public SignUpScreenPresenter(ViewInterface p, LoginGateway g) {
         this.viewInterface = p;
+        this.signUpInput = new SignUpInteractor(g, this);
     }
 
     /**
@@ -30,12 +33,19 @@ public class SignUpScreenPresenter {
      * @param contact: String representation of the contact info
      * @param password: String representation of password
      * @param confirm_password: String representation of the user password confirmation
-     * @throws Exception: failed to sign up
      */
     public void onSignUp(String username, String contact, String password,
-                           String confirm_password) throws Exception {
-        this.signUpInteractor.signUp(username, contact, password, confirm_password);
-        // if sign up doesn't throw exception
+                         String confirm_password) {
+        this.signUpInput.signUp(username, contact, password, confirm_password);
+    }
+
+    public void onSignUpSuccess(String id) {
+        this.viewInterface.setActiveUser(id);
         this.viewInterface.displayHome();
     }
+
+    public void onSignUpFailure(String message) {
+        this.viewInterface.displayFailure(message);
+    }
+
 }

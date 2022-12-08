@@ -1,4 +1,7 @@
+
+/*
 package presenters;
+
 
 import interactors.AccountInteractor;
 import interactors.SingleListingInteractor;
@@ -22,6 +25,9 @@ public class AccountScreenPresenter {
      * Iterates over the list of the single listing interactors created by the account interactor method
      * createUserProperties().
      */
+
+
+/*
     public ArrayList<SingleListingPresenter> onCreateUserProperties() {
         ArrayList<SingleListingPresenter> controllers = new ArrayList<>();
         for (SingleListingInteractor i: this.accountInteractor.createUserProperties()) {
@@ -36,6 +42,7 @@ public class AccountScreenPresenter {
      * Iterates over the list of the single listing interactors created by the account interactor method
      * createUserReviews().
      */
+/*
     public ArrayList<SingleReviewPresenter> onCreateUserReviews() {
         ArrayList<SingleReviewPresenter> controllers = new ArrayList<>();
         for (SingleReviewInteractor i: this.accountInteractor.createUserReviews()) {
@@ -44,11 +51,13 @@ public class AccountScreenPresenter {
         return controllers;
     }
 
+
     /**
      * Returns an array list of string representing the basic info of the account.
      *
      * Calls the account interactor method getInfo() and returns the results.
      */
+/*
     public ArrayList<String> onGetInfo() {
         return this.accountInteractor.getInfo();
     }
@@ -58,6 +67,7 @@ public class AccountScreenPresenter {
      *
      * Calls the account interactor method isOwnerType() and returns the result.
      */
+/*
     public boolean onOwnerType() {
         return this.accountInteractor.isOwnerType();
     }
@@ -67,6 +77,7 @@ public class AccountScreenPresenter {
      *
      * Calls the presenter method displayPrevious() implemented in the GUI class.
      */
+/*
     public void onBack() {
         this.viewInterface.displayPrevious();
     }
@@ -76,5 +87,7 @@ public class AccountScreenPresenter {
      *
      * Calls the presenter method displayCreateReview() implemented in the GUI class.
      */
+/*
     public void onCreateReview() {this.viewInterface.displayCreateReview();}
 }
+*/
