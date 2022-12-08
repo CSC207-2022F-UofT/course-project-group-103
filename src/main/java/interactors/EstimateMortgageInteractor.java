@@ -14,6 +14,13 @@ public class EstimateMortgageInteractor implements EstimateMortgageInput {
         this.estimateMortgageOutput = ob;
     }
 
+    /**
+     * Estimates the mortgage and passes it off to the presenter
+     * @param price the price obtained from the property object
+     * @param downpayment user entered downpayment
+     * @param rate user entered mortgage rate
+     * @param years user entered amortization period
+     */
     public void estimateMortgage(float price, String downpayment, String rate, String years) {
         DecimalFormat df = new DecimalFormat("#.##");
 
@@ -43,7 +50,7 @@ public class EstimateMortgageInteractor implements EstimateMortgageInput {
             rate_double = (rate_double/100)/12;
             int time = years_int * 12;
             double monthly_payment = (principle * rate_double) / (1 - Math.pow(1 + rate_double, -time));
-            this.estimateMortgageOutput.onEstimateMortgageSuccess(Double.parseDouble(df.format(monthly_payment)));
+            this.estimateMortgageOutput.onEstimateMortgageSuccess(df.format(monthly_payment));
         } catch (Exception e) {this.estimateMortgageOutput.onEstimateMortgageFailure("Failed to estimate");}
 
 

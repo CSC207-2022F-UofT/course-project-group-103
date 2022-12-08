@@ -16,6 +16,11 @@ public class EstimateMortgageScreen extends JPanel {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
 
+
+    /**
+     * Displays the screen for mortgage estimation
+     * @param price float as passed on by the property object
+     */
     public void draw(float price) {
         this.removeAll();
         // back button

@@ -9,8 +9,9 @@ Our program provides a platform for owners, buyers, and real estate agents to co
 * [Viewing User Account](#3-viewing-user-account)
 * [Viewing and filtering properties](#4-filtering-and-viewing-properties)
 * [Bidding on properties](#5-bidding-on-a-property)
-* [User messaging system](#6-messaging-users)
-* [Hiring Realtors](#7-hiring-realtors)
+* [Estimating Mortgage](#6-estimating-mortgage)
+* [User messaging system](#7-messaging-users)
+* [Hiring Realtors](#8-hiring-realtors)
 
 ## Running the Program
 
@@ -57,12 +58,21 @@ To view listings, users can view all properties available through the View Listi
 Alternatively, users can filter by price and square footage to narrow down on a specific attribute.
 
 ### 5. Bidding on a Property
-wip
+Users can bid on a property directly on the property page.
 
-### 6. Messaging Users
-wip
+![](images/sendbid.png)
 
-### 7. Hiring Realtors
-wip
+### 6. Estimating Mortgage
+There is a mortgage calculator provided given a fixed mortgage rate.
 
-## Contributors
+![](images/estimatemortgage.png)
+
+### 7. Messaging Users
+Users can message each other freely on the basis of buying and selling properties.
+
+### 8. Hiring Realtors
+Users can locate realtors via a realtor listings page, and hire them through our app. Realtor contact information is also provided for possible clients. 
+
+## Contributors (alphabetical)
+Group 103: Real estate listing app + Shakeeb
+Omar Al Jaljuli, Rakan Alhamoury, Juliet Li, Sean Malla, Shakeeb Monzer, Eric Shi, Zein Sulayman, Kyle Vavasour
