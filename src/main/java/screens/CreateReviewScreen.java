@@ -9,7 +9,8 @@ public class CreateReviewScreen extends JPanel {
 
     CreateReviewPresenter createReviewPresenter;
     JTextField review;
-    JTextField rating;
+    JComboBox<String> rating;
+
 
     public CreateReviewScreen(CreateReviewPresenter controller) {
         this.createReviewPresenter = controller;
@@ -24,8 +25,11 @@ public class CreateReviewScreen extends JPanel {
         this.add(back);
         back.addActionListener(e -> createReviewPresenter.onBack());
 
+        // entering review and rating inputs
         review = new JTextField(15);
-        rating = new JTextField(15);
+        String[] ratings = {"Select rating", "1", "2", "3", "4", "5"};
+        rating = new JComboBox<>(ratings);
+
         JLabel review_tag = new JLabel("Enter Review: ");
         JLabel rating_tag = new JLabel("Enter Rating: ");
         JButton submit = new JButton("Submit Review");
@@ -39,9 +43,9 @@ public class CreateReviewScreen extends JPanel {
         this.add(rating_tag);
         this.add(rating);
         this.add(submit);
-        submit.addActionListener(e -> {
-            this.createReviewPresenter.onCreateReview(review.getText(), rating.getText(), ownerID);
-        });
+        submit.addActionListener(e ->
+            this.createReviewPresenter.onCreateReview(review.getText(),(String) rating.getSelectedItem(), ownerID)
+        );
         this.repaint();
         this.revalidate();
     }

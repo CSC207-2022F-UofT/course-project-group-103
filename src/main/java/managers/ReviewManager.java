@@ -9,13 +9,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Set;
 
 public class ReviewManager implements ReviewGateway {
 
     String reviews_filepath;
+    String inappropriate_words_filepath;
 
-    public ReviewManager(String r) {
+    public ReviewManager(String r, String i) {
         this.reviews_filepath = r;
+        this.inappropriate_words_filepath = i;
     }
 
     public ArrayList<Review> getReviews() {
@@ -78,4 +82,23 @@ public class ReviewManager implements ReviewGateway {
             writer.write(a.toString());
         }
     }
+
+    /**
+     * Creates a set containing a list of words deemed inappropriate that won't be allowed in reviews
+     *
+     *
+     * @return Set<String> of bad words taken from InappropriateWordsList.json
+     */
+    public Set<String> InappropriateWordsList(){
+        try {
+            File file = new File(this.inappropriate_words_filepath);
+            String content = new String(Files.readAllBytes(Paths.get(file.toURI())));
+            JSONObject json = new JSONObject(content);
+            return json.keySet();
+        }
+        catch (IOException e) {e.printStackTrace();}
+        return Collections.emptySet();
+    }
+
+
 }
