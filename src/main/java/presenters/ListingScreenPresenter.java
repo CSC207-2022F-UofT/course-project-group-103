@@ -21,7 +21,7 @@ public class ListingScreenPresenter implements RefreshListingOutput, AccessPrope
     public ListingScreenPresenter(ViewInterface view, PropertyGateway g, LoginGateway l) {
         this.viewInterface = view;
         this.refreshListingInput = new RefreshListingInteractor(g, this);
-        this.accessPropertyInput = new AccessPropertyInteractor(g,l ,this);
+        this.accessPropertyInput = new AccessPropertyInteractor(g, l,this);
     }
 
     /**

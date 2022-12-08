@@ -1,6 +1,5 @@
 package presenters;
 
-import entities.Review;
 import interactors.*;
 import interactors.gateway_interfaces.PropertyGateway;
 import interactors.gateway_interfaces.ReviewGateway;
@@ -71,4 +70,7 @@ public class PropertyScreenPresenter implements SendBidOutput, LoadAccountOutput
     public void onDeletePropertyFailure(String message) {
         this.viewInterface.displayFailure(message);
     }
+
+    public void onEstimateMortgage(float price) {this.viewInterface.displayMortgageEstimator(price);}
+
 }
