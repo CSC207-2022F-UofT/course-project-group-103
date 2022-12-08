@@ -29,12 +29,9 @@ public class SignUpInteractor implements SignUpInput {
     }
 
     /**
-     * Creates a new user class and save it to the database, then update the active user to the new account.
-     *
-     * @param username: username of account to create.
-     * @param contact: contact information of account to create.
-     * @param password: password of account to create.
-     * @param confirm_password: repetition of password of account to create.
+     * @see SignUpInput
+     * Checks if the username already exists and if the passwords match and then creates a new user saving
+     * it to the database, then calls the output interface passing in the user ID.
      */
     public void signUp(String username, String contact, String password, String confirm_password) {
         if (!password.equals(confirm_password)) {

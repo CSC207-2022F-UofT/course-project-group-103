@@ -1,6 +1,5 @@
 package entities;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Condo extends Property {
@@ -77,20 +76,5 @@ public class Condo extends Property {
      */
     public int getNumLaundry() {
         return numLaundry;
-    }
-
-    /**
-     * Calls the implementation of info() in the superclass to get summary of non-unique attributes and then
-     * adds unique attributes to the array list.
-     * @return Array List of formatted string representations of the Condo attributes.
-     */
-    @Override
-    public ArrayList<String> info() {
-        ArrayList<String> info = super.info();
-        info.add("Bedrooms: " + this.getNumBedrooms());
-        info.add("Bathrooms: " + this.getNumBathrooms());
-        info.add("Kitchens: " + this.getNumKitchen());
-        info.add("Laundry: " + this.getNumLaundry());
-        return info;
     }
 }

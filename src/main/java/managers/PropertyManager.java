@@ -18,16 +18,41 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class PropertyManager implements PropertyGateway {
+
+    /**
+     * Path to the property database.
+     */
     String properties_filepath;
+    /**
+     * Path to the user database.
+     */
     String users_filepath;
+    /**
+     * Path to the review database.
+     */
     String reviews_filepath;
 
+    /**
+     * Constructor for a property manager, assigns the file paths.
+     *
+     * @param p: filepath to property database.
+     * @param u: filepath to user database.
+     * @param r: filepath to review database.
+     */
     public PropertyManager(String p, String u, String r) {
         this.properties_filepath = p;
         this.users_filepath = u;
         this.reviews_filepath = r;
     }
 
+    /**
+     * Gets the property object with the associated id saved in the database.
+     * Reads the database and retrieves the entry with a key equal to the id and then
+     * reconstructs the property object from the information.
+     *
+     * @return property object of the given id.
+     * @param ID: id of property to get.
+     */
     public Property getProperty(String ID) throws UndefinedPropertyType {
         try {
             String location = this.properties_filepath;
@@ -76,6 +101,12 @@ public class PropertyManager implements PropertyGateway {
         }
     }
 
+    /**
+     * Helper method to convert a json object into a hashmap.
+     *
+     * @return HashMap of the json object. (String, Float)
+     * @param j: json object to convert.
+     */
     public HashMap<String, Float> parseBids(JSONObject j) {
         HashMap<String, Float> bids = new HashMap<>();
         for (String s: j.keySet()) {
@@ -84,6 +115,12 @@ public class PropertyManager implements PropertyGateway {
         return bids;
     }
 
+    /**
+     * @see PropertyGateway
+     * reads the user json and gets the user associated with the given ID, then converts the
+     * retrieved json into a user object.
+     */
+    @Override
     public User getUser(String ID) throws IOException, UndefinedUserType {
         String location = this.users_filepath;
         File file = new File(location);
@@ -129,6 +166,14 @@ public class PropertyManager implements PropertyGateway {
         }
     }
 
+    /**
+     * Gets the review object with the associated id saved in the database.
+     * Reads the database and retrieves the entry with a key equal to the id and then
+     * reconstructs the review object from the information.
+     *
+     * @return review object of the given id.
+     * @param ID: id of property to get.
+     */
     public Review getReview(String ID) throws IOException {
         String location = this.reviews_filepath;
         File file = new File(location);
@@ -144,10 +189,11 @@ public class PropertyManager implements PropertyGateway {
     }
 
     /**
-     * Implements the save method of the PropertyListingGateway for dependency inversion.
-     *
-     * @param p: Property object to add to PropertyListing.json.
+     * @see PropertyGateway
+     * converts the given property object into a json format and then reads the json from the file
+     * adding the new property json before saving it back to the file.
      */
+    @Override
     public void save(Property p) throws Exception {
         try {
             // property object to JSON object:
@@ -184,7 +230,7 @@ public class PropertyManager implements PropertyGateway {
             JSONObject a = new JSONObject(content);
             a.put(p.getID(), prop);
             try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(this.properties_filepath), "utf-8"))) {
+                    new FileOutputStream(this.properties_filepath)))) {
                 writer.write(a.toString());
             }
         } catch(Exception e){
@@ -192,6 +238,12 @@ public class PropertyManager implements PropertyGateway {
         }
     }
 
+    /**
+     * @see PropertyGateway
+     * reads the json from the property file and for each entry reconstructs the property
+     * object and returns it as a list.
+     */
+    @Override
     public ArrayList<Property> getProperties() {
         try {
             Path filePath = Path.of(this.properties_filepath);
@@ -206,6 +258,11 @@ public class PropertyManager implements PropertyGateway {
         } catch (Exception e) {e.printStackTrace(); return null;}
     }
 
+    /**
+     * @see PropertyGateway
+     * reads the json from the property file and removes the entry associated with the given id, then
+     * saves the json back to the file.
+     */
     public void removePropertyById(String id) {
         try {
             Path filePath = Path.of(this.properties_filepath);
@@ -213,7 +270,7 @@ public class PropertyManager implements PropertyGateway {
             JSONObject a = new JSONObject(content);
             a.remove(id);
             try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(this.properties_filepath), "utf-8"))) {
+                    new FileOutputStream(this.properties_filepath)))) {
                 writer.write(a.toString());
             }
         } catch (Exception e) {e.printStackTrace();}
