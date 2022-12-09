@@ -10,16 +10,26 @@ import java.util.ArrayList;
 
 public class AccountScreen extends JPanel {
 
+    //Creating an accountPresenter object to update this screen
     AccountPresenter accountPresenter;
+    //Holds basic account info
     JPanel info;
+    //Panel holding property info and reviews on the account holder
     JPanel group;
 
+    /**
+     * Constructor for this GUI. Sets up the layout and adds components when instantiated.
+     * @param presenter: AccountPresenter that updates this UI
+     */
     public AccountScreen(AccountPresenter presenter) {
         this.accountPresenter = presenter;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.draw();
     }
 
+    /**
+     * Adds buttons and panels onto the background panel to display information
+     */
     public void draw() {
 
         // go back to home
@@ -40,6 +50,14 @@ public class AccountScreen extends JPanel {
         this.add(group_pane);
     }
 
+    /**
+     * Adds account name and contact info onto the info panel. Adds the listings held by the account
+     * holder and the reviews on the account holder to the group panel.
+     *
+     * @param listings: Listings held by the account holder
+     * @param reviews: Reviews on properties held by the account holder
+     * @param account: Holds name and contact information of the account holder
+     */
     public void setUpAccount(ArrayList<SingleListingModel> listings,
                              ArrayList<ReviewModel> reviews, AccountModel account) {
         // basic account info

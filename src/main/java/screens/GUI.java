@@ -16,10 +16,13 @@ public class GUI extends JFrame implements ViewInterface {
      * -weird bug on delete account with bids
      */
 
+    //Strings holding the file path to the databases
     final String properties_path = "src/main/Databases/PropertyListing.json";
     final String users_path = "src/main/Databases/UserListing.json";
     final String reviews_path = "src/main/Databases/ReviewList.json";
     final String inappropriate_words_path = "src/main/Databases/InappropriateWordsList.json";
+
+    //JComponents and instances of each type of screen
     JPanel screens;
     CardLayout screen;
     LoginScreen loginScreen;
@@ -34,9 +37,14 @@ public class GUI extends JFrame implements ViewInterface {
     RealtorListingScreen realtorListingScreen;
     EstimateMortgageScreen mortgageEstimatorScreen;
 
+    //ID of the current active user and an array list representing the order the pages fall in
     ArrayList<String> pageOrder = new ArrayList<>();
     String activeUser;
 
+    /**
+     * Constructor that sets the layout and preferred size, then instantiates each of the screens
+     * and required managers.
+     */
     public GUI() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setPreferredSize(new Dimension(400, 400));

@@ -7,6 +7,10 @@ import java.awt.*;
 
 public class CreateListingScreen extends JPanel {
 
+    /**
+     * Create instance variables for buttons that allow the user to choose what kind of listing they
+     * are making and other buttons,text fields, and panels that allow the user to input property info.
+     */
     CreateListingPresenter createListingPresenter;
     JRadioButton house;
     JRadioButton condo;
@@ -29,12 +33,19 @@ public class CreateListingScreen extends JPanel {
     JTextField numReception;
     JTextField kitchenSpec;
 
+    /**
+     * Constructor that sets the layout and calls draw() to add components to the background panel
+     * @param c: Presenter that updates this UI
+     */
     public CreateListingScreen(CreateListingPresenter c) {
         this.createListingPresenter = c;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.draw();
     }
 
+    /**
+     * Adds components onto the background panel
+     */
     public void draw() {
 
         // back button
@@ -118,6 +129,7 @@ public class CreateListingScreen extends JPanel {
         info.add(price_tag);
         info.add(price);
     }
+
 
     public void drawHouseInfo() {
         // draws the property info form for houses

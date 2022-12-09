@@ -10,16 +10,28 @@ import java.util.ArrayList;
 
 public class ActiveAccountScreen extends JPanel {
 
+    //Presenter that tells the UI how to update for the current users account page
     ActiveAccountPresenter activeAccountPresenter;
+    //Panel holding the current users name and contact
     JPanel info;
+    //Panel holding the current users owned properties and reviews on the user
     JPanel group;
 
+    /**
+     * Constructor for this GUI. Sets up the layout and calls draw() to
+     * add components onto the background panel
+     *
+     * @param presenter: Presenter object that is passed in during instantiation
+     */
     public ActiveAccountScreen(ActiveAccountPresenter presenter) {
         this.activeAccountPresenter = presenter;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.draw();
     }
 
+    /**
+     * Adds components onto the background GUI.
+     */
     public void draw() {
 
         // go back to home
@@ -55,6 +67,14 @@ public class ActiveAccountScreen extends JPanel {
         });
     }
 
+    /**
+     * Adds name and contact onto the info panel, as well as the listings and reviews of the current
+     * user onto the group panel.
+     *
+     * @param listings: Listings that are held by the current user
+     * @param reviews: Reviews on the current user
+     * @param account: Object holding the current users name and contact
+     */
     public void setUpAccount(ArrayList<SingleListingModel> listings,
                              ArrayList<ReviewModel> reviews, AccountModel account) {
         // basic account info
