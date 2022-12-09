@@ -53,9 +53,20 @@ public class LoginScreen extends JPanel implements ActionListener{
 
         JButton signUp = new JButton("Sign Up");
         signUp.setAlignmentX(Component.CENTER_ALIGNMENT);
-        signUp.addActionListener(e -> {loginScreenPresenter.onSignUp();});
+        signUp.addActionListener(e -> loginScreenPresenter.onSignUp());
 
         JButton forgot_password = new JButton("Forgot Password");
+        forgot_password.setAlignmentX(CENTER_ALIGNMENT);
+        forgot_password.addActionListener(e -> {
+            String name = username.getText();
+            try {
+                loginScreenPresenter.onOpenChangePassword(name, "Please input a username.");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        forgot_password = new JButton("Forgot Password");
         forgot_password.setAlignmentX(CENTER_ALIGNMENT);
         forgot_password.addActionListener(e -> {
             String name = username.getText();
@@ -83,11 +94,7 @@ public class LoginScreen extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent evt) {
         String u = username.getText();
         String p = new String(password.getPassword());
-        try {
-            loginScreenPresenter.onLogin(u, p);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
+        loginScreenPresenter.onLogin(u, p);
     }
 
 }

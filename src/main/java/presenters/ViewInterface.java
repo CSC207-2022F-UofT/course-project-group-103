@@ -1,9 +1,6 @@
 package presenters;
 
-import interactors.AccountModel;
-import interactors.PropertyModel;
-import interactors.ReviewModel;
-import interactors.SingleListingModel;
+import interactors.*;
 import interactors.exceptions.MessengerNotFound;
 import interactors.exceptions.UndefinedUserType;
 
@@ -18,10 +15,14 @@ public interface ViewInterface {
     void displayLogin();
     /**
      * Displays a failure message.
+     *
+     * @param message: failure message.
      */
     void displayFailure(String message);
     /**
      * Displays a success message.
+     *
+     * @param message: success message.
      */
     void displaySuccess(String message);
     /**
@@ -34,10 +35,14 @@ public interface ViewInterface {
     void displaySignUp();
     /**
      * Refreshes the listing page.
+     *
+     * @param info: single listing models to display.
      */
     void refreshListing(ArrayList<SingleListingModel> info);
     /**
      * Displays the property page.
+     *
+     * @param property: property model to display
      */
     void displayProperty(PropertyModel property);
     /**
@@ -54,26 +59,46 @@ public interface ViewInterface {
     void displayCreateListing();
     /**
      * Displays the account of active user.
+     *
+     * @param listings: single listing models to display.
+     * @param reviews: review models to display.
+     * @param account: account model to display.
      */
     void displayActiveAccount(ArrayList<SingleListingModel> listings,
                               ArrayList<ReviewModel> reviews, AccountModel account);
     /**
      * Displays the account of a user.
+     *
+     * @param listings: listing models to display.
+     * @param reviews: review models to display.
+     * @param account: account model to display.
      */
     void displayAccount(ArrayList<SingleListingModel> listings, ArrayList<ReviewModel> reviews,
                         AccountModel account);
     /**
      * Displays the create-review page for a specified user
+     *
+     * @param id: id of user being reviewed
      */
     void displayCreateReview(String id);
     /**
      * Updates the current user using the app.
+     *
+     * @param id: id to set active user.
      */
     void setActiveUser(String id);
     /**
      * Retrieves the current user of the app.
+     *
+     * @return id of active user.
      */
     String getActiveUser();
+
+    void displayRealtorListing(ArrayList<SingleRealtorModel> realtors);
+    /**
+     * Displays the mortgage estimator page for a specific property.
+     */
+    void displayMortgageEstimator(float price);
 
     /**
      * Displays the change password page.

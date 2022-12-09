@@ -148,11 +148,9 @@ public class CreateListingScreen extends JPanel {
         info.add(numLaundry);
         JButton b = new JButton("Submit House Listing");
         b.setAlignmentX(Component.CENTER_ALIGNMENT);
-        b.addActionListener(e -> {
-            this.createListingPresenter.onCreateHouse(name.getText(), address.getText(), sqFt.getText(),
-                    price.getText(), numBed.getText(), numBath.getText(), numLaundry.getText(),
-                    numKitchen.getText());
-        });
+        b.addActionListener(e -> this.createListingPresenter.onCreateHouse(name.getText(), address.getText(), sqFt.getText(),
+                price.getText(), numBed.getText(), numBath.getText(), numLaundry.getText(),
+                numKitchen.getText()));
         info.add(b);
         info.repaint();
         info.revalidate();
@@ -189,11 +187,9 @@ public class CreateListingScreen extends JPanel {
         info.add(numLaundry);
         JButton b = new JButton("Submit Condo Listing");
         b.setAlignmentX(Component.CENTER_ALIGNMENT);
-        b.addActionListener(e -> {
-            this.createListingPresenter.onCreateCondo(name.getText(), address.getText(), sqFt.getText(),
-                    price.getText(), numBed.getText(), numBath.getText(), numLaundry.getText(),
-                    numKitchen.getText());
-        });
+        b.addActionListener(e -> this.createListingPresenter.onCreateCondo(name.getText(), address.getText(), sqFt.getText(),
+                price.getText(), numBed.getText(), numBath.getText(), numLaundry.getText(),
+                numKitchen.getText()));
         info.add(b);
         info.repaint();
         info.revalidate();
@@ -218,11 +214,8 @@ public class CreateListingScreen extends JPanel {
         info.add(numReception);
         JButton b = new JButton("Submit Office Listing");
         b.setAlignmentX(Component.CENTER_ALIGNMENT);
-        b.addActionListener(e -> {
-            this.createListingPresenter.onCreateHouse(name.getText(), address.getText(), sqFt.getText(),
-                    price.getText(), numBed.getText(), numBath.getText(), numLaundry.getText(),
-                    numKitchen.getText());
-        });
+        b.addActionListener(e -> this.createListingPresenter.onCreateOffice(name.getText(), address.getText(), sqFt.getText(),
+                price.getText(), numOfficeRoom.getText(), numReception.getText()));
         info.add(b);
         info.repaint();
         info.revalidate();
@@ -241,11 +234,8 @@ public class CreateListingScreen extends JPanel {
         info.add(kitchenSpec);
         JButton b = new JButton("Submit Restaurant Listing");
         b.setAlignmentX(Component.CENTER_ALIGNMENT);
-        b.addActionListener(e -> {
-            this.createListingPresenter.onCreateHouse(name.getText(), address.getText(), sqFt.getText(),
-                    price.getText(), numBed.getText(), numBath.getText(), numLaundry.getText(),
-                    numKitchen.getText());
-        });
+        b.addActionListener(e -> this.createListingPresenter.onCreateRestaurant(name.getText(), address.getText(), sqFt.getText(),
+                price.getText(), kitchenSpec.getText()));
         info.add(b);
         info.repaint();
         info.revalidate();

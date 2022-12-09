@@ -1,7 +1,5 @@
 package entities;
 
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Restaurant extends Property {
@@ -35,17 +33,5 @@ public class Restaurant extends Property {
      */
     public String getKitchenSpecifications() {
         return this.kitchenSpecifications;
-    }
-
-    /**
-     * Calls the implementation of info() in the superclass to get summary of non-unique attributes and then
-     * adds unique attributes to the array list. ID and bids are not added to this array list.
-     * @return Array List of formatted string representations of the restaurant attributes.
-     */
-    @Override
-    public ArrayList<String> info() {
-        ArrayList<String> info = super.info();
-        info.add("Kitchen Specifications: " + this.getKitchenSpecifications());
-        return info;
     }
 }

@@ -23,7 +23,9 @@ public class GUI extends JFrame implements ViewInterface {
     final String properties_path = "src/main/Databases/PropertyListing.json";
     final String users_path = "src/main/Databases/UserListing.json";
     final String reviews_path = "src/main/Databases/ReviewList.json";
+    final String inappropriate_words_path = "src/main/Databases/InappropriateWordsList.json";
     final String messengers_path = "src/main/Databases/MessengerDatabase.json";
+
 
     JPanel screens;
     CardLayout screen;
@@ -38,6 +40,10 @@ public class GUI extends JFrame implements ViewInterface {
     CreateReviewScreen createReviewScreen;
     ChangePasswordScreen changePasswordScreen;
     MessengerChatScreen messengerChatScreen;
+    RealtorListingScreen realtorListingScreen;
+    EstimateMortgageScreen mortgageEstimatorScreen;
+
+
     ArrayList<String> pageOrder = new ArrayList<>();
     String activeUser;
 
@@ -48,16 +54,16 @@ public class GUI extends JFrame implements ViewInterface {
         //set up managers
         LoginManager loginManager = new LoginManager(users_path, reviews_path);
         PropertyManager propertyManager = new PropertyManager(properties_path, users_path, reviews_path, loginManager);
-        ReviewManager reviewManager = new ReviewManager(reviews_path);
+        ReviewManager reviewManager = new ReviewManager(reviews_path, inappropriate_words_path);
         MessageManager messageManager = new MessageManager(messengers_path);
+
 
         // set up sign-up screen
         SignUpScreenPresenter signUpScreenPresenter = new SignUpScreenPresenter(this, loginManager);
         signUpScreen = new SignUpScreen(signUpScreenPresenter);
 
         // set up home screen
-        HomeScreenPresenter homeScreenPresenter = new HomeScreenPresenter(this, propertyManager, loginManager,
-                reviewManager);
+        HomeScreenPresenter homeScreenPresenter = new HomeScreenPresenter(this, propertyManager, reviewManager, loginManager);
         homeScreen = new HomeScreen(homeScreenPresenter);
 
         // set up listing screen
@@ -97,10 +103,20 @@ public class GUI extends JFrame implements ViewInterface {
         CreateReviewPresenter createReviewPresenter = new CreateReviewPresenter(this, reviewManager);
         createReviewScreen = new CreateReviewScreen(createReviewPresenter);
 
+
+        // set up mortgage estimator screen
+        EstimateMortgagePresenter estimateMortgagePresenter = new EstimateMortgagePresenter(this);
+        mortgageEstimatorScreen = new EstimateMortgageScreen(estimateMortgagePresenter);
+
         // set up chat screen
         MessengerPresenter messengerPresenter = new MessengerPresenter(this, messageManager, loginManager);
         SendMessagePresenter sendMessagePresenter = new SendMessagePresenter(this, messageManager, loginManager);
         messengerChatScreen = new MessengerChatScreen(messengerPresenter, sendMessagePresenter);
+
+
+        // set up realtor listing screen
+        RealtorListingPresenter realtorListingPresenter = new RealtorListingPresenter(this, loginManager);
+        realtorListingScreen = new RealtorListingScreen(realtorListingPresenter);
 
 
         // set up card layout
@@ -121,6 +137,8 @@ public class GUI extends JFrame implements ViewInterface {
         screens.add(changePasswordScreen, "Change Password");
         screens.add(createReviewScreen, "Create Review");
         screens.add(messengerChatScreen, "Messenger");
+        screens.add(realtorListingScreen, "Realtor Listing");
+        screens.add(mortgageEstimatorScreen, "Estimate Mortgage");
     }
 
     public void displayLogin() {
@@ -164,6 +182,14 @@ public class GUI extends JFrame implements ViewInterface {
         pageOrder.add("Property");
     }
 
+    public void displayRealtorListing(ArrayList<SingleRealtorModel> realtors) {
+        realtorListingScreen.draw(realtors);
+        screen.show(screens, "Realtor Listing");
+        pageOrder.add("Realtor Listing");
+    }
+
+
+
     public void displayPrevious() {
         if (pageOrder.size()<2) {
             screen.show(screens, "Home");
@@ -199,6 +225,12 @@ public class GUI extends JFrame implements ViewInterface {
         createReviewScreen.draw(id);
         screen.show(screens, "Create Review");
         pageOrder.add("Create Review");
+    }
+
+    public void displayMortgageEstimator(float price) {
+        mortgageEstimatorScreen.draw(price);
+        screen.show(screens, "Estimate Mortgage");
+        pageOrder.add("Estimate Mortgage");
     }
 
     public void setActiveUser(String id) {

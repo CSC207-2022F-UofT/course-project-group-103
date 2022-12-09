@@ -10,16 +10,40 @@ import java.util.ArrayList;
 
 public class AccessPropertyInteractor implements AccessPropertyInput {
 
+    /**
+     * Gateway interface to the property database.
+     */
     PropertyGateway propertyGateway;
+    /**
+     * Gateway interface to the user database.
+     */
     LoginGateway loginGateway;
+    /**
+     * Output interface for this interactor.
+     */
     AccessPropertyOutput accessPropertyOutput;
 
+    /**
+     * Constructor for this interactor, assigns the attributes.
+     *
+     * @param g: implementation of the property gateway.
+     * @param l: implementation of the login gateway.
+     * @param ob: implementation of the output interface.
+     */
     public AccessPropertyInteractor(PropertyGateway g, LoginGateway l, AccessPropertyOutput ob) {
         this.propertyGateway = g;
         this.loginGateway = l;
         this.accessPropertyOutput = ob;
 
     }
+
+    /**
+     * @see AccessPropertyInput
+     *
+     * Gets an arraylist of all property objects in the database from the gateway and then finds the property
+     * associated with the ID. Once the property is found, a PropertyModel is created and the output is called.
+     */
+    @Override
     public void accessProperty(String PropertyID) {
         ArrayList<Property> properties = this.propertyGateway.getProperties();
         for (Property p: properties) {

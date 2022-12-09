@@ -9,14 +9,33 @@ import java.util.ArrayList;
 
 public class RefreshListingInteractor implements RefreshListingInput {
 
+    /**
+     * Gateway interface to the property database.
+     */
     PropertyGateway propertyGateway;
+    /**
+     * Output interface for this interactor.
+     */
     RefreshListingOutput refreshListingOutput;
 
+    /**
+     * Constructor for the interactor, assigns its attributes.
+     *
+     * @param g: implementation of the property gateway interface.
+     * @param ob: implementation of the output interface.
+     */
     public RefreshListingInteractor(PropertyGateway g, RefreshListingOutput ob) {
         this.propertyGateway = g;
         this.refreshListingOutput = ob;
     }
 
+    /**
+     * @see RefreshListingInput
+     *
+     * Accesses all properties and creates single listing models of all properties that meet the filter criteria,
+     * then calls the output interface passing the single listing models.
+     */
+    @Override
     public void updateFilter(String price, String sqft, boolean house, boolean condo,
                       boolean office, boolean restaurant) {
         ArrayList<Property> properties = this.propertyGateway.getProperties();

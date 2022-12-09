@@ -13,11 +13,27 @@ import java.util.ArrayList;
 
 public class LoadAccountInteractor implements LoadAccountInput {
 
+    /**
+     * Gateway interface to the property database.
+     */
     PropertyGateway propertyGateway;
+    /**
+     * Gateway interface to the review database.
+     */
     LoginGateway loginGateway;
     ReviewGateway reviewGateway;
+    /**
+     * Output interface for this interactor.
+     */
     LoadAccountOutput loadAccountOutput;
 
+    /**
+     * Constructor for this interactor, assigns its attributes.
+     *
+     * @param g: implementation of the property gateway interface.
+     * @param rg: implementation of the review gateway interface.
+     * @param ob: implementation of the interactor output interface.
+     */
     public LoadAccountInteractor(PropertyGateway g, LoginGateway lg, ReviewGateway rg, LoadAccountOutput ob) {
         this.propertyGateway = g;
         this.loginGateway = lg;
@@ -25,6 +41,12 @@ public class LoadAccountInteractor implements LoadAccountInput {
         this.loadAccountOutput = ob;
     }
 
+    /**
+     * @see LoadAccountInput
+     * Loads the user associated with the given ID and then creates the relevant info objects, then calls
+     * the output interface method passing the relevant info objects in.
+     */
+    @Override
     public void loadAccount(String id) {
         ArrayList<Property> properties = this.propertyGateway.getProperties();
         ArrayList<SingleListingModel> account_listings = new ArrayList<>();

@@ -49,6 +49,7 @@ public class CreateListingInteractor implements CreateListingInput {
      * @param numLaundry: number of laundry rooms in house to create
      * @param numKitchen: number of kitchens in house to create
      */
+    @Override
     public void createHouse(String name, String address, String sqFt, String price, String numBed,
                             String numBath, String numLaundry, String numKitchen, String userID) {
         int sqFt_int;
@@ -103,6 +104,7 @@ public class CreateListingInteractor implements CreateListingInput {
      * @param numLaundry: number of laundry rooms in condo to create
      * @param numKitchen: number of kitchens in condo to create
      */
+    @Override
     public void createCondo(String name, String address, String sqFt, String price, String numBed,
                             String numBath, String numLaundry, String numKitchen, String userID) {
         int sqFt_int;
@@ -155,6 +157,7 @@ public class CreateListingInteractor implements CreateListingInput {
      * @param numOffice: number of office rooms in office to create
      * @param numReception: number of receptions in office to create
      */
+    @Override
     public void createOffice(String name, String address, String sqFt, String price, String numOffice,
                              String numReception, String userID) {
         int sqFt_int;
@@ -196,6 +199,7 @@ public class CreateListingInteractor implements CreateListingInput {
      * @param price: price of restaurant to create
      * @param spec: kitchen specifications of restaurant to create
      */
+    @Override
     public void createRestaurant(String name, String address, String sqFt, String price,
                                  String spec, String userID) {
         int sqFt_int;
