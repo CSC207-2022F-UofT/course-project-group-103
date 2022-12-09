@@ -211,6 +211,7 @@ public class CreateListingInteractor implements CreateListingInput {
                     u.getName(),
                     u.getPassword(),
                     u.getContact(),
+                    u.getHiredRealtorID(),
                     new ArrayList<>()
             );
             this.loginGateway.saveUser(o);
