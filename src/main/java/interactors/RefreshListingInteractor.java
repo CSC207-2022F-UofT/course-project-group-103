@@ -34,12 +34,14 @@ public class RefreshListingInteractor implements RefreshListingInput {
      *
      * Accesses all properties and creates single listing models of all properties that meet the filter criteria,
      * then calls the output interface passing the single listing models.
+     * @param price the price of the property
+     * @param sqft the square footage of the property
      */
     @Override
     public void updateFilter(String price, String sqft, boolean house, boolean condo,
                       boolean office, boolean restaurant) {
         ArrayList<Property> properties = this.propertyGateway.getProperties();
-        ArrayList<SingleListingModel> info = new ArrayList<>();
+        ArrayList<interactors.SingleListingModel> info = new ArrayList<>();
         float min_price;
         float max_price;
         int min_sqft;
@@ -65,7 +67,7 @@ public class RefreshListingInteractor implements RefreshListingInput {
                         (p.getType().equals("Condo") && condo) ||
                         (p.getType().equals("Office") && office) ||
                         (p.getType().equals("Restaurant") && restaurant)) {
-                    info.add(new SingleListingModel(p.getID(), p.getAddress(), p.getPrice()));
+                    info.add(new interactors.SingleListingModel(p.getID(), p.getAddress(), p.getPrice()));
                 }
             }
         }
