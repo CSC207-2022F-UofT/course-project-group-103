@@ -109,7 +109,7 @@ public class MessengerChatScreen extends JPanel implements ActionListener {
             pane2.setLayout(new BoxLayout(pane2, BoxLayout.Y_AXIS));
             // Show message logs
             for (String log: messengerPresenter.getChat(sender_id, User2ID)) {
-                pane2.add(new JLabel(log), BorderLayout.WEST);
+                pane2.add(new JLabel(log), BorderLayout.CENTER);
             }
 
             // Send Message text
