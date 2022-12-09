@@ -76,6 +76,7 @@ public class CreateListingInteractor implements CreateListingInput {
         } catch (Exception e) {this.createListingOutput.onCreateListingFailure(
                 "Enter an integer amount for number of kitchens."); return;}
         try {
+            System.out.println("test");
             this.upgradeToOwner(userID);
             House h = new House(name, address, this.getValidID(), (Owner) propertyGateway.getUser(userID),
                     sqFt_int, price_float, numBed_int, numBath_int, numLaundry_int, numKitchen_int, new HashMap<>());

@@ -55,7 +55,7 @@ public class User {
         this.name = name;
         this.password = password;
         this.contact = contact;
-        this.hiredRealtorID = null;
+        this.hiredRealtorID = "NA";
     }
 
     /**

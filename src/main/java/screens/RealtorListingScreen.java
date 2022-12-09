@@ -1,12 +1,11 @@
 package screens;
 
+import interactors.SingleRealtorModel;
 import presenters.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class RealtorListingScreen extends JPanel{
     RealtorListingPresenter realtorListingPresenter;
@@ -20,27 +19,31 @@ public class RealtorListingScreen extends JPanel{
         back.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(back);
         back.addActionListener(e -> realtorListingPresenter.onBack());
-
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        for (ArrayList<String> al: this.realtorListingPresenter.realtors()) {
-            JLabel l1 = new JLabel(al.get(0));
-            JLabel l2 = new JLabel(al.get(1));
-            JButton hire = new JButton("Hire Realtor");
+        JScrollPane scroll = new JScrollPane(panel);
+        this.add(scroll);
+    }
 
-            l1.setAlignmentX(Component.CENTER_ALIGNMENT);
-            l2.setAlignmentX(Component.CENTER_ALIGNMENT);
+    public void draw(ArrayList<SingleRealtorModel> realtors) {
+        panel.removeAll();
+        for (SingleRealtorModel r: realtors) {
+            String id = r.getID();
+            JLabel name = new JLabel("Name: " + r.getName());
+            name.setAlignmentX(Component.CENTER_ALIGNMENT);
+            JLabel contact = new JLabel("Contact: " + r.getContact());
+            contact.setAlignmentX(Component.CENTER_ALIGNMENT);
+            JButton hire = new JButton("Hire");
             hire.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-            panel.add(l1);
-            panel.add(l2);
+            hire.addActionListener(e -> {
+                this.realtorListingPresenter.onHireRealtor(id);});
+            panel.add(name);
+            panel.add(contact);
             panel.add(hire);
-            hire.addActionListener(e -> realtorListingPresenter.onRealtorHire());
-        }
+            panel.add(new JLabel(" "));
 
-        JScrollPane sp = new JScrollPane(panel);
-        sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        this.add(sp);
+        }
+        panel.repaint();
+        panel.revalidate();
     }
 
 }
