@@ -1,7 +1,6 @@
 import managers.LoginManager;
 import org.junit.jupiter.api.Test;
 import presenters.LoginScreenPresenter;
-import screens.GUI;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,9 +13,9 @@ class LoginInteractorTest {
     void create() {
         LoginManager loginManager = new LoginManager(users_path, reviews_path);
 
-        GUI view = new GUI();
+        presenter_dependancy p = new presenter_dependancy();
         // use case is created in the constructor of presenter and then called
-        LoginScreenPresenter presenter = new LoginScreenPresenter(view, loginManager) {
+        LoginScreenPresenter presenter = new LoginScreenPresenter(p, loginManager) {
             @Override
             public void onLoginSuccess(String id) {
                 assertEquals("4", id);

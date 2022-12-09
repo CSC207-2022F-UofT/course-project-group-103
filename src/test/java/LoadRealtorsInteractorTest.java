@@ -4,7 +4,6 @@ import managers.PropertyManager;
 import managers.ReviewManager;
 import org.junit.jupiter.api.Test;
 import presenters.HomeScreenPresenter;
-import screens.GUI;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,17 +21,17 @@ class LoadRealtorsInteractorTest {
         LoginManager loginManager = new LoginManager(users_path, reviews_path);
         ReviewManager reviewManager = new ReviewManager(reviews_path, inappropriate_words_path);
 
-        GUI view = new GUI();
+        presenter_dependancy p = new presenter_dependancy();
         // use case is created in the constructor of presenter and then called
-        HomeScreenPresenter presenter = new HomeScreenPresenter(view, propertyManager, reviewManager, loginManager) {
+        HomeScreenPresenter presenter = new HomeScreenPresenter(p, propertyManager, reviewManager, loginManager) {
             @Override
             public void onLoadRealtorsSuccess(ArrayList<SingleRealtorModel> realtors) {
                 assertEquals(realtors.get(0).getID(), "2");
             }
 
             @Override
-            public void onLoadListingFailure(String message) {
-                assertEquals(message, "Failed to load realtors.");
+            public void onLoadRealtorsFailure(String message) {
+                fail("failed to load realtors");
             }
         };
         presenter.onLoadRealtors();

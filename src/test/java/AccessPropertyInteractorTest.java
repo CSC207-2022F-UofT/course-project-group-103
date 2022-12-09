@@ -3,7 +3,6 @@ import managers.LoginManager;
 import managers.PropertyManager;
 import org.junit.jupiter.api.Test;
 import presenters.ListingScreenPresenter;
-import screens.GUI;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,9 +17,9 @@ class AccessPropertyInteractorTest {
         PropertyManager propertyManager = new PropertyManager(properties_path, users_path, reviews_path);
         LoginManager loginManager = new LoginManager(users_path, reviews_path);
 
-        GUI view = new GUI();
         // use case is created in the constructor of presenter and then called
-        ListingScreenPresenter presenter = new ListingScreenPresenter(view, propertyManager, loginManager) {
+        presenter_dependancy p = new presenter_dependancy();
+        ListingScreenPresenter presenter = new ListingScreenPresenter(p, propertyManager, loginManager) {
             @Override
             public void onAccessPropertySuccess(PropertyModel property) {
                 assertEquals("0", property.getPropertyID());
@@ -37,7 +36,7 @@ class AccessPropertyInteractorTest {
 
             @Override
             public void onAccessPropertyFailure(String message) {
-                assertEquals(message, "Failed to load property.");
+                fail("failed to load property");
             }
         };
         presenter.onAccessProperty("0");

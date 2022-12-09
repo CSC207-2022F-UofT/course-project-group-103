@@ -5,7 +5,6 @@ import managers.PropertyManager;
 import managers.ReviewManager;
 import org.junit.jupiter.api.Test;
 import presenters.PropertyScreenPresenter;
-import screens.GUI;
 
 import java.util.ArrayList;
 
@@ -23,9 +22,9 @@ class LoadAccountInteractorTest {
         PropertyManager propertyManager = new PropertyManager(properties_path, users_path, reviews_path);
         ReviewManager reviewManager = new ReviewManager(reviews_path, inappropriate_words_path);
 
-        GUI view = new GUI();
         // use case is created in the constructor of presenter and then called
-        PropertyScreenPresenter presenter = new PropertyScreenPresenter(view, propertyManager, reviewManager) {
+        presenter_dependancy p = new presenter_dependancy();
+        PropertyScreenPresenter presenter = new PropertyScreenPresenter(p, propertyManager, reviewManager) {
             @Override
             public void onLoadAccountSuccess(ArrayList<SingleListingModel> listings, ArrayList<ReviewModel> reviews,
                                              AccountModel account) {
@@ -39,7 +38,7 @@ class LoadAccountInteractorTest {
 
             @Override
             public void onLoadAccountFailure(String message) {
-                assertEquals(message, "Failed to load account.");
+                fail("failed to load account");
             }
         };
         presenter.onOwnerAccount("4");
