@@ -1,9 +1,6 @@
 package presenters;
 
-import interactors.AccountModel;
-import interactors.PropertyModel;
-import interactors.ReviewModel;
-import interactors.SingleListingModel;
+import interactors.*;
 
 import java.util.ArrayList;
 
@@ -93,7 +90,12 @@ public interface ViewInterface {
      */
     String getActiveUser();
 
-    void displayRealtorListing();
+    /**
+     * Displays the realtor listing page.
+     *
+     * @param realtors: Array list of single realtor models to display.
+     */
+    void displayRealtorListing(ArrayList<SingleRealtorModel> realtors);
     /**
      * Displays the mortgage estimator page for a specific property.
      */

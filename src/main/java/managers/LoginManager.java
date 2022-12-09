@@ -58,7 +58,8 @@ public class LoginManager implements LoginGateway {
                     for (Object r: reviews) {
                         review_list.add(this.getReview(r.toString()));
                     }
-                    Owner o = new Owner(id, name, password, contact, review_list);
+                    String hiredRealtorID = j.getString("hiredRealtor");
+                    Owner o = new Owner(id, name, password, contact, hiredRealtorID, review_list);
                     users.add(o);
                 } else if (j.getString("user_type").equals("Realtor")) {
                     Realtor r = new Realtor(id, name, password, contact);
@@ -70,7 +71,7 @@ public class LoginManager implements LoginGateway {
                 }
             }
             return users;
-        } catch(Exception e) {return null;}
+        } catch(Exception e) {e.printStackTrace(); return new ArrayList<>();}
     }
 
     /**
@@ -105,8 +106,9 @@ public class LoginManager implements LoginGateway {
         user.put("name", u.getName());
         user.put("password", u.getPassword());
         user.put("contact", u.getContact());
-        // no realtor implementation yet
-        user.put("hiredRealtor", u.getHiredRealtorID());
+        if (!type.equals("Realtor")) {
+            user.put("hiredRealtor", u.getHiredRealtorID());
+        }
         if (type.equals("Owner")) {
             user.put("reviews", ((Owner) u).getReviews());
         }

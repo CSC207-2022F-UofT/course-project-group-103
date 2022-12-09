@@ -55,7 +55,8 @@ public class GUI extends JFrame implements ViewInterface {
         signUpScreen = new SignUpScreen(signUpScreenPresenter);
 
         // set up home screen
-        HomeScreenPresenter homeScreenPresenter = new HomeScreenPresenter(this, propertyManager, reviewManager);
+        HomeScreenPresenter homeScreenPresenter = new HomeScreenPresenter(this, propertyManager,
+                reviewManager, loginManager);
         homeScreen = new HomeScreen(homeScreenPresenter);
 
         // set up listing screen
@@ -87,8 +88,7 @@ public class GUI extends JFrame implements ViewInterface {
         createReviewScreen = new CreateReviewScreen(createReviewPresenter);
 
         // set up realtor listing screen
-        RealtorSearchInteractor realtorSearchInteractor = new RealtorSearchInteractor();
-        RealtorListingPresenter realtorListingPresenter = new RealtorListingPresenter(realtorSearchInteractor, this);
+        RealtorListingPresenter realtorListingPresenter = new RealtorListingPresenter(this, loginManager);
         realtorListingScreen = new RealtorListingScreen(realtorListingPresenter);
 
         // set up mortgage estimator screen
@@ -157,7 +157,8 @@ public class GUI extends JFrame implements ViewInterface {
         pageOrder.add("Property");
     }
 
-    public void displayRealtorListing() {
+    public void displayRealtorListing(ArrayList<SingleRealtorModel> realtors) {
+        realtorListingScreen.draw(realtors);
         screen.show(screens, "Realtor Listing");
         pageOrder.add("Realtor Listing");
     }

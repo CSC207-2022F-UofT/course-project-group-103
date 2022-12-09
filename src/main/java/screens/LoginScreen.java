@@ -62,10 +62,6 @@ public class LoginScreen extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent evt) {
         String u = username.getText();
         String p = new String(password.getPassword());
-        try {
-            loginScreenPresenter.onLogin(u, p);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
+        loginScreenPresenter.onLogin(u, p);
     }
 }

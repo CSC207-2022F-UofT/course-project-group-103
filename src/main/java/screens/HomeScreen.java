@@ -39,6 +39,6 @@ public class HomeScreen extends JPanel {
         create_listing_button.addActionListener(e -> {
             homeScreenPresenter.onCreateListing();});
         realtor_listing_button.addActionListener(e -> {
-            homeScreenPresenter.onRealtorListing();});
+            homeScreenPresenter.onLoadRealtors();});
     }
 }
