@@ -43,6 +43,7 @@ public class HireRealtorInteractor implements HireRealtorInput {
                     u.hireRealtor(realtorID);
                     this.loginGateway.saveUser(u);
                     this.hireRealtorOutput.onHireRealtorSuccess();
+                    return;
                 }
             }
         } catch (Exception e) {this.hireRealtorOutput.onHireRealtorFailure("Failed to hire realtor.");}
