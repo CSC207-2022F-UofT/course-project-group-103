@@ -15,6 +15,7 @@ class SignUpInteractorTest {
     @Test
     void signUpTest() throws MessengerNotFound, UndefinedUserType, IOException {
 
+        //LoginManager manager = new LoginManager("src/main/databases")
 
     }
 }
