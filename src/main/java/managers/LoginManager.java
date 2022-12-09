@@ -110,7 +110,11 @@ public class LoginManager implements LoginGateway {
             user.put("hiredRealtor", u.getHiredRealtorID());
         }
         if (type.equals("Owner")) {
-            user.put("reviews", ((Owner) u).getReviews());
+            JSONArray reviews = new JSONArray();
+            for (Review r: ((Owner) u).getReviews()) {
+                reviews.put(r.getID());
+            }
+            user.put("reviews", reviews);
         }
         Path filePath = Path.of(this.users_filepath);
         String content = Files.readString(filePath);
