@@ -41,6 +41,7 @@ public class PropertyScreen extends JPanel {
         info_panel.removeAll();
         String propertyID = property.getPropertyID();
         String ownerID = property.getOwnerID();
+        float propertyPrice = property.getPrice();
         boolean isOwner = property.getOwnerID().equals(userID);
         JLabel type = new JLabel("Type: " + property.getType());
         type.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -51,31 +52,31 @@ public class PropertyScreen extends JPanel {
         JLabel owner = new JLabel("Owner: " + property.getOwner());
         owner.setAlignmentX(Component.CENTER_ALIGNMENT);
         info_panel.add(owner);
-        JLabel sqft = new JLabel("SqFt: " + Integer.toString(property.getSqFt()));
+        JLabel sqft = new JLabel("SqFt: " + property.getSqFt());
         sqft.setAlignmentX(Component.CENTER_ALIGNMENT);
         info_panel.add(sqft);
-        JLabel price = new JLabel("Price: " + Float.toString(property.getPrice()));
+        JLabel price = new JLabel("Price: " + property.getPrice());
         price.setAlignmentX(Component.CENTER_ALIGNMENT);
         info_panel.add(price);
         if (property.getType().equals("House") || property.getType().equals("Condo")) {
-            JLabel numBed = new JLabel("Number of Bedrooms: " + Integer.toString(property.getNumBed()));
+            JLabel numBed = new JLabel("Number of Bedrooms: " + property.getNumBed());
             numBed.setAlignmentX(Component.CENTER_ALIGNMENT);
             info_panel.add(numBed);
-            JLabel numBath = new JLabel("Number of Bathrooms: " + Integer.toString(property.getNumBath()));
+            JLabel numBath = new JLabel("Number of Bathrooms: " + property.getNumBath());
             numBath.setAlignmentX(Component.CENTER_ALIGNMENT);
             info_panel.add(numBath);
-            JLabel numLaundry = new JLabel("Number of Laundry Rooms: " + Integer.toString(property.getNumLaundry()));
+            JLabel numLaundry = new JLabel("Number of Laundry Rooms: " + property.getNumLaundry());
             numLaundry.setAlignmentX(Component.CENTER_ALIGNMENT);
             info_panel.add(numLaundry);
-            JLabel numKitchen = new JLabel("Number of Kitchens: " + Integer.toString(property.getNumKitchens()));
+            JLabel numKitchen = new JLabel("Number of Kitchens: " + property.getNumKitchens());
             numKitchen.setAlignmentX(Component.CENTER_ALIGNMENT);
             info_panel.add(numKitchen);
         }
         if (property.getType().equals("Office")) {
-            JLabel numOffice = new JLabel("Number of Office Rooms: " + Integer.toString(property.getNumOffice()));
+            JLabel numOffice = new JLabel("Number of Office Rooms: " + property.getNumOffice());
             numOffice.setAlignmentX(Component.CENTER_ALIGNMENT);
             info_panel.add(numOffice);
-            JLabel numReception = new JLabel("Number of Receptions: " + Integer.toString(property.getNumReception()));
+            JLabel numReception = new JLabel("Number of Receptions: " + property.getNumReception());
             numReception.setAlignmentX(Component.CENTER_ALIGNMENT);
             info_panel.add(numReception);
         }
@@ -98,15 +99,17 @@ public class PropertyScreen extends JPanel {
             bids.setLayout(new BoxLayout(bids, BoxLayout.Y_AXIS));
             for (BidModel bid: property.getBids()) {
                 String id = bid.getID();
-                JLabel bidder = new JLabel(bid.getName());
+                JLabel bidder = new JLabel("Name: " + bid.getName());
                 bidder.setAlignmentX(Component.CENTER_ALIGNMENT);
                 bids.add(bidder);
-                JLabel bidAmount = new JLabel(Float.toString(bid.getBid()));
+                JLabel bidAmount = new JLabel("Offer: " + bid.getBid());
                 bidAmount.setAlignmentX(Component.CENTER_ALIGNMENT);
                 bids.add(bidAmount);
                 JButton account = new JButton("Go to Account");
                 account.setAlignmentX(Component.CENTER_ALIGNMENT);
-                account.addActionListener(e -> {propertyScreenPresenter.onBidderAccount(id);});
+                account.addActionListener(e -> propertyScreenPresenter.onBidderAccount(id));
+                bids.add(account);
+                bids.add(new JLabel(" "));
             }
             JScrollPane bids_pane = new JScrollPane(bids);
             info_panel.add(bids_pane);
@@ -115,7 +118,7 @@ public class PropertyScreen extends JPanel {
             JButton ownerAccount = new JButton("Owner Account");
             ownerAccount.setAlignmentX(Component.CENTER_ALIGNMENT);
             info_panel.add(ownerAccount);
-            ownerAccount.addActionListener(e -> {propertyScreenPresenter.onOwnerAccount(ownerID);});
+            ownerAccount.addActionListener(e -> propertyScreenPresenter.onOwnerAccount(ownerID));
 
             // send offer field
             bid = new JTextField(15);
@@ -128,6 +131,12 @@ public class PropertyScreen extends JPanel {
             info_panel.add(bid);
             info_panel.add(sendOffer);
             sendOffer.addActionListener(e -> {propertyScreenPresenter.onSendBid(propertyID, bid.getText());});
+
+            // estimate mortgage
+            JButton estimateMortgage = new JButton("Estimate Mortgage");
+            estimateMortgage.setAlignmentX(Component.CENTER_ALIGNMENT);
+            info_panel.add(estimateMortgage);
+            estimateMortgage.addActionListener(e -> {propertyScreenPresenter.onEstimateMortgage(propertyPrice);});
         }
         info_panel.repaint();
         info_panel.revalidate();

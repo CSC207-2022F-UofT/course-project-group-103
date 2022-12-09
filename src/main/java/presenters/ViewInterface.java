@@ -1,9 +1,6 @@
 package presenters;
 
-import interactors.AccountModel;
-import interactors.PropertyModel;
-import interactors.ReviewModel;
-import interactors.SingleListingModel;
+import interactors.*;
 import interactors.exceptions.MessengerNotFound;
 import interactors.exceptions.UndefinedUserType;
 
@@ -97,7 +94,7 @@ public interface ViewInterface {
      */
     String getActiveUser();
 
-    void displayRealtorListing();
+    void displayRealtorListing(ArrayList<SingleRealtorModel> realtors);
     /**
      * Displays the mortgage estimator page for a specific property.
      */

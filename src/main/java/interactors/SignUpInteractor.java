@@ -28,6 +28,7 @@ public class SignUpInteractor implements SignUpInput {
         this.singnUpOutput = ob;
     }
 
+
     /**
      * Creates a new user class and save it to the database, then update the active user to the new account.
      *
@@ -38,6 +39,7 @@ public class SignUpInteractor implements SignUpInput {
      * @param securityQuestion: Chosen Security Question of account to create.
      * @param securityAnswer: Chosen Security Answer of account to create.
      */
+    @Override
     public void signUp(String username, String contact, String password, String confirm_password,
                        String securityQuestion, String securityAnswer) {
         if (!password.equals(confirm_password)) {
@@ -64,12 +66,12 @@ public class SignUpInteractor implements SignUpInput {
      * @return if a username is in the database (true) or not (false).
      */
     private boolean usernameExists(String username) {
-//        ArrayList<User> users = this.loginGateway.getUsers();
-//        for (User u: users) {
-//            if (u.getName().equals(username)) {
-//                return true;
-//            }
-//        }
+        ArrayList<User> users = this.loginGateway.getUsers();
+        for (User u: users) {
+            if (u.getName().equals(username)) {
+                return true;
+            }
+        }
         return false;
     }
 

@@ -43,8 +43,7 @@ public class GUI extends JFrame implements ViewInterface {
     RealtorListingScreen realtorListingScreen;
     EstimateMortgageScreen mortgageEstimatorScreen;
 
-    ChangePasswordScreen changePasswordScreen;
-    MessengerChatScreen messengerChatScreen;
+
     ArrayList<String> pageOrder = new ArrayList<>();
     String activeUser;
 
@@ -55,7 +54,7 @@ public class GUI extends JFrame implements ViewInterface {
         //set up managers
         LoginManager loginManager = new LoginManager(users_path, reviews_path);
         PropertyManager propertyManager = new PropertyManager(properties_path, users_path, reviews_path, loginManager);
-        ReviewManager reviewManager = new ReviewManager(reviews_path);
+        ReviewManager reviewManager = new ReviewManager(reviews_path, inappropriate_words_path);
         MessageManager messageManager = new MessageManager(messengers_path);
 
 
@@ -64,8 +63,7 @@ public class GUI extends JFrame implements ViewInterface {
         signUpScreen = new SignUpScreen(signUpScreenPresenter);
 
         // set up home screen
-        HomeScreenPresenter homeScreenPresenter = new HomeScreenPresenter(this, propertyManager, loginManager,
-                reviewManager);
+        HomeScreenPresenter homeScreenPresenter = new HomeScreenPresenter(this, propertyManager, reviewManager, loginManager);
         homeScreen = new HomeScreen(homeScreenPresenter);
 
         // set up listing screen
@@ -105,10 +103,6 @@ public class GUI extends JFrame implements ViewInterface {
         CreateReviewPresenter createReviewPresenter = new CreateReviewPresenter(this, reviewManager);
         createReviewScreen = new CreateReviewScreen(createReviewPresenter);
 
-        // set up realtor listing screen
-        RealtorSearchInteractor realtorSearchInteractor = new RealtorSearchInteractor();
-        RealtorListingPresenter realtorListingPresenter = new RealtorListingPresenter(realtorSearchInteractor, this);
-        realtorListingScreen = new RealtorListingScreen(realtorListingPresenter);
 
         // set up mortgage estimator screen
         EstimateMortgagePresenter estimateMortgagePresenter = new EstimateMortgagePresenter(this);
@@ -118,6 +112,11 @@ public class GUI extends JFrame implements ViewInterface {
         MessengerPresenter messengerPresenter = new MessengerPresenter(this, messageManager, loginManager);
         SendMessagePresenter sendMessagePresenter = new SendMessagePresenter(this, messageManager, loginManager);
         messengerChatScreen = new MessengerChatScreen(messengerPresenter, sendMessagePresenter);
+
+
+        // set up realtor listing screen
+        RealtorListingPresenter realtorListingPresenter = new RealtorListingPresenter(this, loginManager);
+        realtorListingScreen = new RealtorListingScreen(realtorListingPresenter);
 
 
         // set up card layout
@@ -183,7 +182,8 @@ public class GUI extends JFrame implements ViewInterface {
         pageOrder.add("Property");
     }
 
-    public void displayRealtorListing() {
+    public void displayRealtorListing(ArrayList<SingleRealtorModel> realtors) {
+        realtorListingScreen.draw(realtors);
         screen.show(screens, "Realtor Listing");
         pageOrder.add("Realtor Listing");
     }

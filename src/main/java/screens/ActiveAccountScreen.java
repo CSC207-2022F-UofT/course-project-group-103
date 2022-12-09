@@ -79,6 +79,8 @@ public class ActiveAccountScreen extends JPanel {
         group.removeAll();
         JPanel user_properties = new JPanel();
         user_properties.setLayout(new BoxLayout(user_properties, BoxLayout.Y_AXIS));
+        user_properties.add(new JLabel("Properties Listed: "));
+        user_properties.add(new JLabel(" "));
         for (SingleListingModel m: listings) {
             String id = m.getID();
             JLabel address = new JLabel("Address: " + m.getAddress());
@@ -92,6 +94,8 @@ public class ActiveAccountScreen extends JPanel {
         }
         JPanel user_reviews = new JPanel();
         user_reviews.setLayout(new BoxLayout(user_reviews, BoxLayout.Y_AXIS));
+        user_reviews.add(new JLabel("Reviews: "));
+        user_reviews.add(new JLabel(" "));
         for (ReviewModel m: reviews) {
             JLabel writer = new JLabel("Writer: " + m.getWriterName());
             JLabel rating = new JLabel("Rating: " + m.getRating());

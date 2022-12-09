@@ -30,10 +30,13 @@ public class HomeScreen extends JPanel {
         create_listing_button.setAlignmentX(Component.CENTER_ALIGNMENT);
         JButton messenger_button = new JButton("Messenger");
         messenger_button.setAlignmentX(CENTER_ALIGNMENT);
+        JButton realtor_listing_button = new JButton("View Realtor Listing");
+        realtor_listing_button.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(listing_button);
         this.add(account_button);
         this.add(create_listing_button);
         this.add(messenger_button);
+        this.add(realtor_listing_button);
 
         listing_button.addActionListener(e -> {
             homeScreenPresenter.onLoadListing();});
@@ -41,6 +44,8 @@ public class HomeScreen extends JPanel {
             homeScreenPresenter.onLoadAccount();});
         create_listing_button.addActionListener(e -> {
             homeScreenPresenter.onCreateListing();});
+        realtor_listing_button.addActionListener(e -> {
+            homeScreenPresenter.onLoadRealtors();});
         messenger_button.addActionListener(e -> {
             try {
                 homeScreenPresenter.onOpenMessenger();

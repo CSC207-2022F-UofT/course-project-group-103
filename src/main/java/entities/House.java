@@ -1,6 +1,5 @@
 package entities;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class House extends Property {
@@ -77,21 +76,6 @@ public class House extends Property {
      */
     public int getNumBathrooms() {
         return numBathrooms;
-    }
-
-    /**
-     * Calls the implementation of info() in the superclass to get summary of non-unique attributes and then
-     * adds unique attributes to the array list. ID and bids are not added to this array list.
-     * @return Array List of formatted string representations of the house attributes.
-     */
-    @Override
-    public ArrayList<String> info() {
-        ArrayList<String> info = super.info();
-        info.add("Bedrooms: " + this.getNumBedrooms());
-        info.add("Bathrooms: " + this.getNumBathrooms());
-        info.add("Kitchens: " + this.getNumKitchen());
-        info.add("Laundry: " + this.getNumLaundry());
-        return info;
     }
 }
 

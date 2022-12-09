@@ -1,39 +1,79 @@
-# Project Template
+# Real Estate App
 
-This is a template repository for CSC 207 projects. 
-This repository contains starter code for a gradle project.
-It also contains workflow documents that give instructions on how to manage your Github repository and how to use Github Projects for efficient collaboration.
+Our program provides a platform for owners, buyers, and real estate agents to connect with each other by sharing and viewing properties. 
 
-## Checklist For Your Project
-- [ ] Verify the correct settings for your project repository
-- [ ] Set up Github Projects
-- [ ] Create the implementation plan using issues and Github Projects
-- [ ] Create deveopment branches for your features
-- [ ] Use pull requests to merge finished features into main branch
-- [ ] Conduct code reviews
+## Features at a Glance
 
-**If your team has trouble with any of these steps, please ask on Piazza. For example, with how GitHub Classroom works, your team *may* not have permissions to do some of the first few steps, in which case we'll post alternative instructions as needed.**
+* [User login system](#1-creating-a-user-account-and-logging-in)
+* [Listing properties](#2-listing-a-property)
+* [Viewing User Account](#3-viewing-user-account)
+* [Viewing and filtering properties](#4-filtering-and-viewing-properties)
+* [Bidding on properties](#5-bidding-on-a-property)
+* [Estimating Mortgage](#6-estimating-mortgage)
+* [User messaging system](#7-messaging-users)
+* [Hiring Realtors](#8-hiring-realtors)
 
-## Workflow Documents
+## Running the Program
 
-* Github Workflow: Please refer to the workflow that was introduced in the first lab. You should follow this when working on your code. The following document provides additional details too.
+This project requires [Java 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 
-* [Project Planning and Development Guide](project_plan_dev.md): This document helps you to understand how to create and maintain a project plan for your class project. **This document helps you to complete the Implementation Plan Milestone.**
+Clone the repository with 
+```sh
+git clone https://github.com/CSC207-2022F-UofT/course-project-group-103.git
+cd course-project-group-103
+```
 
-## Gradle Project
-Import this project into your Intellij editor. It should automatically recognise this as a gradle repository.
-The starter code was built using SDK version 11.0.1. Ensure that you are using this version for this project. (You can, of course, change the SDK version as per your requirement if your team has all agreed to use a different version)
+As a standard gradle project, it can be run with 
 
-You have been provided with two starter files for demonstration: HelloWorld and HelloWorldTest.
+```sh
+./gradlew run
+``` 
+in your IDE terminal
 
-You will find HelloWorld in `src/main/java/tutorial` directory. Right click on the HelloWorld file and click on `Run HelloWorld.main()`.
-This should run the program and print on your console.
+### 1. Creating a User Account and Logging In
 
-You will find HelloWorldTest in `src/test/java/tutorial` directory. Right click on the HelloWorldTest file and click on `Run HelloWorldTest`.
-All tests should pass. Your team can remove this sample of how testing works once you start adding your project code to the repo.
+When the program first starts, users are met with the login screen, where they can choose to create an account with their desired credentials or login to an exising user account.
 
-Moving forward, we expect you to maintain this project structure. You *should* use Gradle as the build environment, but it is fine if your team prefers to use something else -- just remove the gradle files and push your preferred project setup. Assuming you stick with Gradle, your source code should go into `src/main/java` (you can keep creating more subdirectories as per your project requirement). Every source class can auto-generate a test file for you. For example, open HelloWorld.java file and click on the `HelloWorld` variable as shown in the image below. You should see an option `Generate` and on clicking this your should see an option `Test`. Clicking on this will generate a JUnit test file for `HelloWorld` class. This was used to generate the `HelloWorldTest`.
+![](images/loginscreen.png)
 
-![image](https://user-images.githubusercontent.com/5333020/196066655-d3c97bf4-fdbd-46b0-b6ae-aeb8dbcf351d.png)
+Pressing Sign Up takes users to a separate screen where they are prompted to enter a name, email, and password for a new account.
+### 2. Listing a Property
+After account creation and logging in, users can choose to list a property
 
-You can create another simple class and try generating a test for this class.
+![](images/listhouse.png)
+
+All the fields must be filled to add the listing to the property database
+
+
+### 3. Viewing User Account
+A user's own account can be viewed from the main page, where information about their properties and received reviews can be accessed.
+
+![](images/accountpage.png)
+
+### 4. Filtering and Viewing Properties
+To view listings, users can view all properties available through the View Listings button on the home screen.
+
+![](images/viewlistings.png)
+
+Alternatively, users can filter by price and square footage to narrow down on a specific attribute.
+
+### 5. Bidding on a Property
+Users can bid on a property directly on the property page.
+
+![](images/sendbid.png)
+
+### 6. Estimating Mortgage
+There is a mortgage calculator provided given a fixed mortgage rate.
+
+![](images/estimatemortgage.png)
+
+### 7. Messaging Users
+Users can message each other freely on the basis of buying and selling properties.
+
+### 8. Hiring Realtors
+Users can locate realtors via a realtor listings page, and hire them through our app. Realtor contact information is also provided for possible clients. 
+
+## Contributors (alphabetical)
+Group 103: Real estate listing app + Shakeeb
+
+Omar Al Jaljuli, Rakan Alhamoury, Juliet Li, Sean Malla, Shakeeb Monzer, Eric Shi, Zein Sulayman, Kyle Vavasour

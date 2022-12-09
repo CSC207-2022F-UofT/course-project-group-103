@@ -69,9 +69,9 @@ public class User {
         this.name = name;
         this.password = password;
         this.contact = contact;
-        this.hiredRealtorID = null;
         this.securityQuestion = securityQuestion;
         this.securityAnswer = securityAnswer;
+        this.hiredRealtorID = "NA";
     }
 
     /**

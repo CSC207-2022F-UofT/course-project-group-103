@@ -8,13 +8,15 @@ import interactors.gateway_interfaces.PropertyGateway;
 import interactors.gateway_interfaces.ReviewGateway;
 import interactors.input_boundary.LoadAccountInput;
 import interactors.input_boundary.LoadListingInput;
+import interactors.input_boundary.LoadRealtorsInput;
 import interactors.output_boundary.LoadAccountOutput;
 import interactors.output_boundary.LoadListingOutput;
+import interactors.output_boundary.LoadRealtorsOutput;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class HomeScreenPresenter implements LoadListingOutput, LoadAccountOutput {
+public class HomeScreenPresenter implements LoadListingOutput, LoadAccountOutput, LoadRealtorsOutput {
 
     /**
      * Interface for presenter to interact with view.
@@ -29,16 +31,22 @@ public class HomeScreenPresenter implements LoadListingOutput, LoadAccountOutput
      */
     LoadAccountInput loadAccountInput;
     /**
+     * Interface for presenter to interact with load realtors use case.
+     */
+    LoadRealtorsInput loadRealtorsInput;
+
+    /**
      * Constructor this presenter, assigns the view interface and creates its use case interactors.
      *
      * @param p: implementation of the view interface.
      * @param g: implementation of the property gateway interface.
      * @param rg: implementation of the review gateway interface
      */
-    public HomeScreenPresenter(ViewInterface p, PropertyGateway g, LoginGateway l, ReviewGateway rg) {
+    public HomeScreenPresenter(ViewInterface p, PropertyGateway g, ReviewGateway rg, LoginGateway lg) {
         this.viewInterface = p;
         this.loadListingInput = new LoadListingInteractor(g, this);
-        this.loadAccountInput = new LoadAccountInteractor(g, l, rg, this);
+        this.loadAccountInput = new LoadAccountInteractor(g, lg, rg, this);
+        this.loadRealtorsInput = new LoadRealtorsInteractor(lg, this);
     }
 
     /**
@@ -78,8 +86,6 @@ public class HomeScreenPresenter implements LoadListingOutput, LoadAccountOutput
         this.loadAccountInput.loadAccount(this.viewInterface.getActiveUser());
     }
 
-
-
     /**
      * @see LoadAccountOutput
      * Tells the view to display the account page passing in the info models.
@@ -108,10 +114,31 @@ public class HomeScreenPresenter implements LoadListingOutput, LoadAccountOutput
         this.viewInterface.displayCreateListing();
     }
 
+    /**
+     * Calls the use case input method to load realtors.
+     */
+    public void onLoadRealtors() {
+        this.loadRealtorsInput.loadRealtors();
+    }
+
+    /**
+     * @see LoadRealtorsOutput
+     * Tells the view to display a list of realtors passing in the realtors model.
+     */
+    @Override
+    public void onLoadRealtorsSuccess(ArrayList<SingleRealtorModel> realtors) {
+        this.viewInterface.displayRealtorListing(realtors);
+    }
+
+    /**
+     * @see LoadRealtorsOutput
+     * Tells the view to display a failure passing in the failure message.
+     */
+    public void onLoadRealtorsFailure(String message) {
+        this.viewInterface.displayFailure(message);
+    }
+
     public void onOpenMessenger() throws MessengerNotFound, UndefinedUserType, IOException
     {this.viewInterface.displayChat(null);}
 
-    public void onRealtorListing() {
-        this.viewInterface.displayRealtorListing();
-    }
 }
