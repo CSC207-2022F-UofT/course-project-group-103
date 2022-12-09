@@ -66,6 +66,17 @@ public class LoginScreen extends JPanel implements ActionListener{
             }
         });
 
+        JButton forgot_password = new JButton("Forgot Password");
+        forgot_password.setAlignmentX(CENTER_ALIGNMENT);
+        forgot_password.addActionListener(e -> {
+            String name = username.getText();
+            try {
+                loginScreenPresenter.onOpenChangePassword(name, "Please input a username.");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
         this.add(inputs);
         this.add(login);
         this.add(signUp);
