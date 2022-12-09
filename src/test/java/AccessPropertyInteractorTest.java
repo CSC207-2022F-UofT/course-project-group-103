@@ -9,9 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AccessPropertyInteractorTest {
 
-    final String properties_path = "src/test/Databases/PropertyListing.json";
-    final String users_path = "src/test/Databases/UserListing.json";
-    final String reviews_path = "src/test/Databases/ReviewList.json";
+    final String properties_path = "src/test/databases/PropertyListing.json";
+    final String users_path = "src/test/databases/UserListing.json";
+    final String reviews_path = "src/test/databases/ReviewList.json";
 
     @Test
     void create() {

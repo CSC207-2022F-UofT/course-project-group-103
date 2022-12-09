@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RefreshListingInteractorTest {
 
-    final String properties_path = "src/test/main/Databases/PropertyListing.json";
+    final String properties_path = "src/test/Databases/PropertyListing.json";
     final String users_path = "src/test/Databases/UserListing.json";
     final String reviews_path = "src/test/Databases/ReviewList.json";
 
