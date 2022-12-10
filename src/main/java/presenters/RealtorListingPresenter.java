@@ -51,7 +51,7 @@ public class RealtorListingPresenter implements HireRealtorOutput {
      * Tells the view to display a failure message passing in the message.
      */
     public void onHireRealtorFailure(String message) {
-        this.viewInterface.displayFailure("Hire realtor failed.");
+        this.viewInterface.displayFailure(message);
     }
 
     /**

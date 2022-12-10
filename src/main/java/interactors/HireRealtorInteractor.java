@@ -6,6 +6,7 @@ import interactors.input_boundary.HireRealtorInput;
 import interactors.output_boundary.HireRealtorOutput;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class HireRealtorInteractor implements HireRealtorInput {
 
@@ -40,6 +41,10 @@ public class HireRealtorInteractor implements HireRealtorInput {
             ArrayList<User> users = this.loginGateway.getUsers();
             for (User u: users) {
                 if (u.getID().equals(userID)) {
+                    if (u.getHiredRealtorID().equals(realtorID)) {
+                        this.hireRealtorOutput.onHireRealtorFailure("You have already hired this realtor.");
+                        return;
+                    }
                     u.hireRealtor(realtorID);
                     this.loginGateway.saveUser(u);
                     this.hireRealtorOutput.onHireRealtorSuccess();
