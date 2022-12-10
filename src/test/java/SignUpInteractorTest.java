@@ -1,7 +1,8 @@
 import entities.User;
+import interactors.SignUpInteractor;
+import interactors.output_boundary.SignUpOutput;
 import managers.LoginManager;
 import org.junit.jupiter.api.Test;
-import presenters.SignUpScreenPresenter;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,22 +15,24 @@ class SignUpInteractorTest {
     void create() {
         LoginManager loginManager = new LoginManager(users_path, reviews_path) {
             @Override
-            public void saveUser(User u) {}
+            public void saveUser(User u) {
+                assertEquals("Test User", u.getName());
+            }
         };
 
-        // use case is created in the constructor of presenter and then called
-        presenter_dependancy p = new presenter_dependancy();
-        SignUpScreenPresenter presenter = new SignUpScreenPresenter(p, loginManager) {
+        class Output implements SignUpOutput {
             @Override
             public void onSignUpSuccess(String id) {
                 assertEquals("0", id);
             }
 
             @Override
-            public void onSignUpFailure(String message) {
-                fail(message);
+            public  void onSignUpFailure(String message) {
+                fail("Failed to sign up");
             }
-        };
-        presenter.onSignUp("Test User", "test", "test", "test");
+        }
+        Output output = new Output();
+        SignUpInteractor test = new SignUpInteractor(loginManager, output);
+        test.signUp("Test User", "test@gmail.com", "Test123", "Test123");
     }
 }

@@ -1,9 +1,9 @@
 import entities.Property;
+import interactors.CreateListingInteractor;
+import interactors.output_boundary.CreateListingOutput;
 import managers.LoginManager;
 import managers.PropertyManager;
 import org.junit.jupiter.api.Test;
-import presenters.CreateListingPresenter;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class CreateListingInteractorTest {
@@ -16,25 +16,23 @@ class CreateListingInteractorTest {
     void create() {
         PropertyManager propertyManager = new PropertyManager(properties_path, users_path, reviews_path) {
             @Override
-            public void save(Property p) {}
+            public void save(Property p) {
+                assertEquals("Test Restaurant", p.getName());
+            }
         };
         LoginManager loginManager = new LoginManager(users_path, reviews_path);
 
-        // use case is created in the constructor of presenter and then called
-        presenter_dependancy p = new presenter_dependancy();
-        CreateListingPresenter presenter = new CreateListingPresenter(p, propertyManager, loginManager) {
+        class Output implements CreateListingOutput {
             @Override
-            public void onCreateListingSuccess() {
-                try {
-                    assertEquals(propertyManager.getProperty("2").getName(), "Test Restaurant");
-                } catch (Exception e) {fail("Failed to access the property after creating a restaurant");}
-            }
+            public void onCreateListingSuccess() {}
 
             @Override
             public void onCreateListingFailure(String message) {
-                fail("failed to create listing");
+                fail(message);
             }
-        };
-        presenter.onCreateRestaurant("Test Restaurant", "Test", "1","1","Test");
+        }
+        Output output = new Output();
+        CreateListingInteractor test = new CreateListingInteractor(propertyManager, loginManager, output);
+        test.createRestaurant("Test Restaurant", "Test Address", "1000", "1000", "Specs", "4");
     }
 }
