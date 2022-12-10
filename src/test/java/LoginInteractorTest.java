@@ -1,7 +1,7 @@
+import interactors.LoginInteractor;
+import interactors.output_boundary.LoginOuput;
 import managers.LoginManager;
 import org.junit.jupiter.api.Test;
-import presenters.LoginScreenPresenter;
-import screens.GUI;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,9 +14,7 @@ class LoginInteractorTest {
     void create() {
         LoginManager loginManager = new LoginManager(users_path, reviews_path);
 
-        GUI view = new GUI();
-        // use case is created in the constructor of presenter and then called
-        LoginScreenPresenter presenter = new LoginScreenPresenter(view, loginManager) {
+        class Output implements LoginOuput {
             @Override
             public void onLoginSuccess(String id) {
                 assertEquals("4", id);
@@ -24,9 +22,11 @@ class LoginInteractorTest {
 
             @Override
             public void onLoginFailure(String message) {
-                assertEquals(message, "Failed to login.");
+
             }
-        };
-        presenter.onLogin("Omar", "Omar123");
+        }
+        Output output = new Output();
+        LoginInteractor test = new LoginInteractor(loginManager, output);
+        test.login("Omar", "Omar123");
     }
 }
